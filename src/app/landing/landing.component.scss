@@ -1,0 +1,41 @@
+.header {
+  position: relative;
+  .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 400px;
+    background-image: url(/assets/landing-bg.jpg);
+    background-size: auto 400px;
+    background-position: 50% 50%;
+    background-repeat: repeat-x;
+    z-index: -1;
+  }
+  text-align: center;
+  div.mat-display-4 {
+    padding: 0;
+    margin: 0;
+    padding-top: 140px;
+    color: white;
+    font-weight: bold;
+    text-shadow: -1px -1px 10px rgba(0, 0, 0, .5),
+    1px -1px 10px rgba(0, 0, 0, .5),
+    -1px 1px 10px rgba(0, 0, 0, .5),
+    1px 1px 10px rgba(0, 0, 0, .5);
+  }
+  div.mat-display-3 {
+    margin-top: .5em;
+    color: white;
+    text-shadow: -1px -1px 10px rgba(0, 0, 0, .5),
+    1px -1px 10px rgba(0, 0, 0, .5),
+    -1px 1px 10px rgba(0, 0, 0, .5),
+    1px 1px 10px rgba(0, 0, 0, .5);
+  }
+}
+
+.content {
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 2em;
+}

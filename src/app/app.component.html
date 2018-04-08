@@ -4,12 +4,17 @@
       <g class="wrapper">
         <path d="M-35 0L-17.5 -30L17.5 -30L35 0L17.5 30L-17.5 30"></path>
       </g>
-      <text x="0" y="0">T</text>
+      <text x="0" y="10">T</text>
     </g>
   </svg>
-  <span class="title">Travetto</span>
+  <span class="name">Travetto</span>
   <span class="spacer"></span>
-  <a mat-button href="/docs">Documentation</a>
-  <a mat-button href="/guide">Getting Started</a>
+  <a mat-button [routerLink]="'/landing'" href="/">Home</a>
+  <a mat-button [routerLink]="'/docs'" href="/docs">Documentation</a>
+  <a mat-button [routerLink]="'/guide'" href="/guide">Getting Started</a>
   <a mat-button href="https://github.com/travetto">Github</a>
 </mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
