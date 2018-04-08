@@ -2,7 +2,8 @@
 
 $general-typography: mat-typography-config( $font-family: '"Source Sans Pro", sans-serif',
 $display-3: mat-typography-level(40px, 24px, 400),
-$title: mat-typography-level(30px, 24px, 600),
+$headline: mat-typography-level(35px, 24px, 400),
+$title: mat-typography-level(28px, 24px, 400),
 $body-1: mat-typography-level(20px, 20px, 400),
 $body-2: mat-typography-level(20px, 20px, 600));
 //  $body-2:        mat-typography-level(14px, 24px, 600)  
@@ -36,7 +37,6 @@ body.mat-typography {
   .mat-display-3,
   .mat-display-4,
   h1,
-  h2,
   [mat-button] {
     font-weight: normal;
     font-family: 'Julius Sans One', sans-serif;

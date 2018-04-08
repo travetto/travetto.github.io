@@ -1,19 +1,14 @@
+:host {
+  display: block;
+}
+
 .header {
-  position: relative;
   height: 400px;
-  .img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 400px;
-    background-image: url(/assets/landing-bg.jpg);
-    background-size: auto 400px;
-    background-position: 50% 50%;
-    background-repeat: repeat-x;
-    z-index: -1;
-  }
-  text-align: center;
+  background-image: url(/assets/landing-bg.jpg);
+  background-size: auto 400px;
+  background-position: 50% 50%;
+  background-repeat: repeat-x;
+
   div.mat-display-4 {
     padding: 0;
     margin: 0;
@@ -24,6 +19,7 @@
   }
   div.mat-display-3,
   div.mat-display-4 {
+    text-align: center;
     color: white;
     text-shadow: -1px -1px 10px rgba(0, 0, 0, .7),
     1px -1px 10px rgba(0, 0, 0, .7),
@@ -33,28 +29,20 @@
 }
 
 .content {
-  width: 800px;
+  width: 1000px;
   margin: 0 auto;
   margin-top: 2em;
 }
 
-ul {
-  padding: 0;
-  margin: 0;
-  li {
-    list-style-type: none;
-    list-style-position: inside;
-    display: block;
-    margin-bottom: 1em;
-    em {
-      font-weight: bold;
-      font-style: normal;
-      display: inline-block;
-      &::after {
-        display: inline-block;
-        padding: 0 5px;
-        content: '–'
-      }
-    }
-  }
+.intro {
+  margin-bottom: 1em;
+}
+
+section {
+  min-height: 300px;
+}
+
+section {
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
 }

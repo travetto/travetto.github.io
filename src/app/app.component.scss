@@ -11,7 +11,7 @@ mat-toolbar {
       g.wrapper {
         transform: rotate(30deg);
         path {
-          transform: scale(.8, .8);
+          transform: scale(.7, .7);
           stroke: 1px solid gray;
           fill: rgba(255, 255, 255, .5)
         }
@@ -20,7 +20,7 @@ mat-toolbar {
         text-anchor: middle;
         font-family: "Julius Sans One", sans-serif;
         font-weight: normal;
-        font-size: 30px;
+        font-size: 27px;
         fill: #666;
         tspan {
           alignment-baseline: central;
@@ -44,7 +44,14 @@ mat-toolbar {
   }
 }
 
-.content {
+.wrapper {
   width: 100%;
   height: calc(100% - 64px);
+}
+
+footer {
+  height: 100px;
+  width: 100%;
+  background-color: slategray;
+  color: white;
 }
