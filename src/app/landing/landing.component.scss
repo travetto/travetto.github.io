@@ -37,3 +37,24 @@
   margin: 0 auto;
   margin-top: 2em;
 }
+
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+    list-style-position: inside;
+    display: block;
+    margin-bottom: 1em;
+    em {
+      font-weight: bold;
+      font-style: normal;
+      display: inline-block;
+      &::after {
+        display: inline-block;
+        padding: 0 5px;
+        content: '–'
+      }
+    }
+  }
+}
