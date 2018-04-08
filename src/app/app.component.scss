@@ -19,6 +19,7 @@ mat-toolbar {
       text {
         text-anchor: middle;
         font-family: "Julius Sans One", sans-serif;
+        font-weight: normal;
         font-size: 30px;
         fill: #666;
         tspan {
@@ -29,7 +30,10 @@ mat-toolbar {
   }
   span.name {
     color: white;
-    font-size: 1.2em;
+    font-family: "Julius Sans One", sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 32px;
   }
   span.spacer {
     flex: 1 1 auto;
