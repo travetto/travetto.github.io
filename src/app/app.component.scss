@@ -51,7 +51,39 @@ mat-toolbar {
 
 footer {
   height: 100px;
+
   width: 100%;
-  background-color: slategray;
-  color: white;
+  background-color: lighten(slategray, 20%);
+  color: #333;
+  display: flex;
+
+  div {
+    margin-top: 34px;
+  }
+
+  .copyright {
+    padding-left: 1em;
+    height: 32px;
+  }
+
+  .spacer {
+    flex: 1 1 0;
+  }
+
+  .social {
+    span {
+      display: inline-block;
+      line-height: 32px;
+      height: 32px;
+      vertical-align: top;
+      margin-right: .5em;
+    }
+    a {
+      height: 32px;
+      width: 32px;
+      line-height: 32px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
 }

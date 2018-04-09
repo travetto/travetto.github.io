@@ -34,15 +34,28 @@
   margin-top: 2em;
 }
 
-.intro {
-  margin-bottom: 1em;
-}
-
 section {
   min-height: 300px;
-}
+  display: flex;
+  margin-top: 2em;
 
-section {
-  border-top: 1px solid #ccc;
-  padding-top: 1em;
+  div {
+    flex: 1 1 0;
+    justify-content: space-between;
+    padding-bottom: 1em;
+  }
+  img {
+    flex: 2 2 0;
+    background: #eee;
+    height: 400px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+  }
+  div+img,
+  img+div {
+    margin-left: 10px;
+  }
+
+  &:last-child {
+    margin-bottom: 2em;
+  }
 }
