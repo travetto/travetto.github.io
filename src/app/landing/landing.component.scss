@@ -40,7 +40,7 @@ section {
   margin-top: 2em;
 
   div {
-    flex: 1 1 0;
+    flex: 1.2 1.2 0;
     justify-content: space-between;
     padding-bottom: 1em;
   }
@@ -52,7 +52,7 @@ section {
   }
   div+img,
   img+div {
-    margin-left: 10px;
+    margin-left: 15px;
   }
 
   &:last-child {
