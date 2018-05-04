@@ -5,30 +5,9 @@
 
 mat-toolbar {
 
-  svg.logo {
-    width: 70px;
+  img.logo {
+    width: 60px;
     height: 60px;
-    g.layout {
-      transform: translate(35px, 30px);
-      g.wrapper {
-        transform: rotate(30deg);
-        path {
-          transform: scale(.7, .7);
-          stroke: 1px solid gray;
-          fill: rgba(255, 255, 255, .5)
-        }
-      }
-      text {
-        text-anchor: middle;
-        font-family: "Julius Sans One", sans-serif;
-        font-weight: normal;
-        font-size: 27px;
-        fill: #666;
-        tspan {
-          alignment-baseline: central;
-        }
-      }
-    }
   }
   span.name {
     color: white;
