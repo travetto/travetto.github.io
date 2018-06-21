@@ -1,0 +1,103 @@
+:host {
+  flex-direction: row;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  display: flex;
+  width: 100%;
+
+  .links {
+    flex: 0;
+
+    ul li {
+      display: block;
+      margin-bottom: .25em;
+      a {
+        text-decoration: none;
+        color: #008;
+      }
+    }
+  }
+
+  .router-outlet {
+    flex: 1;
+    padding: 1em;
+
+    & /deep/ {
+      code {
+        font-size: 12pt;
+        padding: .2em;
+        background: #eee;
+        border: 1px solid #ddd;
+        font-family: monospace;
+      }
+      pre code {
+        padding: 1em;
+        display: block;
+        overflow-x: auto;
+        background: #272822;
+        color: #ddd;
+
+        .sx-tag,
+        .sx-keyword,
+        .sx-selector-tag,
+        .sx-literal,
+        .sx-strong,
+        .sx-name {
+          color: #f92672;
+        }
+
+        .sx-code {
+          color: #66d9ef;
+        }
+
+        .sx-class .sx-title {
+          color: white;
+        }
+
+        .sx-attribute,
+        .sx-symbol,
+        .sx-regexp,
+        .sx-link {
+          color: #bf79db;
+        }
+
+        .sx-string,
+        .sx-bullet,
+        .sx-subst,
+        .sx-title,
+        .sx-section,
+        .sx-emphasis,
+        .sx-type,
+        .sx-built_in,
+        .sx-builtin-name,
+        .sx-selector-attr,
+        .sx-selector-pseudo,
+        .sx-addition,
+        .sx-variable,
+        .sx-template-tag,
+        .sx-template-variable {
+          color: #a6e22e;
+        }
+
+        .sx-comment,
+        .sx-quote,
+        .sx-deletion,
+        .sx-meta {
+          color: #75715e;
+        }
+
+        .sx-keyword,
+        .sx-selector-tag,
+        .sx-literal,
+        .sx-doctag,
+        .sx-title,
+        .sx-section,
+        .sx-type,
+        .sx-selector-id {
+          font-weight: bold;
+        }
+
+      }
+    }
+  }
+}

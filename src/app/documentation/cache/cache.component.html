@@ -1,13 +1,13 @@
 <h1 id="travetto-cache">travetto: Cache</h1>
 <p>Provides a simple wrapper around <code>lru-cache</code> to provide standard caching constructs.  </p>
-<p>Provides a decorator to allow caching at the method level throughout the system.  Will rewrite the method
-to cache on successful responses.</p>
-<pre><code class="language-typescript">  class Worker {{ "{" }}
+<p>Provides a decorator to allow caching at the method level throughout the system.  Will rewrite the method<br>to cache on successful responses.</p>
+<pre><code class="lang-typescript">  <span class="sx-keyword">class</span> Worker {{ "{" }}
 
-    @Cacheable({{ "{" }} max: 1000 {{ "}" }})
-    calculateExpensiveResult(expression: string) {{ "{" }}
+    <span class="sx-meta">@Cacheable</span>({{ "{" }} max: <span class="sx-number">1000</span> {{ "}" }})
+    calculateExpensiveResult(expression: <span class="sx-built_in">string</span>) {{ "{" }}
       ...
-      return value;
+      <span class="sx-keyword">return</span> value;
     {{ "}" }}
-  {{ "}" }}</code></pre>
+  {{ "}" }}
+</code></pre>
 

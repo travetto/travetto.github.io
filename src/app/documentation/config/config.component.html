@@ -11,24 +11,12 @@
 <li>Depending on which environments are specified, will selectively load <code>env/&lt;env&gt;.yml</code> files</li>
 <li>Every configuration property can be overridden via environment variables (case-insensitive).<ul>
 <li>Object navigation is separated by underscores</li>
-<li>e.g. <code>MAIL_TRANSPORT_HOST</code> would override <code>mail.transport.host</code> and specifically <code>transport.host</code>
-in the <code>mail</code> namespace.</li>
+<li>e.g. <code>MAIL_TRANSPORT_HOST</code> would override <code>mail.transport.host</code> and specifically <code>transport.host</code><br>in the <code>mail</code> namespace.</li>
 </ul>
 </li>
 </ul>
-<p>Provides a decorator, <code>@Config(&quot;namespace&quot;)</code> that allows for classes to automatically bind config information
-on post construct. The decorator will install a <code>postConstruct</code> method if not already defined.  This is a hook
-that is used by other modules.</p>
-<p><code>`</code>typescript config.ts
-@Config(&#39;sample&#39;)
-class SampleConfig {{ "{" }}
-  private host: string;
-  private port: number;
-  private creds = {{ "{" }}
-    user: &#39;&#39;,
-    password: &#39;&#39;
-  {{ "}" }};
-{{ "}" }}</p>
+<p>Provides a decorator, <code>@Config(&quot;namespace&quot;)</code> that allows for classes to automatically bind config information<br>on post construct. The decorator will install a <code>postConstruct</code> method if not already defined.  This is a hook<br>that is used by other modules.</p>
+<p><code>`</code>typescript config.ts<br>@Config(&#39;sample&#39;)<br>class SampleConfig {{ "{" }}<br>  private host: string;<br>  private port: number;<br>  private creds = {{ "{" }}<br>    user: &#39;&#39;,<br>    password: &#39;&#39;<br>  {{ "}" }};<br>{{ "}" }}</p>
 <pre><code>
 And the corresponding config file
 
@@ -38,4 +26,5 @@ And the corresponding config file
   port: 80
   creds:
     user: bob
-    password: bobspw</code></pre>
+    password: bobspw
+</code></pre>
