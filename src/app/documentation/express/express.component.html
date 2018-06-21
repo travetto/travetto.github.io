@@ -1,0 +1,44 @@
+<h1 id="travetto-express">travetto: Express</h1>
+<p>Provides a declarative API for registering routes for an application.</p>
+<ul>
+<li><p>Route management </p>
+<ul>
+<li>Define a route scope using <code>@Controller</code> on a class</li>
+<li>Define individual routes using <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code> on a static method of the class</li>
+<li>Supports <code>async</code> methods for route handlings vs <code>next</code> callbacks</li>
+<li><em>DEV</em> mode will allow for hot reloading of <code>class</code>es at runtime</li>
+</ul>
+</li>
+<li><p>Input/Output</p>
+<ul>
+<li>Provides interfaces for supporting renderable content</li>
+<li>Provides interfaces to define request bodies being typed</li>
+</ul>
+</li>
+<li><p>App initialization</p>
+<ul>
+<li>Provides standard set of filters for express<ul>
+<li>Allows for discoverable operators that can be picked up at runtime</li>
+</ul>
+</li>
+<li>Supports configuration on the <code>express</code> namespace<ul>
+<li>Also handles session management</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Additionally, there are some extensions that can be loaded, by directly importing the files:</p>
+<ul>
+<li><p><code>Schema</code> support for typing requests </p>
+<ul>
+<li><code>@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide
+validation before the controller even receives the request.</li>
+<li><code>@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide
+validation before the controller even receives the request.   </li>
+</ul>
+</li>
+<li><p><code>Context</code> support for automatically injecting an async context into every request</p>
+</li>
+</ul>
+

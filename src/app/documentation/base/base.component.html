@@ -1,0 +1,25 @@
+<h1 id="travetto-base">travetto: Base</h1>
+<p>Base is the foundation of all travetto applications.  It&#39;s primary goal is to be a minimal bootstrap to get an application up and running.</p>
+<p>The specific things it offers are:</p>
+<ul>
+<li>General App Info - A programmatic interface to <code>package.json</code></li>
+<li>Bulk Find Operations<ul>
+<li>A very simple toolset for recursively finding files</li>
+<li>Uses RegEx in lieu of glob for pattern matching on files</li>
+</ul>
+</li>
+<li>Environment - Basic environment information, e.g. in prod/test/dev etc.</li>
+<li>Shutdown - Event listener interface to run code on shutdown</li>
+<li>Stacktrace - Integration with <code>trace.js</code> to provide proper asynchronous stack traces</li>
+<li>Phase management for initializing applications<ul>
+<li>Recursively finds all <code>phase.&lt;phase&gt;.ts</code> files under <code>node_modules/@travetto</code>, and in the root of your project</li>
+<li>The export format of each initializer is <code>export const init = {
+priority: 1, // Lower is of more importance
+action: () =&gt; {} // The action to take to initialize the module/project
+}</code></li>
+</ul>
+</li>
+<li>Util - Simple functions for providing a minimal facisimile to <code>lodash</code>, but without all the weight.</li>
+<li>Watch - A very simple file watching library, with a substantially smaller footprint than <code>gaze</code> or <code>chokidar</code>.  </li>
+</ul>
+

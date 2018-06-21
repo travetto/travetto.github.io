@@ -1,0 +1,23 @@
+<h1 id="travetto-registry">Travetto: Registry</h1>
+<p>Two Flow:</p>
+<ul>
+<li><p>On load (prod use case)</p>
+<ul>
+<li>RootRegistry will load all appropriate files</li>
+<li>As files are loaded, they record their various metadatas </li>
+<li>When all requires are done<ul>
+<li>RootRegistry is finished</li>
+<li>Any things depending on RootRegistry will run</li>
+<li>This ensures all files are loaded and processed before application starts</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>At runtime (dev use case)</p>
+<ul>
+<li>RootRegistry will listen to the TS Compiler watcher and track which files have changed
+and will trigger class based updates (assuming everything is indexed via class __id) </li>
+</ul>
+</li>
+</ul>
+

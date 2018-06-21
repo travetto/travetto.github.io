@@ -1,0 +1,25 @@
+<h1 id="travetto-test">travetto: Test</h1>
+<p>This is a custom framework for testing, that produces <code>TAP</code> output, it also directly integrates with the <code>test-plugin</code> to provide
+realtime feedback durring development.  It is a declarative framework, relying on decorators to define tests and suites.</p>
+<p>Test suites are generally defined by the <code>@Suite</code> annotation, and tests are defined as methods on the class, using the <code>@Test</code> annotation.</p>
+<p><code>`</code>typescript test.ts
+@Suite()
+class SimpleTest {</p>
+<p>  @Test()
+  async test1() {
+    let val = await doLongOp();s
+    assert(val === 5);
+  }</p>
+<p>  @Test()
+  test2() {
+    assert(/abc/.test(text));
+  }</p>
+<p>}
+<code>`</code></p>
+<p>Additionaly, the code utilizes AST transformations to:</p>
+<ul>
+<li>Record line number data finding tests by line number</li>
+<li>Translate <code>assert</code> calls into a richer format to provide better feedback, and to allow for emitting <code>assert</code> for recording results.</li>
+</ul>
+<p>All tests are required to be in <code>test/</code> given how the code searching operates.</p>
+

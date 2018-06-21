@@ -1,0 +1,14 @@
+<h1 id="travetto-asset-express">travetto: Asset Express</h1>
+<p>Provides the ability to access file uploads via <code>express</code>, and have them registered as <code>Asset</code>s on the request (as <code>req.files</code>)</p>
+<pre><code class="language-typescript">
+@Controller(&#39;/user&#39;)
+class Controller {
+
+  @AssetUpload()
+  @Post(&#39;/avatar&#39;)
+  async setAvatar(req:Request, res:Response) {
+    assert(req.files[0]);
+  }
+}
+</code></pre>
+

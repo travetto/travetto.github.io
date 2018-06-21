@@ -1,0 +1,32 @@
+<h1 id="travetto-schema">travetto: Schema</h1>
+<p>This module provide validation for data schemas. The module uses AST transformations to 
+modify <code>class</code>es at runtime, to annotate with types, and whether or not fields are 
+required/optional.  Additionally, for constraints that are not immediately discernable,
+the following are available:</p>
+<ul>
+<li><p>Class level</p>
+<ul>
+<li><code>@Schema</code> defines a class to be a validated, will auto detect schema from typescript annotations</li>
+</ul>
+</li>
+<li><p>Decorator based definition of Mongoose validators as well as general metadata</p>
+<ul>
+<li><code>@Field</code> defines a field that will be serialized (if not using auto <code>@Schema()</code>)</li>
+<li><code>@Require</code> defines a required field</li>
+<li><code>@Enum</code> defines a field with only enumerated values</li>
+<li><code>@Trimmed</code> whitespace trims the field</li>
+<li><code>@Match</code> allows for regex validation on a field</li>
+<li><code>@MinLength</code> enforces min length of a string</li>
+<li><code>@MaxLength</code> enforces max length of a string</li>
+<li><code>@Min</code> enforces min value for a date or a number</li>
+<li><code>@Max</code> enforces max value for a date or a number</li>
+<li><code>@Email</code> ensures string field matches basic email regex</li>
+<li><code>@Telephone</code> ensures string field matches basic telephone regex</li>
+<li><code>@Url</code> ensures string field matches basic url regex</li>
+<li><code>@Ignore</code> exclude from auto schema registration</li>
+<li><code>@Integer</code> ensures number passed in is only a whole number</li>
+<li><code>@Float</code> ensures number passed in allows fractional values</li>
+</ul>
+</li>
+</ul>
+

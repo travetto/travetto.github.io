@@ -1,0 +1,11 @@
+<h1 id="travetto-asset">travetto: Asset</h1>
+<p>This module provides the framework for storing/retrieving assets. It also provides image management functionality using <code>GraphicsMagick</code> under the covers.  This allows you to retrieve images and provide different sizes, transformations, etc. when serving up them up. </p>
+<p>If <code>GraphicsMagick</code> is not installed, the framework will spin up a <code>docker</code> container to provide needed functionality.</p>
+<p>The primary driver for the Asset framework is an <code>AssetSource</code> which needs to be implemented 
+to provide code on how to read and write files.  </p>
+<p>Primary implementations:</p>
+<ul>
+<li><code>asset-mongo</code> provides the mongodb driver for file management</li>
+<li><code>asset-s3</code> provides the S3 driver for file management</li>
+</ul>
+
