@@ -2,20 +2,20 @@
 <p>This is a custom framework for testing, that produces <code>TAP</code> output, it also directly integrates with the <code>test-plugin</code> to provide
 realtime feedback durring development.  It is a declarative framework, relying on decorators to define tests and suites.</p>
 <p>Test suites are generally defined by the <code>@Suite</code> annotation, and tests are defined as methods on the class, using the <code>@Test</code> annotation.</p>
-<p><code>`</code>typescript test.ts
-@Suite()
-class SimpleTest {</p>
-<p>  @Test()
+<pre><code class="language-typescript">@Suite()
+class SimpleTest {
+
+  @Test()
   async test1() {
     let val = await doLongOp();s
     assert(val === 5);
-  }</p>
-<p>  @Test()
+  }
+
+  @Test()
   test2() {
     assert(/abc/.test(text));
-  }</p>
-<p>}
-<code>`</code></p>
+  }
+}</code></pre>
 <p>Additionaly, the code utilizes AST transformations to:</p>
 <ul>
 <li>Record line number data finding tests by line number</li>
