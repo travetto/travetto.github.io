@@ -1,4 +1,4 @@
-<h1 id="travetto-compiler">travetto: Compiler</h1>
+<h1 id="travetto-compiler">Compiler</h1>
 <p>Basis for a more thorough compilation process, including source maps.  The compiler also provides the ability for handling<br>a piple of AST transformations.  The framework uses AST transformations to support it&#39;s own needs, with the reality that<br>external modules, or even project code might want to provide it&#39;s own transformations. In addition to the loading of transformations<br>the Compiler module also provides a set of utilities to enhance the transformation process.</p>
 <p>Transformations are defined by <code>transformation.*.ts</code> as the filename. The schema for a transformation is </p>
 <pre><code class="lang-typescript">  <span class="sx-keyword">export</span> <span class="sx-keyword">class</span> CustomerTransformer {{ "{" }}

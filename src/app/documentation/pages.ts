@@ -27,7 +27,7 @@ import { UtilComponent } from './util/util.component';
 
 export const PAGES = [
   { path: 'asset', title: 'Asset', component: AssetComponent },
-  { path: 'asset-express', title: 'Asset Express', component: AssetExpressComponent },
+  { path: 'asset-express', title: 'Asset-Express', component: AssetExpressComponent },
   { path: 'asset-mongo', title: 'Asset-Mongo', component: AssetMongoComponent },
   { path: 'asset-s3', title: 'Asset-S3', component: AssetS3Component },
   { path: 'auth', title: 'Auth', component: AuthComponent },
