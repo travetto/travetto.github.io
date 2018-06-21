@@ -4,18 +4,18 @@
 The decorator will load the context on invocation, and will keep the context active during
 the entire asynchronous call chain.</p>
 <p>For the decorator to work, it require the <code>class</code> to have a context object already defined on it.</p>
-<pre><code class="language-typescript">class TestableContext {
+<pre><code class="language-typescript">class TestableContext {{ "{" }}
 
-   constructor(public context:Context){}
+   constructor(public context:Context){{ "{" }}{{ "}" }}
 
    @WithContext()
-   async complexOperator(name: string) {
-     this.context.set({ name })
+   async complexOperator(name: string) {{ "{" }}
+     this.context.set({{ "{" }} name {{ "}" }})
      await this.additionalOp(name);
-   }
+   {{ "}" }}
 
-   async additionalOp(check:string) {
+   async additionalOp(check:string) {{ "{" }}
      assert(this.context.get().name === check);
-   }
-}</code></pre>
+   {{ "}" }}
+{{ "}" }}</code></pre>
 

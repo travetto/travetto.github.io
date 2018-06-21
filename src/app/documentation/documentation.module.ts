@@ -40,9 +40,9 @@ import { OverviewComponent } from './overview/overview.component';
         path: 'docs',
         component: DocumentationComponent,
         children: [
-          { path: '', pathMatch: 'full', redirectTo: 'docs/overview' },
+          { path: '', pathMatch: 'full', redirectTo: 'overview' },
           { path: 'overview', component: OverviewComponent },
-          ...PAGES.map(x => ({ path: x.page, component: x.component }))
+          ...PAGES
         ]
       }
     ])

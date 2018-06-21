@@ -15,9 +15,9 @@ for x in `ls ../ | grep -v 'github.io\|inky\|js-yaml\|test-plugin'`; do
     fi
     TITLE=`cat $HTML | grep '<h1' | head -n1 | sed -e 's|<[^>]*>||g' -e 's|travetto:[ ]*||i'`
     COMP=`cat $DOC_ROOT/$x/$x.component.ts | grep class | awk '{ print $3 }'`
-    ./node_modules/.bin/marked ../$x/README.md > $HTML
+    ./node_modules/.bin/marked ../$x/README.md | sed -e 's|\([{}]\)|{{ "\1" }}|g' > $HTML
     IMPORTS="$IMPORTS"$'\n'"import { $COMP } from './$x/$x.component';"
-    PAGES="$PAGES"$'\n'"  { page: '$x', title: '$TITLE', component: $COMP },"
+    PAGES="$PAGES"$'\n'"  { path: '$x', title: '$TITLE', component: $COMP },"
   fi
 done
 

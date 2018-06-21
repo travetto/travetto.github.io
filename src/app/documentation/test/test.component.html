@@ -3,19 +3,19 @@
 realtime feedback durring development.  It is a declarative framework, relying on decorators to define tests and suites.</p>
 <p>Test suites are generally defined by the <code>@Suite</code> annotation, and tests are defined as methods on the class, using the <code>@Test</code> annotation.</p>
 <pre><code class="language-typescript">@Suite()
-class SimpleTest {
+class SimpleTest {{ "{" }}
 
   @Test()
-  async test1() {
+  async test1() {{ "{" }}
     let val = await doLongOp();s
     assert(val === 5);
-  }
+  {{ "}" }}
 
   @Test()
-  test2() {
+  test2() {{ "{" }}
     assert(/abc/.test(text));
-  }
-}</code></pre>
+  {{ "}" }}
+{{ "}" }}</code></pre>
 <p>Additionaly, the code utilizes AST transformations to:</p>
 <ul>
 <li>Record line number data finding tests by line number</li>

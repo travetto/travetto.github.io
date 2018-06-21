@@ -1,6 +1,6 @@
 <ul>
   <li *ngFor="let page of pages">
-    <a [href]="'/docs/' + page.page">{{page.title}}</a>
+    <a [routerLink]="'/docs/' + page.path">{{page.title}}</a>
   </li>
 </ul>
 <div>

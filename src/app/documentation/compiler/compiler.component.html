@@ -4,11 +4,11 @@ a piple of AST transformations.  The framework uses AST transformations to suppo
 external modules, or even project code might want to provide it&#39;s own transformations. In addition to the loading of transformations
 the Compiler module also provides a set of utilities to enhance the transformation process.</p>
 <p>Transformations are defined by <code>transformation.*.ts</code> as the filename. The schema for a transformation is </p>
-<pre><code class="language-typescript">  export class CustomerTransformer {
+<pre><code class="language-typescript">  export class CustomerTransformer {{ "{" }}
     priority: 1, // Lower is higher priority
     phase: &#39;before&#39;|&#39;after&#39;, // The phase as defined by Typescript&#39;s AST processing
-    transformer: (context: ts.TransformationContext) =&gt; {
+    transformer: (context: ts.TransformationContext) =&gt; {{ "{" }}
        return (file: ts.SourceFile) =&gt; file    
-    }
-  }</code></pre>
+    {{ "}" }}
+  {{ "}" }}</code></pre>
 

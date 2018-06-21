@@ -13,10 +13,10 @@
 <li>Stacktrace - Integration with <code>trace.js</code> to provide proper asynchronous stack traces</li>
 <li>Phase management for initializing applications<ul>
 <li>Recursively finds all <code>phase.&lt;phase&gt;.ts</code> files under <code>node_modules/@travetto</code>, and in the root of your project</li>
-<li>The export format of each initializer is <code>export const init = {
+<li>The export format of each initializer is <code>export const init = {{ "{" }}
 priority: 1, // Lower is of more importance
-action: () =&gt; {} // The action to take to initialize the module/project
-}</code></li>
+action: () =&gt; {{ "{" }}{{ "}" }} // The action to take to initialize the module/project
+{{ "}" }}</code></li>
 </ul>
 </li>
 <li>Util - Simple functions for providing a minimal facisimile to <code>lodash</code>, but without all the weight.</li>

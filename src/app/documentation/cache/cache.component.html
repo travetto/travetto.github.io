@@ -2,12 +2,12 @@
 <p>Provides a simple wrapper around <code>lru-cache</code> to provide standard caching constructs.  </p>
 <p>Provides a decorator to allow caching at the method level throughout the system.  Will rewrite the method
 to cache on successful responses.</p>
-<pre><code class="language-typescript">  class Worker {
+<pre><code class="language-typescript">  class Worker {{ "{" }}
 
-    @Cacheable({ max: 1000 })
-    calculateExpensiveResult(expression: string) {
+    @Cacheable({{ "{" }} max: 1000 {{ "}" }})
+    calculateExpensiveResult(expression: string) {{ "{" }}
       ...
       return value;
-    }
-  }</code></pre>
+    {{ "}" }}
+  {{ "}" }}</code></pre>
 
