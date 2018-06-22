@@ -20,12 +20,7 @@ function run() {
 
       # Compile html
       if [ "$HTML" -ot "$README" ]; then
-        ./node_modules/.bin/marked $README |\
-          sed -e 's|Travetto:\s*||gi' |\
-          ./highlight.js |\
-          sed -e 's|\([{}]\)|{{ "\1" }}|g' |\
-          sed -e 's|href="http[s]*://github[.]com/travetto/|routerLink="/docs/|g' |\
-          sed -e 's|#readme||g' > $HTML
+        ./node_modules/.bin/marked $README ./highlight.js > $HTML
         CHANGE=1
       fi
 

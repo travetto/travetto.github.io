@@ -15,6 +15,7 @@
     h3 {
       font-size: 20pt;
       font-weight: normal;
+      margin-bottom: 0;
     }
 
     >ul {
@@ -23,10 +24,10 @@
       list-style-position: outside;
       list-style-type: none;
       li {
+        line-height: 1.4em;
         width: 100%;
         display: block;
         a {
-          line-height: 1.4em;
           color: #666;
           text-decoration: none;
           border-bottom: 1px solid #aaa;
@@ -56,130 +57,6 @@
 
       ul {
         margin-top: 0;
-      }
-      code {
-        font-size: 12pt;
-        line-height: 1.5;
-        padding: .2em;
-        background: #eee;
-        border: 1px solid #ddd;
-        font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-        display: inline-block;
-        margin: .2em;
-
-        border-radius: .3em;
-        box-shadow: 1px 1px .3em -.1em black;
-        white-space: pre;
-        word-spacing: normal;
-        word-break: normal;
-        word-wrap: normal;
-      }
-
-      @media print {
-        pre code[class*="language-"] {
-          text-shadow: none;
-        }
-      }
-
-      pre {
-        margin-top: 0;
-      }
-
-      pre code[class*="language-"] {
-        padding: 1em;
-        display: block;
-        overflow-x: auto;
-        background: #272822;
-        color: #ddd;
-
-        text-align: left;
-
-        -moz-tab-size: 2;
-        -o-tab-size: 2;
-        tab-size: 2;
-
-        -webkit-hyphens: none;
-        -moz-hyphens: none;
-        -ms-hyphens: none;
-        hyphens: none;
-
-        border-radius: .5em;
-        box-shadow: 1px 1px .5em black inset;
-
-        .token {
-          &.meta {
-            color: orange;
-          }
-
-          &.comment,
-          &.prolog,
-          &.doctype,
-          &.cdata {
-            color: hsl(30, 20%, 50%);
-          }
-
-          &.punctuation {
-            opacity: .7;
-          }
-
-          &.function {
-            color: palegoldenrod;
-          }
-
-          &.property,
-          &.tag,
-          &.boolean,
-          &.number,
-          &.constant,
-          &.symbol {
-            color: hsl(350, 40%, 70%);
-          }
-
-          &.selector,
-          &.attr-name,
-          &.string,
-          &.char,
-          &.builtin,
-          &.inserted {
-            color: hsl(75, 70%, 60%);
-          }
-
-          &.operator,
-          &.entity,
-          &.url,
-          .language-css &.string,
-          .style &.string,
-          &.variable {
-            color: hsl(40, 90%, 60%);
-          }
-
-          &.atrule,
-          &.attr-value,
-          &.keyword {
-            color: hsl(350, 40%, 70%);
-          }
-
-          &.regex,
-          &.important {
-            color: lightgreen;
-          }
-
-          &.important,
-          &.bold {
-            font-weight: bold;
-          }
-          &.italic {
-            font-style: italic;
-          }
-
-          &.entity {
-            cursor: help;
-          }
-
-          &.deleted {
-            color: red;
-          }
-        }
       }
     }
   }

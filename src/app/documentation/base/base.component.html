@@ -50,16 +50,33 @@ by the framework, but can prove useful to application developers as well. The in
   <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Shutdown is complete!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ "}" }}</span></code></pre>
 <h2 id="stacktrace">Stacktrace</h2>
-<p>Integration with <code>trace.js</code> to provide proper asynchronous stack traces</p>
-<h2 id="phase-management">Phase management</h2>
+<p>Integration with <code>trace.js</code> to handle asynchronous call stacks, and provide higher quality stack traces.  The stack filtering will remove duplicate or unnecessary lines, as well as filter out framework specific steps that do not aid in debugging.  The final result should be a stack trace that is concise and clear.</p>
+<p>From a test scenario:</p>
+<pre><code class="language-typescript"><span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">inner1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">inner2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+      <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">inner3</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'Uh oh'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">{{ "}" }}</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{{ "}" }}</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ "}" }}</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ "}" }}</span>
+
+<span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Will produce the following stack trace:</p>
+<pre><code>Error: Uh oh
+    at Timeout.inner3 [as _onTimeout] (./test/stack.js:6:23)
+    at Timeout.inner2 [as _onTimeout] (./test/stack.js:5:13)
+    at Timeout.inner1 [as _onTimeout] (./test/stack.js:4:9)
+    at Object.load [as .ts] (./bin/travetto.js:27:12)</code></pre><h2 id="phase-management">Phase management</h2>
 <p>for initializing applications</p>
 <ul>
 <li>Recursively finds all <code>phase.&lt;phase&gt;.ts</code> files under <code>node_modules/@travetto</code>, and in the root of your project</li>
 <li>The export format of each initializer is </li>
 </ul>
-<pre><code class="language-typescript">   <span class="token keyword">export</span> <span class="token keyword">const</span> init <span class="token operator">=</span> <span class="token punctuation">{{ "{" }}</span>
-    priority<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Lower is of more importance</span>
-    action<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ "{" }}</span><span class="token punctuation">{{ "}" }}</span> <span class="token comment">// The action to take to initialize the module/project</span>
+<pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> init <span class="token operator">=</span> <span class="token punctuation">{{ "{" }}</span>
+  priority<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Lower is of more importance</span>
+  action<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ "{" }}</span><span class="token punctuation">{{ "}" }}</span> <span class="token comment">// The action to take to initialize the module/project</span>
 <span class="token punctuation">{{ "}" }}</span></code></pre>
 <h2 id="util">Util</h2>
 <p>Simple functions for providing a minimal facisimile to <code>lodash</code>, but without all the weight.</p>
