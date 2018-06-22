@@ -1,14 +1,21 @@
+$HEADER-HEIGHT: 64px;
+$FOOTER-HEIGHT: 100px;
+$SMALL-HEADER-HEIGHT: 30px;
+
+
 :host {
   display: block;
   height: 100%;
 }
 
 mat-toolbar {
+  height: $HEADER-HEIGHT;
 
   img.logo {
     width: 50px;
     height: 50px;
   }
+
   span.name {
     color: white;
     font-family: "Julius Sans One", sans-serif;
@@ -27,16 +34,25 @@ mat-toolbar {
 
 .wrapper {
   width: 100%;
-  height: calc(100% - 64px);
+
+  router-outlet {
+    display: none;
+  }
+
+  /deep/>:nth-child(2) {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 footer {
-  height: 100px;
+  display: flex;
+  height: $FOOTER-HEIGHT;
+  min-height: $FOOTER-HEIGHT;
 
   width: 100%;
   background-color: lighten(slategray, 30%);
   color: #333;
-  display: flex;
 
   div {
     margin-top: 34px;
@@ -69,6 +85,27 @@ footer {
   }
 }
 
+@media (min-width: 700px) {
+  :host {
+    .wrapper {
+      height: calc(100vh - #{$HEADER-HEIGHT});
+
+      /deep/>:nth-child(2) {
+        min-height: calc(100vh - #{$FOOTER-HEIGHT + $HEADER-HEIGHT});
+        p {
+          margin-bottom: 0;
+          padding-bottom: 12px;
+        }
+      }
+
+      footer {
+        height: $FOOTER-HEIGHT;
+        min-height: $FOOTER-HEIGHT;
+      }
+    }
+  }
+}
+
 @media (max-width: 700px) {
   :host {
     mat-toolbar {
@@ -79,7 +116,7 @@ footer {
         padding: 0;
         margin: 0 5px;
       }
-      height: 30px;
+      height: $SMALL-HEADER-HEIGHT;
       .name {
         font-size: 20px;
       }
