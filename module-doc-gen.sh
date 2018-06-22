@@ -24,7 +24,8 @@ function run() {
           sed -e 's|Travetto:\s*||gi' |\
           ./highlight.js |\
           sed -e 's|\([{}]\)|{{ "\1" }}|g' |\
-          sed -e 's|href="http[s]*://github[.]com/travetto/|routerLink="/docs/|g' > $HTML
+          sed -e 's|href="http[s]*://github[.]com/travetto/|routerLink="/docs/|g' |\
+          sed -e 's|#readme||g' > $HTML
         CHANGE=1
       fi
 
