@@ -1,5 +1,27 @@
 <h1 id="travetto-asset-mongo">Asset-Mongo</h1>
-<p>This provides a mongo implementation for the <code>AssetSource</code> so you can provide an <code>mongodb</code> backend for asset management.  </p>
-<p>This module will need to be registered before it can be used at runtime.</p>
+<p>This provides a <code>mongodb</code> implementation of the <code>AssetSource</code> that which is a backend for the <a href="https://github.io/travetto/asset"><code>Asset</code></a> module.  </p>
+<p>The primary utilization of this module, is to configure the <code>AssetSource</code> injectable, and provide whatever configuration you would like to use.  </p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{{ "{" }}</span>
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">static</span> <span class="token function">getConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> AssetMongoConfig <span class="token punctuation">{{ "{" }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AssetMongoConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ "}" }}</span>
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">static</span> <span class="token function">getSource</span><span class="token punctuation">(</span>cfg<span class="token punctuation">:</span> AssetMongoConfig<span class="token punctuation">)</span><span class="token punctuation">:</span> AssetSource <span class="token punctuation">{{ "{" }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AssetMongoSource</span><span class="token punctuation">(</span>cfg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ "}" }}</span>
+<span class="token punctuation">{{ "}" }}</span></code></pre>
+<p>As seen, there is a default configuration that you can easily use, with some sensible defaults.</p>
+<p>The default configuration class looks like:</p>
+<pre><code class="language-typescript">@<span class="token meta">Config</span><span class="token punctuation">(</span><span class="token string">'asset.mongo'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AssetMongoConfig</span> <span class="token punctuation">{{ "{" }}</span>
+  hosts <span class="token operator">=</span> <span class="token string">'localhost'</span><span class="token punctuation">;</span>
+  schema <span class="token operator">=</span> <span class="token string">'app'</span><span class="token punctuation">;</span>
+  port <span class="token operator">=</span> <span class="token number">27017</span><span class="token punctuation">;</span>
+  options <span class="token operator">=</span> <span class="token punctuation">{{ "{" }}</span><span class="token punctuation">{{ "}" }}</span><span class="token punctuation">;</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">{{ "}" }}</span></code></pre>
+<p>Additionally, you can see that the class is registered with the <code>Config</code> annotation, and so these values can be overridden using the standard
+<a routerLink="/docs/config"><code>Configuration</code></a> resolution paths. </p>
 
 

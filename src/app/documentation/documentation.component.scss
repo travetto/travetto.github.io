@@ -6,15 +6,31 @@
   width: 100%;
 
   .links {
-    flex: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 200px;
+    background-color: #f3f8f3;
+    padding: 1.5em;
+    padding-top: .5em;
 
-    >ul li {
-      width: 150px;
-      display: block;
-      margin-bottom: .25em;
-      a {
-        text-decoration: none;
-        color: #008;
+    h3 {
+      font-size: 20pt;
+      font-weight: normal;
+    }
+
+    >ul {
+      margin: 0;
+      padding: 0;
+      list-style-position: outside;
+      list-style-type: none;
+      li {
+        width: 100%;
+        display: block;
+        a {
+          line-height: 1.4em;
+          text-decoration: underline;
+          color: #666;
+        }
       }
     }
   }
@@ -34,6 +50,8 @@
         background: #eee;
         border: 1px solid #ddd;
         font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        display: inline-block;
+        margin: .2em;
 
         border-radius: .3em;
         box-shadow: 1px 1px .3em -.1em black;

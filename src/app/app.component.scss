@@ -1,5 +1,5 @@
 $HEADER-HEIGHT: 64px;
-$FOOTER-HEIGHT: 100px;
+$FOOTER-HEIGHT: 70px;
 $SMALL-HEADER-HEIGHT: 30px;
 
 
@@ -49,18 +49,20 @@ footer {
   display: flex;
   height: $FOOTER-HEIGHT;
   min-height: $FOOTER-HEIGHT;
+  font-family: "Source Sans Pro", sans-serif;
 
   width: 100%;
-  background-color: lighten(slategray, 30%);
-  color: #333;
+  background-color: #333;
+  color: #eee;
 
   div {
-    margin-top: 34px;
+    margin-top: $FOOTER-HEIGHT/4;
   }
 
   .copyright {
     padding-left: 1em;
-    height: 32px;
+    line-height: $FOOTER-HEIGHT/2;
+    height: $FOOTER-HEIGHT/2;
   }
 
   .spacer {
@@ -68,19 +70,18 @@ footer {
   }
 
   .social {
-    span {
+    >* {
+      line-height: $FOOTER-HEIGHT/2;
+      height: $FOOTER-HEIGHT/2;
       display: inline-block;
-      line-height: 32px;
-      height: 32px;
-      vertical-align: top;
       margin-right: .5em;
     }
     a {
-      height: 32px;
-      width: 32px;
-      line-height: 32px;
-      display: inline-block;
-      margin-right: 10px;
+      img {
+        filter: invert(100%);
+        vertical-align: middle;
+      }
+      width: $FOOTER-HEIGHT/2;
     }
   }
 }
