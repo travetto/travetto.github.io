@@ -8,7 +8,8 @@
   .links {
     flex: 0;
 
-    ul li {
+    >ul li {
+      width: 150px;
       display: block;
       margin-bottom: .25em;
       a {
@@ -23,6 +24,9 @@
     padding: 1em;
 
     & /deep/ {
+      ul {
+        margin-top: 0;
+      }
       code {
         font-size: 12pt;
         padding: .2em;
@@ -83,7 +87,7 @@
         .sx-quote,
         .sx-deletion,
         .sx-meta {
-          color: #75715e;
+          color: yellow;
         }
 
         .sx-keyword,

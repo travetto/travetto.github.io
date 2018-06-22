@@ -20,7 +20,11 @@ function run() {
 
       # Compile html
       if [ "$HTML" -ot "$README" ]; then
-        ./node_modules/.bin/markdown $README | sed -e 's|Travetto:\s*||gi' | ./highlight.js | sed -e 's|\([{}]\)|{{ "\1" }}|g' > $HTML
+        ./node_modules/.bin/markdown $README |\
+          sed -e 's|Travetto:\s*||gi' |\
+          ./highlight.js |\
+          sed -e 's|\([{}]\)|{{ "\1" }}|g' |\
+          sed -e "s|href=\"\([.][.]/[^\"]*\)\"|[routerLink]=\"'/docs/\1'\"|g" > $HTML
         CHANGE=1
       fi
 

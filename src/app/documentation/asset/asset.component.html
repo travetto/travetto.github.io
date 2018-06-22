@@ -1,10 +1,31 @@
 <h1 id="travetto-asset">Asset</h1>
-<p>This module provides the framework for storing/retrieving assets. It also provides image management functionality using <code>GraphicsMagick</code> under the covers.  This allows you to retrieve images and provide different sizes, transformations, etc. when serving up them up. </p>
-<p>If <code>GraphicsMagick</code> is not installed, the framework will spin up a <code>docker</code> container to provide needed functionality.</p>
+<p>This module provides the framework for storing/retrieving assets. It also provides additional image functionality for on-the-fly resizing. </p>
+<p><code>GraphicsMagick</code> is used under the covers for image transformation.  If the binary is not installed the framework will spin up a <code>docker</code> container to provide needed functionality.</p>
 <p>The primary driver for the Asset framework is an <code>AssetSource</code> which needs to be implemented<br>to provide code on how to read and write files.  </p>
+<pre><code class="lang-typescript">
+<span class="sx-keyword">class</span> Config <span class="sx-keyword">extends</span> AssetMongoConfig {{ "{" }}
+  <span class="sx-meta">@InjectableFactory</span>()
+  <span class="sx-keyword">static</span> getConf(): AssetMongoConfig {{ "{" }}
+    <span class="sx-keyword">return</span> <span class="sx-keyword">new</span> AssetMongoConfig();
+  {{ "}" }}
+  <span class="sx-meta">@InjectableFactory</span>()
+  <span class="sx-keyword">static</span> getSource(cfg: AssetMongoConfig): AssetSource {{ "{" }}
+    <span class="sx-keyword">return</span> <span class="sx-keyword">new</span> AssetMongoSource(cfg);
+  {{ "}" }}
+{{ "}" }}
+
+<span class="sx-meta">@Injectable</span>()
+<span class="sx-keyword">class</span> AssetService {{ "{" }}
+  <span class="sx-keyword">constructor</span>(<span class="sx-params"><span class="sx-keyword">private</span> source: AssetSource</span>) {{ "{" }}{{ "}" }}
+
+  <span class="sx-keyword">async</span> getAsset(path:<span class="sx-built_in">string</span>) {{ "{" }}
+    <span class="sx-keyword">return</span> <span class="sx-keyword">await</span> <span class="sx-keyword">this</span>.source.read(path);
+  {{ "}" }}
+{{ "}" }}
+</code></pre>
 <p>Primary implementations:</p>
 <ul>
-<li><code>asset-mongo</code> provides the mongodb driver for file management</li>
-<li><code>asset-s3</code> provides the S3 driver for file management</li>
+<li><a [routerLink]="'/docs/../asset-mongo'"><code>Asset-Mongo</code></a> provides the mongodb driver for file management</li>
+<li><a [routerLink]="'/docs/../asset-s3'"><code>Asset-S3</code></a> provides the S3 driver for file management</li>
 </ul>
 
