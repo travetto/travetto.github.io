@@ -13,10 +13,11 @@
 <li>Stacktrace - Integration with <code>trace.js</code> to provide proper asynchronous stack traces</li>
 <li>Phase management for initializing applications<ul>
 <li>Recursively finds all <code>phase.&lt;phase&gt;.ts</code> files under <code>node_modules/@travetto</code>, and in the root of your project</li>
-<li>The export format of each initializer is <code>export const init = {{ "{" }}
-priority: 1, // Lower is of more importance
-action: () =&gt; {{ "{" }}{{ "}" }} // The action to take to initialize the module/project
-{{ "}" }}</code></li>
+<li>The export format of each initializer is <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> init <span class="token operator">=</span> <span class="token punctuation">{{ "{" }}</span>
+priority<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Lower is of more importance</span>
+action<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ "{" }}</span><span class="token punctuation">{{ "}" }}</span> <span class="token comment">// The action to take to initialize the module/project</span>
+<span class="token punctuation">{{ "}" }}</span></code></pre>
+</li>
 </ul>
 </li>
 <li>Util - Simple functions for providing a minimal facisimile to <code>lodash</code>, but without all the weight.</li>

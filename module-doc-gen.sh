@@ -49,7 +49,7 @@ if [[ "$1" == "watch" ]]; then
   FILES=`find ../ -name 'README.md' | grep -v 'node_modules' | grep -v 'js-yaml\|inky\|github\|plugin'`
 
   function block_for_change {
-    inotifywait -e modify,move,create,delete $FILES
+    inotifywait -e attrib,modify,move,create,delete $FILES
   }
 
   while block_for_change; do
