@@ -4,8 +4,8 @@
 <pre><code class="lang-typescript">  <span class="sx-keyword">export</span> <span class="sx-keyword">class</span> CustomerTransformer {{ "{" }}
     priority: <span class="sx-number">1</span>, <span class="sx-comment">// Lower is higher priority</span>
     phase: <span class="sx-string">'before'</span>|<span class="sx-string">'after'</span>, <span class="sx-comment">// The phase as defined by Typescript's AST processing</span>
-    transformer: (context: ts.TransformationContext) =&amp;gt; {{ "{" }}
-       <span class="sx-keyword">return</span> (file: ts.SourceFile) =&amp;gt; file    
+    transformer: <span class="sx-function">(<span class="sx-params">context: ts.TransformationContext</span>) =&gt;</span> {{ "{" }}
+       <span class="sx-keyword">return</span> <span class="sx-function">(<span class="sx-params">file: ts.SourceFile</span>) =&gt;</span> file    
     {{ "}" }}
   {{ "}" }}
 </code></pre>
