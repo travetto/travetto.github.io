@@ -1,25 +1,26 @@
 <h1 id="travetto-test">Test</h1>
-<p>This is a custom framework for testing, that produces <code>TAP</code> output, it also directly integrates with the <code>test-plugin</code> to provide<br>realtime feedback durring development.  It is a declarative framework, relying on decorators to define tests and suites.</p>
+<p>This is a custom framework for testing, that produces <code>TAP</code> output, it also directly integrates with the <code>test-plugin</code> to provide
+realtime feedback durring development.  It is a declarative framework, relying on decorators to define tests and suites.</p>
 <p>Test suites are generally defined by the <code>@Suite</code> annotation, and tests are defined as methods on the class, using the <code>@Test</code> annotation.</p>
-<pre><code class="lang-typescript"><span class="sx-meta">@Suite</span>()
-<span class="sx-keyword">class</span> SimpleTest {{ "{" }}
+<pre><code class="language-typescript">@<span class="token meta">Suite</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">SimpleTest</span> <span class="token punctuation">{{ "{" }}</span>
 
-  <span class="sx-meta">@Test</span>()
-  <span class="sx-keyword">async</span> test1() {{ "{" }}
-    <span class="sx-keyword">let</span> val = <span class="sx-keyword">await</span> doLongOp();
-    assert(val === <span class="sx-number">5</span>);
-  {{ "}" }}
+  @<span class="token meta">Test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+    <span class="token keyword">let</span> val <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">doLongOp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span>val <span class="token operator">===</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ "}" }}</span>
 
-  <span class="sx-meta">@Test</span>()
-  test2() {{ "{" }}
-    assert(<span class="sx-regexp">/abc/</span>.test(text));
-  {{ "}" }}
-{{ "}" }}
-</code></pre>
+  @<span class="token meta">Test</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span><span class="token regex">/abc/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ "}" }}</span>
+<span class="token punctuation">{{ "}" }}</span></code></pre>
 <p>Additionaly, the code utilizes AST transformations to:</p>
 <ul>
 <li>Record line number data finding tests by line number</li>
 <li>Translate <code>assert</code> calls into a richer format to provide better feedback, and to allow for emitting <code>assert</code> for recording results.</li>
 </ul>
 <p>All tests are required to be in <code>test/</code> given how the code searching operates.</p>
+
 

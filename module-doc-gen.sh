@@ -20,7 +20,7 @@ function run() {
 
       # Compile html
       if [ "$HTML" -ot "$README" ]; then
-        ./node_modules/.bin/markdown $README |\
+        ./node_modules/.bin/marked $README |\
           sed -e 's|Travetto:\s*||gi' |\
           ./highlight.js |\
           sed -e 's|\([{}]\)|{{ "\1" }}|g' |\

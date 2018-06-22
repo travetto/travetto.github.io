@@ -1,13 +1,14 @@
 <h1 id="travetto-cache">Cache</h1>
 <p>Provides a simple wrapper around <code>lru-cache</code> to provide standard caching constructs.  </p>
-<p>Provides a decorator to allow caching at the method level throughout the system.  Will rewrite the method<br>to cache on successful responses.</p>
-<pre><code class="lang-typescript">  <span class="sx-keyword">class</span> Worker {{ "{" }}
+<p>Provides a decorator to allow caching at the method level throughout the system.  Will rewrite the method
+to cache on successful responses.</p>
+<pre><code class="language-typescript">  <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token punctuation">{{ "{" }}</span>
 
-    <span class="sx-meta">@Cacheable</span>({{ "{" }} max: <span class="sx-number">1000</span> {{ "}" }})
-    calculateExpensiveResult(expression: <span class="sx-built_in">string</span>) {{ "{" }}
-      ...
-      <span class="sx-keyword">return</span> value;
-    {{ "}" }}
-  {{ "}" }}
-</code></pre>
+    @<span class="token meta">Cacheable</span><span class="token punctuation">(</span><span class="token punctuation">{{ "{" }}</span> max<span class="token punctuation">:</span> <span class="token number">1000</span> <span class="token punctuation">{{ "}" }}</span><span class="token punctuation">)</span>
+    <span class="token function">calculateExpensiveResult</span><span class="token punctuation">(</span>expression<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+      <span class="token operator">...</span>
+      <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">{{ "}" }}</span>
+  <span class="token punctuation">{{ "}" }}</span></code></pre>
+
 

@@ -29,78 +29,121 @@
       }
       code {
         font-size: 12pt;
+        line-height: 1.5;
         padding: .2em;
         background: #eee;
         border: 1px solid #ddd;
-        font-family: monospace;
+        font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+
+        border-radius: .3em;
+        box-shadow: 1px 1px .3em -.1em black;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+        word-wrap: normal;
       }
-      pre code {
+
+      @media print {
+        pre code[class*="language-"] {
+          text-shadow: none;
+        }
+      }
+
+      pre code[class*="language-"] {
         padding: 1em;
         display: block;
         overflow-x: auto;
         background: #272822;
         color: #ddd;
 
-        .sx-tag,
-        .sx-keyword,
-        .sx-selector-tag,
-        .sx-literal,
-        .sx-strong,
-        .sx-name {
-          color: #f92672;
-        }
+        text-align: left;
 
-        .sx-code {
-          color: #66d9ef;
-        }
+        -moz-tab-size: 2;
+        -o-tab-size: 2;
+        tab-size: 2;
 
-        .sx-class .sx-title {
-          color: white;
-        }
+        -webkit-hyphens: none;
+        -moz-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
 
-        .sx-attribute,
-        .sx-symbol,
-        .sx-regexp,
-        .sx-link {
-          color: #bf79db;
-        }
+        border-radius: .5em;
+        box-shadow: 1px 1px .5em black inset;
 
-        .sx-string,
-        .sx-bullet,
-        .sx-subst,
-        .sx-title,
-        .sx-section,
-        .sx-emphasis,
-        .sx-type,
-        .sx-built_in,
-        .sx-builtin-name,
-        .sx-selector-attr,
-        .sx-selector-pseudo,
-        .sx-addition,
-        .sx-variable,
-        .sx-template-tag,
-        .sx-template-variable {
-          color: #a6e22e;
-        }
+        .token {
+          &.meta {
+            color: orange;
+          }
 
-        .sx-comment,
-        .sx-quote,
-        .sx-deletion,
-        .sx-meta {
-          color: yellow;
-        }
+          &.comment,
+          &.prolog,
+          &.doctype,
+          &.cdata {
+            color: hsl(30, 20%, 50%);
+          }
 
-        .sx-keyword,
-        .sx-selector-tag,
-        .sx-literal,
-        .sx-doctag,
-        .sx-title,
-        .sx-section,
-        .sx-type,
-        .sx-selector-id {
-          font-weight: bold;
-        }
+          &.punctuation {
+            opacity: .7;
+          }
 
+          &.function {
+            color: palegoldenrod;
+          }
+
+          &.property,
+          &.tag,
+          &.boolean,
+          &.number,
+          &.constant,
+          &.symbol {
+            color: hsl(350, 40%, 70%);
+          }
+
+          &.selector,
+          &.attr-name,
+          &.string,
+          &.char,
+          &.builtin,
+          &.inserted {
+            color: hsl(75, 70%, 60%);
+          }
+
+          &.operator,
+          &.entity,
+          &.url,
+          .language-css &.string,
+          .style &.string,
+          &.variable {
+            color: hsl(40, 90%, 60%);
+          }
+
+          &.atrule,
+          &.attr-value,
+          &.keyword {
+            color: hsl(350, 40%, 70%);
+          }
+
+          &.regex,
+          &.important {
+            color: lightgreen;
+          }
+
+          &.important,
+          &.bold {
+            font-weight: bold;
+          }
+          &.italic {
+            font-style: italic;
+          }
+
+          &.entity {
+            cursor: help;
+          }
+
+          &.deleted {
+            color: red;
+          }
+        }
       }
     }
   }

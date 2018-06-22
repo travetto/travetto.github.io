@@ -1,13 +1,13 @@
 <h1 id="travetto-asset-express">Asset-Express</h1>
 <p>Provides the ability to access file uploads via <code>express</code>, and have them registered as <code>Asset</code>s on the request (as <code>req.files</code>)</p>
-<pre><code class="lang-typescript"><span class="sx-meta">@Controller</span>(<span class="sx-string">'/user'</span>)
-<span class="sx-keyword">class</span> Controller {{ "{" }}
+<pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/user'</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">Controller</span> <span class="token punctuation">{{ "{" }}</span>
 
-  <span class="sx-meta">@AssetUpload</span>()
-  <span class="sx-meta">@Post</span>(<span class="sx-string">'/avatar'</span>)
-  <span class="sx-keyword">async</span> setAvatar(req:Request, res:Response) {{ "{" }}
-    assert(req.files[<span class="sx-number">0</span>]);
-  {{ "}" }}
-{{ "}" }}
-</code></pre>
+  @<span class="token meta">AssetUpload</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/avatar'</span><span class="token punctuation">)</span>
+  <span class="token function">setAvatar</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">,</span> res<span class="token punctuation">:</span>Response<span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ "}" }}</span>
+<span class="token punctuation">{{ "}" }}</span></code></pre>
+
 
