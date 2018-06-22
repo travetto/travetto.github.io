@@ -17,6 +17,13 @@ available. The tools provide:</p>
 <li>Very simple functionality for recursively finding files, and caching the results</li>
 <li>Utilizes RegEx in lieu of glob for pattern matching on files (this is to minimize overall code complexity)</li>
 </ul>
+<p>A simple example of finding all <code>.config</code> files in your codebase:</p>
+<pre><code class="language-typescript">  <span class="token keyword">function</span> <span class="token function">processServiceConfigs</span><span class="token punctuation">(</span>svc<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+    <span class="token keyword">const</span> svcConfigs <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">findAppFiles</span><span class="token punctuation">(</span><span class="token string">'.config'</span><span class="token punctuation">,</span> file <span class="token operator">=></span> path<span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${{ "{" }}</span>svc<span class="token interpolation-punctuation punctuation">{{ "}" }}</span></span><span class="token string">.`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> conf <span class="token keyword">of</span> svcConfigs<span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+      <span class="token operator">...</span> <span class="token keyword">do</span> work
+    <span class="token punctuation">{{ "}" }}</span>
+  <span class="token punctuation">{{ "}" }}</span></code></pre>
 <h2 id="environmental-information">Environmental Information</h2>
 <p>The framework provides basic environment information, e.g. in prod/test/dev.  This is useful for runtime decisions.  This is primarily used
 by the framework, but can prove useful to application developers as well. The information that is available is:</p>
@@ -32,7 +39,16 @@ by the framework, but can prove useful to application developers as well. The in
 <li><code>cwd: string</code> - what is the root folder of the application</li>
 </ul>
 <h2 id="shutdown">Shutdown</h2>
-<p>Event listener interface to run code on shutdown</p>
+<p>This is centralized functionality for running operations on shutdown.  Primarily used by the framework for cleanup operations, this provides a clean interface for registering shutdown handlers and awaiting shutdown to finish.</p>
+<p>As a registered handler, you can do.</p>
+<pre><code class="language-typescript">Shutdown<span class="token punctuation">.</span><span class="token function">onShutdown</span><span class="token punctuation">(</span><span class="token string">'handler-name'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ "{" }}</span>
+  <span class="token comment">// Do important work</span>
+<span class="token punctuation">{{ "}" }}</span><span class="token punctuation">)</span></code></pre>
+<p>If knowing when shutdown finishes is all you want, you can simply use:</p>
+<pre><code class="language-typescript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">messageOnShutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+  <span class="token keyword">await</span> Shutdown<span class="token punctuation">.</span><span class="token function">onShutdownPromise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Shutdown is complete!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ "}" }}</span></code></pre>
 <h2 id="stacktrace">Stacktrace</h2>
 <p>Integration with <code>trace.js</code> to provide proper asynchronous stack traces</p>
 <h2 id="phase-management">Phase management</h2>
