@@ -1,18 +1,34 @@
 <h1 id="schema">Schema</h1>
-<p>This module provide validation for data schemas. The module uses AST transformations to<br>modify <code>class</code>es at runtime, to annotate with types, and whether or not fields are<br>required/optional.  Additionally, for constraints that are not immediately discernable,<br>the following are available:</p>
+<p>This module provide a mechanisms for registering classes and field level information as well the ability to apply that information at runtime.</p>
+<h2 id="registration">Registration</h2>
+<p>The registry’s schema information is defined by <code>typescript</code> AST and only applies to classes registered as <code class="decorator">@Schema</code>s.<br>The module utilizes AST transformations to collect schema information, and facilitate the registration process without<br>user intervention.</p>
+<pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
+  name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  favoriteFood<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token string">'pizza'</span><span class="token operator">|</span><span class="token string">'burrito'</span><span class="token operator">|</span><span class="token string">'salad'</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>From this schema, the registry would have the following information:</p>
+<pre><code class="language-yaml"><span class="token key atrule">User</span><span class="token punctuation">:</span>
+  <span class="token key atrule">fields</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> 
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> name
+      <span class="token key atrule">type"</span><span class="token punctuation">:</span> string
+      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">true </span>
+    <span class="token punctuation">-</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> age
+      <span class="token key atrule">type</span><span class="token punctuation">:</span> number
+      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">true      </span>
+    <span class="token punctuation">-</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> favoriteFood
+      <span class="token key atrule">type</span><span class="token punctuation">:</span> string
+      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+      <span class="token key atrule">allowedValues</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"pizza"</span><span class="token punctuation">,</span> <span class="token string">"burrito"</span><span class="token punctuation">,</span> <span class="token string">"salad"</span> <span class="token punctuation">]</span></code></pre><p>This provides a powerful base for data binding and validation at runtime.  Additionally there may be types that cannot be detected, or<br>some information that the programmer would like to override. Below are the supported field decorators:</p>
 <ul>
-<li><p>Class level</p>
-<ul>
-<li><code class="decorator">@Schema</code> defines a class to be a validated, will auto detect schema from typescript annotations</li>
-</ul>
-</li>
-<li><p>Decorator based definition of Mongoose validators as well as general metadata</p>
-<ul>
-<li><code class="decorator">@Field</code> defines a field that will be serialized (if not using auto <code>@Schema()</code>)</li>
-<li><code class="decorator">@Require</code> defines a required field</li>
-<li><code class="decorator">@Enum</code> defines a field with only enumerated values</li>
-<li><code class="decorator">@Trimmed</code> whitespace trims the field</li>
-<li><code class="decorator">@Match</code> allows for regex validation on a field</li>
+<li><code class="decorator">@Field</code> defines a field that will be serialized, generally used in conjunction with <code class="inline language-typescript">@Schema(false)</code> which disables the auto registration.</li>
+<li><code class="decorator">@Require</code> defines a that field should be required</li>
+<li><code class="decorator">@Enum</code> defines the allowable values that a field can have</li>
+<li><code class="decorator">@Trimmed</code> augments binding to remove leading and trailing whitespace from string values</li>
+<li><code class="decorator">@Match</code> defines a regular expression that the field value should match</li>
 <li><code class="decorator">@MinLength</code> enforces min length of a string</li>
 <li><code class="decorator">@MaxLength</code> enforces max length of a string</li>
 <li><code class="decorator">@Min</code> enforces min value for a date or a number</li>
@@ -24,6 +40,75 @@
 <li><code class="decorator">@Integer</code> ensures number passed in is only a whole number</li>
 <li><code class="decorator">@Float</code> ensures number passed in allows fractional values</li>
 </ul>
-</li>
-</ul>
+<p>Additionally, schemas can be nested to form more complex data structures that are able to bound and validated.</p>
+<h2 id="binding-validation">Binding/Validation</h2>
+<p>At runtime, once a schema is registered, a programmer can utilize this structure to perform specific operations. Specifically binding and validation. </p>
+<h3 id="binding">Binding</h3>
+<p>Binding is a very simple operation, as it takes in a class registered as as <code class="decorator">@Schema</code> and a JS object that will be the source of the binding. Given the schema</p>
+<pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
+  street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  street2<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span>
 
+@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{{ '{' }}</span>
+  name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  @<span class="token meta">Integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  address<span class="token punctuation">:</span> Address<span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>A binding operation could look like</p>
+<pre><code class="language-typescript">Person<span class="token punctuation">.</span><span class="token keyword">from</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
+  name<span class="token punctuation">:</span> <span class="token string">'Test'</span><span class="token punctuation">,</span>
+  age<span class="token punctuation">:</span> <span class="token number">19.999978</span><span class="token punctuation">,</span>
+  address<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span>
+    street1<span class="token punctuation">:</span> <span class="token string">'1234 Fun'</span><span class="token punctuation">,</span>
+    street2<span class="token punctuation">:</span> <span class="token string">'Unit 20'</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>and the output would be a <code>Person</code> instance with the following structure</p>
+<pre><code class="language-typescript"><span class="token function">Person</span><span class="token punctuation">(</span>
+  name<span class="token punctuation">:</span> <span class="token string">'Test'</span><span class="token punctuation">,</span>
+  age<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+  address<span class="token punctuation">:</span> <span class="token function">Address</span><span class="token punctuation">(</span>
+    street1<span class="token punctuation">:</span> <span class="token string">'1234 Fun'</span><span class="token punctuation">,</span>
+    street2<span class="token punctuation">:</span> <span class="token string">'Unit 20'</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span></code></pre><p><strong>NOTE</strong> Binding will attempt to convert/coerce types as much as possible to honor the pattern of Javascript and it’s dynamic nature.</p>
+<h3 id="validation">Validation</h3>
+<p>Validation is very similar to binding, but instead of attempting to assign values, any mismatch or violation of the schema will result in all errors being collected and returned.</p>
+<p>Given the same schema as above, </p>
+<pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
+  street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  street2<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span>
+
+@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{{ '{' }}</span>
+  name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  @<span class="token meta">Integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  address<span class="token punctuation">:</span> Address<span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>But now with an invalid json object</p>
+<pre><code class="language-typescript"><span class="token keyword">const</span> person <span class="token operator">=</span> Person<span class="token punctuation">.</span><span class="token keyword">from</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
+  name<span class="token punctuation">:</span> <span class="token string">'Test'</span><span class="token punctuation">,</span>
+  age<span class="token punctuation">:</span> <span class="token string">'abc'</span><span class="token punctuation">,</span>
+  address<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span>
+    street1<span class="token punctuation">:</span> <span class="token string">'1234 Fun'</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">try</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">await</span> SchemaValidator<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token keyword">instanceof</span> <span class="token class-name">ValidationErrors</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token operator">...</span> Handle errors <span class="token operator">...</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>would produce an exception similar to following structure</p>
+<pre><code class="language-yaml"><span class="token key atrule">errors</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> 
+    <span class="token key atrule">path</span><span class="token punctuation">:</span> age
+    <span class="token key atrule">kind</span><span class="token punctuation">:</span> type
+    <span class="token key atrule">message</span><span class="token punctuation">:</span> 'abc' is not assignable to type number
+  <span class="token punctuation">-</span> 
+    <span class="token key atrule">path</span><span class="token punctuation">:</span> address.street2
+    <span class="token key atrule">kind</span><span class="token punctuation">:</span> required
+    <span class="token key atrule">message</span><span class="token punctuation">:</span> address.street2 is a required field</code></pre>

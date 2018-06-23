@@ -9,6 +9,7 @@ require('prismjs/components/prism-javascript');
 require('prismjs/components/prism-css');
 require('prismjs/components/prism-scss');
 require('prismjs/components/prism-yaml');
+require('prismjs/components/prism-json');
 require('prismjs/components/prism-properties');
 require('prismjs/components/prism-bash');
 
