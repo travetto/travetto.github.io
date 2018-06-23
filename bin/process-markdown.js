@@ -30,7 +30,6 @@ function highlight(text, lang) {
   try {
     return Prism.highlight(text, Prism.languages[lang], lang)
       .replace(/(@\s*<span[^>]*)function("\s*>)/g, (a, pre, post) => `${pre}meta${post}`)
-      .replace(/[{}]/g, a => `{{ '${a}' }}`);
   } catch (e) {
     console.error(e.stack);
   }
@@ -48,7 +47,8 @@ class MyRenderer extends marked.Renderer {
       return `<a class="module-link" routerLink="${href}" ${title}>${text}</a>`;
     } else if (href.startsWith('http')) {
       return `<a class="external-link" href="${href}" target="_blank" ${title}>${text}</a>`;
-    } else if (href.startsWith('.src')) {
+    } else if (href.startsWith('.')) {
+      href = `https://githhub.com/travetto/${moduleName}/tree/master/${href.replace(/^.[/]/ ,'')}`;
       return `<a class="source-link" href="${href}" target="_blank" ${title}>${text}</a>`;
     }
     return super.link(href, title, text);
@@ -56,7 +56,7 @@ class MyRenderer extends marked.Renderer {
   codespan(code) {
     if (/^@[A-Za-z0-9]+$/.test(code)) {
       return `<code class="decorator">${code}</code>`;
-    } else if (/^[^/]*\/.*[.].*$/.test(code)) {
+    } else if (/^([^/]*\/.*[.].*)|([^/]*\/[^/]*\/.*)$/.test(code)) {
       return `<code class="path">${code}</code>`;
     } else {
       return super.codespan(code);
@@ -86,7 +86,10 @@ const content = fs.readFileSync(inputMarkdown).toString()
   .replace(/Travetto:\s*/gi, '')
   .replace(/```([^\n]*)```/g, (a, c) => '\n```typescript-inline\n' + c + '\n```\n');
 
-console.log(marked(content, { ...opts, renderer: new MyRenderer(opts) }));
+const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
+  .replace(/[{}]/g, a => `{{ '${a}' }}`);
+
+console.log(output);
 
 // (err, content) => {
 // content = content

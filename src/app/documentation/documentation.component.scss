@@ -89,9 +89,12 @@
       code.decorator {
         background-color: desaturate(lighten(orange, 20%), 10%);
         color: #333;
-        border-color: orange;
       }
 
+      code.path {
+        background-color: desaturate(lighten(red, 40%), 10%);
+        color: #333;
+      }
     }
   }
 }
