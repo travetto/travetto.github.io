@@ -54,7 +54,9 @@ class MyRenderer extends marked.Renderer {
     return super.link(href, title, text);
   }
   codespan(code) {
-    if (/^@[A-Za-z0-9]+$/.test(code)) {
+    if (/^█/.test(code)) {
+      return `<code class="inline language-typescript">${code.substring(1)}</code>`
+    } else if (/^@[A-Za-z0-9]+$/.test(code)) {
       return `<code class="decorator">${code}</code>`;
     } else if (/^([^/]*\/.*[.].*)|([^/]*\/[^/]*\/.*)$/.test(code)) {
       return `<code class="path">${code}</code>`;
@@ -84,7 +86,7 @@ const opts = {
 
 const content = fs.readFileSync(inputMarkdown).toString()
   .replace(/Travetto:\s*/gi, '')
-  .replace(/```([^\n]*)```/g, (a, c) => '\n```typescript-inline\n' + c + '\n```\n');
+  .replace(/```([^\n]*?)```/g, (a, c) => '`█' + c + '`');
 
 const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
   .replace(/[{}]/g, a => `{{ '${a}' }}`);

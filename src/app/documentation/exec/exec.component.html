@@ -1,4 +1,18 @@
 <h1 id="exec">Exec</h1>
+<p>The exec module provides the necessary foundation for calling executables at runtime. Additionally special attention is provided to<br>running <a class="external-link" href="https://www.docker.com/community-edition" target="_blank" null><code>docker</code></a> containers.</p>
+<h2 id="simple-execution">Simple Execution</h2>
+<p>Just like <a class="external-link" href="https://www.docker.com/community-edition" target="_blank" null><code>child_process</code></a>, the module exposes <code class="inline language-typescript">spawn</code>, <code class="inline language-typescript">fork</code>, and <code class="inline language-typescript">exec</code>.  These are generally wrappers around the underlying functionality.  In addition to the base functionality, each of those functions is converted to a <code class="inline language-typescript">Promise</code> structure, that throws an error on an non-zero return status.</p>
+<p>A simple example would be</p>
+<pre><code class="language-typescript"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">executeListing</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>process<span class="token punctuation">,</span> resultPromise<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">spawn</span><span class="token punctuation">(</span><span class="token string">'ls'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> resultPromise<span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>As you can see, the call returns not only the child process information, but the <code class="inline language-typescript">Promise</code> to wait for.  Additionally, some common patterns are provided for the default construction of the child process. In addition to the standard options for running child processes, the module also supports:</p>
+<ul>
+<li><code>timeout</code> as the number of milliseconds the process can run before terminating and throwing an error</li>
+<li><code>quiet</code> which suppresses all stdout/stderr output</li>
+<li><code>stdin</code> as a string, buffer or stream to provide input to the program you are running;</li>
+<li><code>timeoutKill</code> allows for registering functionality to execute when a process is force killed by timeout</li>
+</ul>
 <p>This module provides general operations for working with processes</p>
 <ul>
 <li>Allows for running a single command</li>
