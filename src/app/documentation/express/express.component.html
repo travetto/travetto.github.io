@@ -3,8 +3,8 @@
 <ul>
 <li><p>Route management </p>
 <ul>
-<li>Define a route scope using <code>@Controller</code> on a class</li>
-<li>Define individual routes using <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code> on a static method of the class</li>
+<li>Define a route scope using <code class="decorator">@Controller</code> on a class</li>
+<li>Define individual routes using <code class="decorator">@Get</code>, <code class="decorator">@Post</code>, <code class="decorator">@Put</code>, <code class="decorator">@Delete</code> on a static method of the class</li>
 <li>Supports <code>async</code> methods for route handlings vs <code>next</code> callbacks</li>
 <li><em>DEV</em> mode will allow for hot reloading of <code>class</code>es at runtime</li>
 </ul>
@@ -32,9 +32,9 @@
 <ul>
 <li><p><code>Schema</code> support for typing requests </p>
 <ul>
-<li><code>@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide
+<li><code class="decorator">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide
 validation before the controller even receives the request.</li>
-<li><code>@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide
+<li><code class="decorator">@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide
 validation before the controller even receives the request.   </li>
 </ul>
 </li>
