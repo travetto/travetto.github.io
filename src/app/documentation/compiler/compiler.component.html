@@ -14,23 +14,35 @@
 </ul>
 </li>
 <li>Allows for hot-reloading of classes during development<ul>
-<li>Utilizes <code>es2015</code> <code>Proxy</code>s to allow for swapping out implementation at runtime</li>
+<li>Utilizes <code>es2015</code> <code class="inline language-typescript">Proxy</code>s to allow for swapping out implementation at runtime</li>
 </ul>
 </li>
 </ul>
 <p>Additionally, there is support for common AST transformation patterns to facilitate all the transformers used throughout the framework. Functionality includes:</p>
 <ul>
-<li><code>getDecoratorIdent(d: ts.Decorator)</code><br>Gets the name of the decorator function</li>
-<li><code>findAnyDecorator(node: ts.Node, patterns, state)</code><br>Attempts to find any matching decorators as defined in patterns</li>
-<li><code>addImport(file: ts.SourceFile, imports: Import[])</code><br>Will add an import to the existing source file</li>
-<li><code>fromLiteral(val: any)</code><br>Converts a literal value to the corresponding AST nodes</li>
-<li><code>extendObjectLiteral(addTo: object, lit?)</code><br>Extends an AST Node via a literal value, generally used to emulate <code>Object.assign</code> in the AST</li>
-<li><code>getObjectValue(node: ts.ObjectLiteralExpression, key: string)</code><br>Extracts the literal value from an AST node if possible</li>
-<li><code>importingVisitor</code><br>Provides a transformer visitor that collects imports, and adds them to the source file as needed</li>
-<li><code>importIfExternal(typeNode: ts.TypeNode, state: State)</code><br>Will import a reference if the type is not defined within the file</li>
-<li><code>buildImportAliasMap(pathToType)</code><br>Will generate an import lookup to be used for simple type resolution</li>
+<li><code class="inline language-typescript"><span class="token function">getDecoratorIdent</span><span class="token punctuation">(</span>d<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>Decorator<span class="token punctuation">)</span><span class="token punctuation">:</span> ts<span class="token punctuation">.</span>Identifier</code><p>Gets the name of the decorator function</p>
+</li>
+<li><code class="inline language-typescript"><span class="token function">findAnyDecorator</span><span class="token punctuation">(</span>node<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> patterns<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span> <span class="token punctuation">[</span>key<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token punctuation">:</span> Set<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">,</span> state<span class="token punctuation">:</span> State<span class="token punctuation">)</span><span class="token punctuation">:</span> ts<span class="token punctuation">.</span>Decorator <span class="token operator">|</span> undefined </code><p>Attempts to find any matching decorators as defined in patterns</p>
+</li>
+<li><code class="inline language-typescript"><span class="token function">addImport</span><span class="token punctuation">(</span>file<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>SourceFile<span class="token punctuation">,</span> imports<span class="token punctuation">:</span> Import<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code><p>Will add an import to the existing source file</p>
+</li>
+<li><code class="inline language-typescript"><span class="token function">fromLiteral</span><span class="token punctuation">(</span>val<span class="token punctuation">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span></code><p>Converts a literal value to the corresponding AST nodes</p>
+</li>
+<li><code class="inline language-typescript"><span class="token function">extendObjectLiteral</span><span class="token punctuation">(</span>addTo<span class="token punctuation">:</span> object<span class="token punctuation">,</span> lit<span class="token operator">?</span><span class="token punctuation">:</span> ts<span class="token punctuation">.</span>ObjectLiteralExpression<span class="token punctuation">)</span></code><p>Extends an AST Node via a literal value, generally used to emulate </p>
+<code class="inline language-typescript">Object<span class="token punctuation">.</span>assign</code><p>in the AST</p>
+</li>
+<li><code class="inline language-typescript">getPrimaryArgument<span class="token operator">&lt;</span><span class="token constant">T</span> <span class="token operator">=</span> ts<span class="token punctuation">.</span>Node<span class="token operator">></span><span class="token punctuation">(</span>node<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>CallExpression <span class="token operator">|</span> ts<span class="token punctuation">.</span>Decorator <span class="token operator">|</span> undefined<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token constant">T</span> <span class="token operator">|</span> undefined</code><p>Retrieves the first argument of CallExpression or Decorator</p>
+</li>
+<li><code class="inline language-typescript"><span class="token function">getObjectValue</span><span class="token punctuation">(</span>node<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>ObjectLiteralExpression <span class="token operator">|</span> undefined<span class="token punctuation">,</span> key<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span></code><p>Extracts the literal value from an AST node if possible</p>
+</li>
+<li><code class="inline language-typescript">importingVisitor</code><p>Provides a transformer visitor that collects imports, and adds them to the source file as needed</p>
+</li>
+<li><code class="inline language-typescript">importIfExternal<span class="token operator">&lt;</span><span class="token constant">T</span> <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token operator">></span><span class="token punctuation">(</span>typeNode<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>TypeNode<span class="token punctuation">,</span> state<span class="token punctuation">:</span> State<span class="token punctuation">)</span></code><p>Will import a reference if the type is not defined within the file</p>
+</li>
+<li><code class="inline language-typescript"><span class="token function">buildImportAliasMap</span><span class="token punctuation">(</span>pathToType<span class="token punctuation">)</span></code><p>Will generate an import lookup to be used for simple type resolution</p>
+</li>
 </ul>
-<p>Transformations are defined by <code>support/transformation.&lt;name&gt;.ts</code> as the filename. The schema for a transformer is </p>
+<p>Transformations are defined by <code class="path">support/transformation.&lt;name&gt;.ts</code> as the filename. The schema for a transformer is </p>
 <pre><code class="language-typescript">  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerTransformer</span> <span class="token punctuation">{{ '{' }}</span>
     priority<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Lower is higher priority</span>
     phase<span class="token punctuation">:</span> <span class="token string">'before'</span><span class="token operator">|</span><span class="token string">'after'</span><span class="token punctuation">,</span> <span class="token comment">// The phase as defined by Typescript's AST processing</span>

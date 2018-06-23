@@ -56,13 +56,20 @@ class MyRenderer extends marked.Renderer {
   codespan(code) {
     if (/^@[A-Za-z0-9]+$/.test(code)) {
       return `<code class="decorator">${code}</code>`;
+    } else if (/^[^/]*\/.*[.].*$/.test(code)) {
+      return `<code class="path">${code}</code>`;
     } else {
       return super.codespan(code);
     }
   }
   code(text, lang, escaped) {
     if (lang) {
-      return `<pre><code class="language-${lang}">${highlight(text, lang)}</code></pre>`;
+      if (lang.includes('-inline')) {
+        lang = lang.replace(/-inline/g, '');
+        return `<code class="inline language-${lang}">${highlight(text, lang)}</code>`;
+      } else {
+        return `<pre><code class="language-${lang}">${highlight(text, lang)}</code></pre>`;
+      }
     } else {
       return super.code(text, lang, escaped);
     }
@@ -75,7 +82,9 @@ const opts = {
   smartypants: true
 };
 
-const content = fs.readFileSync(inputMarkdown).toString().replace(/Travetto:\s*/gi, '');
+const content = fs.readFileSync(inputMarkdown).toString()
+  .replace(/Travetto:\s*/gi, '')
+  .replace(/```([^\n]*)```/g, (a, c) => '\n```typescript-inline\n' + c + '\n```\n');
 
 console.log(marked(content, { ...opts, renderer: new MyRenderer(opts) }));
 
