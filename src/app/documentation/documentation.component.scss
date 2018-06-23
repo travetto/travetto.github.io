@@ -66,6 +66,14 @@
           border-color: green;
         }
       }
+
+      a.external-link {
+        code {
+          background-color: desaturate(darken(blue, 10%), 30%);
+          color: white;
+          border-color: blue;
+        }
+      }
     }
   }
 }

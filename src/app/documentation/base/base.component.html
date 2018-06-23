@@ -50,7 +50,7 @@ by the framework, but can prove useful to application developers as well. The in
   <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Shutdown is complete!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre>
 <h2 id="stacktrace">Stacktrace</h2>
-<p>Integration with <code>trace.js</code> to handle asynchronous call stacks, and provide higher quality stack traces.  The stack filtering will remove duplicate or unnecessary lines, as well as filter out framework specific steps that do not aid in debugging.  The final result should be a stack trace that is concise and clear.</p>
+<p>Integration with <a class="external-link" href="https://trace.js.org/"><code>trace.js</code></a> to handle asynchronous call stacks, and provide higher quality stack traces.  The stack filtering will remove duplicate or unnecessary lines, as well as filter out framework specific steps that do not aid in debugging.  The final result should be a stack trace that is concise and clear.</p>
 <p>From a test scenario:</p>
 <pre><code class="language-typescript"><span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">inner1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
@@ -79,7 +79,7 @@ by the framework, but can prove useful to application developers as well. The in
 </ol>
 </li>
 </ul>
-<p>An example would be something like <code>phase.bootstrap.ts</code> in the <a class="module-link" routerLink="/docs/config"><code>config</code></a> module.  </p>
+<p>An example would be something like <code>phase.bootstrap.ts</code> in the <a class="module-link" routerLink="/docs/config"><code>Config</code></a> module.  </p>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> init <span class="token operator">=</span> <span class="token punctuation">{{ '{' }}</span>
   priority<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Lower is of more importance, and runs first</span>
   action<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
@@ -88,7 +88,7 @@ by the framework, but can prove useful to application developers as well. The in
 <span class="token punctuation">{{ '}' }}</span></code></pre>
 <p>The needed functionality cannot be loaded until <code>init.action</code> executes, and so must be required only at that time.</p>
 <h2 id="util">Util</h2>
-<p>Simple functions for providing a minimal facisimile to <code>lodash</code>, but without all the weight. Currently <code>util</code> only includes:</p>
+<p>Simple functions for providing a minimal facsimile to <a class="external-link" href="https://lodash.com"><code>lodash</code></a>, but without all the weight. Currently <code>util</code> only includes:</p>
 <ul>
 <li><code>isPrimitive(el: any)</code> determines if <code>el</code> is a <code>string</code>, <code>boolean</code>, <code>number</code> or <code>RegExp</code></li>
 <li><code>isPlainObject(obj: any)</code> determines if the obj is a simple object</li>
@@ -104,7 +104,7 @@ by the framework, but can prove useful to application developers as well. The in
 <li><code>throttle(fn, threshhold?: number)</code> produces a function that will execute <code>fn</code>, at most once per <code>threshold</code></li>
 </ul>
 <h2 id="watch">Watch</h2>
-<p>A very simple file watching library, with a substantially smaller footprint than <code>gaze</code> or <code>chokidar</code>.  </p>
+<p>A very simple file watching library, with a substantially smaller footprint than <a class="external-link" href="https://github.com/shama/gaze"><code>gaze</code></a> or <a class="external-link" href="https://github.com/paulmillr/chokidar"><code>chokidar</code></a>.  </p>
 <pre><code class="language-typescript"><span class="token keyword">const</span> watcher <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Watcher</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>cwd<span class="token punctuation">:</span> <span class="token string">'base/path/to/...'</span><span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 watcher<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
   <span class="token string">'local.config'</span><span class="token punctuation">,</span>
