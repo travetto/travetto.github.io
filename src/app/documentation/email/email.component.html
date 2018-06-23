@@ -1,10 +1,33 @@
 <h1 id="travetto-email">Email</h1>
-<p>This module provides email support using <code>nodemailer</code>.  This also supports templating using 
-mustache, juice, and markdown.  The module is configurable using the <code>email</code> namespace. 
-If you specify the transport as <code>null</code> it will use a mock mail transport to swallow all
-outbound mail.  If you specify the transport as <code>sendmail</code> it will use a local sendmail
-utility to send outbound messages. </p>
-<p>When using mustache, make sure to use <code>{{ '{' }}{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}{{ '}' }}</code>, triple braces, to prevent mustache from 
-escaping any characters.</p>
+<p>This module provides two main pieces of functionality. Specifically the ability to template emails, and the the ability to send them.</p>
+<h2 id="templating">Templating</h2>
+<p>Templating emails is achieved through a combination of multiple libraries, specifically:</p>
+<ul>
+<li><a class="external-link" target="_blank" href="https://github.com/zurb/inky"><code>inky</code></a> is a email rendering framework that aims to provide a standard set of constructs for building 
+visually appealing emails.</li>
+<li><a class="external-link" target="_blank" href="https://github.com/jonkemp/inline-css"><code>inline-css</code></a> inlines CSS in related sheets or the head of the html document, into the html body 
+contents (some email clients require this).</li>
+<li><a class="external-link" target="_blank" href="https://github.com/markedjs/marked"><code>marked</code></a> is used to generate the plain text version of the email, rendering html into markdown</li>
+<li><a class="external-link" target="_blank" href="https://github.com/janl/mustache.js/"><code>mustache</code></a> allows for interpolation of variables for personalized emails.</li>
+<li><a class="external-link" target="_blank" href="https://pngquant.org/"><code>pngquant</code></a> is used to compress images on the fly for bandwidth optimizations. <code>pngquant</code> is not installed as a dependency, but relies
+upon either the binary being already installed, or spinning up a docker container to use as a way of executing the binary.</li>
+</ul>
+<p><strong>NOTE</strong> Many of the libraries were chosen due to size and number of overall dependencies.  Any performance issues are mitigated accordingly.</p>
+<p>Additionally, the module provides a base email wrapper to minimize the amount of repeat code that a developer will need to write.</p>
+<p>A sample template could look like:</p>
+<pre><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}left{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Bob<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}right{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span></code></pre>
+<p>which will then interpolate the context to replace <code>left</code> and <code>right</code>, and compile to a final html output.</p>
+<p>When using mustache expression, make sure to use <code>{{ '{' }}{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}{{ '}' }}</code>, triple braces, to prevent mustache from escaping any characters.</p>
+<h2 id="sending">Sending</h2>
+<p>The actual sending of emails, uses <a class="external-link" target="_blank" href="https://nodemailer.com/about/"><code>nodemailer</code></a> as the general framework.  When sending emails you can 
+use the following transports:</p>
+<ul>
+<li><code>none</code> to discard all emails</li>
+<li><code>sendmail</code> to send all messages via the sendmail operation</li>
+<li><code>smtp</code> to utilizing the protocol directly and send to a specific server</li>
+</ul>
 
 
