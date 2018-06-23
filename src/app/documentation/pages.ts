@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
-import { AssetComponent } from './asset/asset.component';
 import { AssetExpressComponent } from './asset-express/asset-express.component';
 import { AssetMongoComponent } from './asset-mongo/asset-mongo.component';
+import { AssetComponent } from './asset/asset.component';
 import { AssetS3Component } from './asset-s3/asset-s3.component';
 import { AuthComponent } from './auth/auth.component';
 import { BaseComponent } from './base/base.component';
@@ -14,9 +14,9 @@ import { EmailComponent } from './email/email.component';
 import { ExecComponent } from './exec/exec.component';
 import { ExpressComponent } from './express/express.component';
 import { LogComponent } from './log/log.component';
-import { ModelComponent } from './model/model.component';
 import { ModelElasticsearchComponent } from './model-elasticsearch/model-elasticsearch.component';
 import { ModelMongoComponent } from './model-mongo/model-mongo.component';
+import { ModelComponent } from './model/model.component';
 import { PoolComponent } from './pool/pool.component';
 import { RegistryComponent } from './registry/registry.component';
 import { ScheduleComponent } from './schedule/schedule.component';
@@ -25,9 +25,9 @@ import { TestComponent } from './test/test.component';
 import { UtilComponent } from './util/util.component';
 
 export const PAGES = [
-  { path: 'asset', title: 'Asset', component: AssetComponent },
   { path: 'asset-express', title: 'Asset-Express', component: AssetExpressComponent },
   { path: 'asset-mongo', title: 'Asset-Mongo', component: AssetMongoComponent },
+  { path: 'asset', title: 'Asset', component: AssetComponent },
   { path: 'asset-s3', title: 'Asset-S3', component: AssetS3Component },
   { path: 'auth', title: 'Auth', component: AuthComponent },
   { path: 'base', title: 'Base', component: BaseComponent },
@@ -40,9 +40,9 @@ export const PAGES = [
   { path: 'exec', title: 'Exec', component: ExecComponent },
   { path: 'express', title: 'Express', component: ExpressComponent },
   { path: 'log', title: 'Log', component: LogComponent },
-  { path: 'model', title: 'Model', component: ModelComponent },
   { path: 'model-elasticsearch', title: 'Model-Elasticsearch', component: ModelElasticsearchComponent },
   { path: 'model-mongo', title: 'Model-Mongo', component: ModelMongoComponent },
+  { path: 'model', title: 'Model', component: ModelComponent },
   { path: 'pool', title: 'Pool', component: PoolComponent },
   { path: 'registry', title: 'Registry', component: RegistryComponent },
   { path: 'schedule', title: 'Schedule ', component: ScheduleComponent },
@@ -50,3 +50,8 @@ export const PAGES = [
   { path: 'test', title: 'Test', component: TestComponent },
   { path: 'util', title: 'Util', component: UtilComponent },
 ];
+
+PAGES.sort((a: { title: string }, b: { title: string }) => {
+  return a.title.localeCompare(b.title);
+});
+

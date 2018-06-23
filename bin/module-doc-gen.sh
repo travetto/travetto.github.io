@@ -14,29 +14,31 @@ function run() {
   local IMPORTS="import { Type } from '@angular/core';"
   local PAGES=''
 
-  for x in `ls $ROOT | grep -v 'github.io\|inky\|js-yaml\|test-plugin\|starter'`; do   
-    if [[ -d "$ROOT/$x" ]]; then
-      local HTML="$DOC_ROOT/$x/$x.component.html"
-      local README="$ROOT/$x/README.md"
+  # Handle components markdown
+  for MARKDOWN in `find $ROOT -name README.md | grep -v 'github.io\|inky\|js-yaml\|test-plugin\|starter\|node_modules' | sort`; do  
 
-      if [[ ! -f "$HTML" ]]; then
-        ng g c documentation/$x
-        CREATED=1
-      fi
+    MODULE=`echo "$MARKDOWN" | sed -e 's|^.*/travetto/||g' | sed -e 's|/.*$||g'`
 
-      # Compile html
-      if [ "$HTML" -ot "$README" ]; then
-        ./bin/process-markdown.js $README $x > $HTML
-        CHANGE=1
-      fi
+    local HTML="$DOC_ROOT/$MODULE/$MODULE.component.html"
 
-      local COMP=`cat $DOC_ROOT/$x/$x.component.ts | grep class | awk '{ print $3 }'`
-      local TITLE=`cat $HTML | grep '<h1' | head -n1 | sed -e 's|<[^>]*>||g'`
-      local IMPORTS="$IMPORTS"$'\n'"import { $COMP } from './$x/$x.component';"
-      local PAGES="$PAGES"$'\n'"  { path: '$x', title: '$TITLE', component: $COMP },"
+    if [[ ! -f "$HTML" ]]; then
+      ng g c documentation/$x
+      CREATED=1
     fi
+
+    # Compile html
+    if [ "$HTML" -ot "$MARKDOWN" ]; then
+      ./bin/process-markdown.js $MARKDOWN $MODULE > $HTML
+      CHANGE=1
+    fi
+
+    local COMP=`cat $DOC_ROOT/$MODULE/$MODULE.component.ts | grep class | awk '{ print $3 }'`
+    local TITLE=`cat $HTML | grep '<h1' | head -n1 | sed -e 's|<[^>]*>||g'`
+    local IMPORTS="$IMPORTS"$'\n'"import { $COMP } from './$MODULE/$MODULE.component';"
+    local PAGES="$PAGES"$'\n'"  { path: '$MODULE', title: '$TITLE', component: $COMP },"
   done
 
+  # Update component listing
   if [[ -n "$CREATED" ]]; then
     echo "$IMPORTS" > $PAGE_FILE
     echo >> $PAGE_FILE
@@ -44,12 +46,21 @@ function run() {
     echo "$PAGES" >> $PAGE_FILE
     echo "];" >> $PAGE_FILE
   fi
+
+  #Handle Markdown in website app
+  for MARKDOWN in `find $GHP_ROOT/src -name '*.md' | grep -v node_modules`; do
+    local HTML=`echo "$MARKDOWN" | sed -e 's/[.]md$/.html/'`
+
+    if [ "$HTML" -ot "$MARKDOWN" ]; then
+      ./bin/process-markdown.js $MARKDOWN 'none' > $HTML
+      CHANGE=1
+    fi
+  done
 }
 
 if [[ "$1" == "watch" ]]; then
-  FILES=`find $ROOT -name 'README.md' | grep -v 'node_modules' | grep -v 'js-yaml\|inky\|github\|plugin'`
-
   function block_for_change {
+    local FILES=`find $ROOT -name '*.md' | grep -v node_modules`
     inotifywait -e attrib,modify,move,create,delete $FILES
   }
   
