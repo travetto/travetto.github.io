@@ -14,7 +14,7 @@ function run() {
   local IMPORTS="import { Type } from '@angular/core';"
   local PAGES=''
 
-  for x in `ls $ROOT | grep -v 'github.io\|inky\|js-yaml\|test-plugin'`; do   
+  for x in `ls $ROOT | grep -v 'github.io\|inky\|js-yaml\|test-plugin\|starter'`; do   
     if [[ -d "$ROOT/$x" ]]; then
       local HTML="$DOC_ROOT/$x/$x.component.html"
       local README="$ROOT/$x/README.md"

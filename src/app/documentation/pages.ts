@@ -21,7 +21,6 @@ import { PoolComponent } from './pool/pool.component';
 import { RegistryComponent } from './registry/registry.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { SchemaComponent } from './schema/schema.component';
-import { StarterComponent } from './starter/starter.component';
 import { TestComponent } from './test/test.component';
 import { UtilComponent } from './util/util.component';
 
@@ -48,7 +47,6 @@ export const PAGES = [
   { path: 'registry', title: 'Registry', component: RegistryComponent },
   { path: 'schedule', title: 'Schedule ', component: ScheduleComponent },
   { path: 'schema', title: 'Schema', component: SchemaComponent },
-  { path: 'starter', title: 'Starter', component: StarterComponent },
   { path: 'test', title: 'Test', component: TestComponent },
   { path: 'util', title: 'Util', component: UtilComponent },
 ];

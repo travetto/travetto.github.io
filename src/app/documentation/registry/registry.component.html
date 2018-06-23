@@ -1,22 +1,24 @@
 <h1 id="registry">Registry</h1>
-<p>Two Flow:</p>
+<p>This module is the backbone for all “discovered” and “registered” behaviors within the framework. This is primarily used for building<br>modules within the framework and not directly useful for application development.</p>
+<h2 id="flows">Flows</h2>
+<p>Registration, within the framework flows throw two main use cases:</p>
+<h3 id="initial-flow-primary-">Initial Flow (Primary)</h3>
+<p>The primary flow occurs on initialization of the application. At that point, the module will:</p>
+<ol>
+<li>Initialize <code>RootRegistry</code> and will automatically register/load all relevant files</li>
+<li>As files are imported, decorators within the files will record various metadata relevant to the respective registries </li>
+<li>When all files are processed, the <code>RootRegistry</code> is finished, and it will signal to anything waiting on registered data that<br>its free to use it.  </li>
+</ol>
+<p>This flow ensures all files are loaded and processed before application starts.</p>
+<h3 id="live-flow">Live Flow</h3>
+<p>At runtime, the registry is designed to listen for changes and to propagate the changes as necessary. In many cases the same file is<br>handled by multiple registries.</p>
+<p>As the <a class="module-link" routerLink="/docs/compiler" null><code>Compiler</code></a> notifies that a file has been changed and recompiled, the <code>RootRegistry</code><br>will pick it up, and process it accordingly.</p>
+<h2 id="supporting-metadata">Supporting Metadata</h2>
+<p>For the registries to work properly, metadata needs to be collected about files and classes to uniquely identify them, especially across file reloads for the live flow.  To achieve this, every <code>class</code> is decorated with additional fields.  The data that is added is:</p>
 <ul>
-<li><p>On load (prod use case)</p>
-<ul>
-<li>RootRegistry will load all appropriate files</li>
-<li>As files are loaded, they record their various metadatas </li>
-<li>When all requires are done<ul>
-<li>RootRegistry is finished</li>
-<li>Any things depending on RootRegistry will run</li>
-<li>This ensures all files are loaded and processed before application starts</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>At runtime (dev use case)</p>
-<ul>
-<li>RootRegistry will listen to the TS Compiler watcher and track which files have changed<br>and will trigger class based updates (assuming everything is indexed via class __id) </li>
-</ul>
-</li>
+<li><code>__filename</code> denotes the fully qualified path name of the class</li>
+<li><code>__id</code> represents a computed id that is tied to the file/class combination</li>
+<li><code>__hash</code> a quick and dirty hash of the contents of the class to be able to quickly determine if a class has changed or not</li>
+<li><code>__methodHashes</code> a map of hashes for each class method to be able to determine if the method contents have changed</li>
 </ul>
 
