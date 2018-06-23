@@ -13,14 +13,20 @@ contents (some email clients require this).</li>
 upon either the binary being already installed, or spinning up a docker container to use as a way of executing the binary.</li>
 </ul>
 <p><strong>NOTE</strong> Many of the libraries were chosen due to size and number of overall dependencies.  Any performance issues are mitigated accordingly.</p>
-<p>Additionally, the module provides a base email wrapper to minimize the amount of repeat code that a developer will need to write.</p>
+<p>Additionally, the module provides a base email template wrapper that provides the structure <a class="external-link" target="_blank" href="https://github.com/zurb/inky"><code>inky</code></a> needs.</p>
 <p>A sample template could look like:</p>
 <pre><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}left{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Bob<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}right{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span></code></pre>
-<p>which will then interpolate the context to replace <code>left</code> and <code>right</code>, and compile to a final html output.</p>
-<p>When using mustache expression, make sure to use <code>{{ '{' }}{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}{{ '}' }}</code>, triple braces, to prevent mustache from escaping any characters.</p>
+<p>which will then interpolate the context to replace <code>left</code> and <code>right</code>, and compile to a final html output. When using mustache expression, make sure to use <code>{{ '{' }}{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}{{ '}' }}</code>, triple braces, to prevent mustache from escaping any characters.</p>
+<h2 id="assets">Assets</h2>
+<p>Assets, e.g. sass files, html templates and images, are also able to be referenced in the during compilation. The asset resolution primarily two paths that will be examined when a resource is referenced:</p>
+<ol>
+<li><code>&lt;project&gt;/assets/email</code> for local assets.  </li>
+<li><code>node_modules/@travetto/email/assets/email</code> for pre-bundled assets from this module.</li>
+</ol>
+<p>In addition to the above resolution, sass files are loaded from a fixed sub directory called <code>assets/email/scss</code>.  To reference sass files and images in your template, just use relative paths.  The relative paths will be resolved into local assets.  For images the contents will be optimized and inlined as a data-uri.  If you do not want to inline your images, you will need to provide an external URL.</p>
 <h2 id="sending">Sending</h2>
 <p>The actual sending of emails, uses <a class="external-link" target="_blank" href="https://nodemailer.com/about/"><code>nodemailer</code></a> as the general framework.  When sending emails you can 
 use the following transports:</p>

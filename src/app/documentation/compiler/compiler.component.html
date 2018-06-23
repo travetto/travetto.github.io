@@ -1,5 +1,5 @@
-<h1 id="travetto-compiler">Compiler</h1>
-<p>The framework, while using <a class="external-link" target="_blank" href="http://typescriptlang.org"><code>typescript</code></a>, has need of some extended functionality. The additional functionality is</p>
+<h1 id="compiler">Compiler</h1>
+<p>The framework, while using <a class="external-link" href="http://typescriptlang.org" target="_blank" null><code>typescript</code></a>, has need of some extended functionality. The additional functionality is</p>
 <ul>
 <li>Supports on-the-fly compilation, nothing needs to be compiled ahead of time</li>
 <li>Enhanced AST transformations, and transformer registration<ul>
@@ -20,15 +20,15 @@
 </ul>
 <p>Additionally, there is support for common AST transformation patterns to facilitate all the transformers used throughout the framework. Functionality includes:</p>
 <ul>
-<li><code>getDecoratorIdent(d: ts.Decorator)</code> gets the name of the decorator function</li>
-<li><code>findAnyDecorator(node: ts.Node, patterns, state)</code> attempts to find any matching decorators as defined in patterns</li>
-<li><code>addImport(file: ts.SourceFile, imports: Import[])</code> will add an import to the existing source file</li>
-<li><code>fromLiteral(val: any)</code> converts a literal value to the corresponding AST nodes</li>
-<li><code>extendObjectLiteral(addTo: object, lit?)</code>  extends an AST Node via a literal value, generally used to emulate <code>Object.assign</code> in the AST</li>
-<li><code>getObjectValue(node: ts.ObjectLiteralExpression, key: string)</code> extracts the literal value from an AST node if possible</li>
-<li><code>importingVisitor</code> provides a transformer visitor that collects imports, and adds them to the source file as needed</li>
-<li><code>importIfExternal(typeNode: ts.TypeNode, state: State)</code> will import a reference if the type is not defined within the file</li>
-<li><code>buildImportAliasMap(pathToType)</code> will generate an import lookup to be used for simple type resolution</li>
+<li><code>getDecoratorIdent(d: ts.Decorator)</code><br>Gets the name of the decorator function</li>
+<li><code>findAnyDecorator(node: ts.Node, patterns, state)</code><br>Attempts to find any matching decorators as defined in patterns</li>
+<li><code>addImport(file: ts.SourceFile, imports: Import[])</code><br>Will add an import to the existing source file</li>
+<li><code>fromLiteral(val: any)</code><br>Converts a literal value to the corresponding AST nodes</li>
+<li><code>extendObjectLiteral(addTo: object, lit?)</code><br>Extends an AST Node via a literal value, generally used to emulate <code>Object.assign</code> in the AST</li>
+<li><code>getObjectValue(node: ts.ObjectLiteralExpression, key: string)</code><br>Extracts the literal value from an AST node if possible</li>
+<li><code>importingVisitor</code><br>Provides a transformer visitor that collects imports, and adds them to the source file as needed</li>
+<li><code>importIfExternal(typeNode: ts.TypeNode, state: State)</code><br>Will import a reference if the type is not defined within the file</li>
+<li><code>buildImportAliasMap(pathToType)</code><br>Will generate an import lookup to be used for simple type resolution</li>
 </ul>
 <p>Transformations are defined by <code>support/transformation.&lt;name&gt;.ts</code> as the filename. The schema for a transformer is </p>
 <pre><code class="language-typescript">  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerTransformer</span> <span class="token punctuation">{{ '{' }}</span>
@@ -41,5 +41,3 @@
        <span class="token punctuation">{{ '}' }}</span>
     <span class="token punctuation">{{ '}' }}</span>
   <span class="token punctuation">{{ '}' }}</span></code></pre>
-
-

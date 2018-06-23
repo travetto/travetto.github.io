@@ -59,12 +59,31 @@
         margin-top: 0;
       }
 
-      a.module-link {
+      a[class$="-link"] {
+        display: inline-block;
+        margin: .2em 0;
         code {
-          background-color: desaturate(lighten(green, 20%), 80%);
           color: white;
-          border-color: green;
+          opacity: 1;
+          transition: .5s opacity;
+          margin: 0;
+          border: none;
         }
+        &:hover code {
+          opacity: .7;
+        }
+      }
+
+      a.module-link code {
+        background-color: desaturate(lighten(green, 20%), 80%);
+      }
+
+      a.source-link code {
+        background-color: desaturate(lighten(red, 10%), 30%);
+      }
+
+      a.external-link code {
+        background-color: desaturate(lighten(blue, 10%), 30%);
       }
 
       code.decorator {
@@ -73,13 +92,6 @@
         border-color: orange;
       }
 
-      a.external-link {
-        code {
-          background-color: desaturate(darken(blue, 10%), 30%);
-          color: white;
-          border-color: blue;
-        }
-      }
     }
   }
 }

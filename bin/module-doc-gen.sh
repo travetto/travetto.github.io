@@ -26,12 +26,12 @@ function run() {
 
       # Compile html
       if [ "$HTML" -ot "$README" ]; then
-        ./node_modules/.bin/marked $README | ./bin/process-markdown.js $x > $HTML
+        ./bin/process-markdown.js $README $x > $HTML
         CHANGE=1
       fi
 
       local COMP=`cat $DOC_ROOT/$x/$x.component.ts | grep class | awk '{ print $3 }'`
-      local TITLE=`cat $HTML | grep '<h1' | head -n1 | sed -e 's|<[^>]*>||g' -e 's|travetto:[ ]*||i'`
+      local TITLE=`cat $HTML | grep '<h1' | head -n1 | sed -e 's|<[^>]*>||g'`
       local IMPORTS="$IMPORTS"$'\n'"import { $COMP } from './$x/$x.component';"
       local PAGES="$PAGES"$'\n'"  { path: '$x', title: '$TITLE', component: $COMP },"
     fi

@@ -69,13 +69,11 @@ code {
   hyphens: none;
 
   font-size: 12pt;
-  padding: .2em;
+  padding: .2em .5em;
   display: inline-block;
   background: #eee;
-  border: 1px solid #ddd;
   border-radius: .3em;
   box-shadow: 1px 1px .3em -.1em black;
-
 
   &[class*="language-"] {
     overflow-x: auto;
@@ -160,6 +158,12 @@ code {
         color: red;
       }
     }
+  }
+  &.inline {
+    overflow: visible;
+    display: inline-block;
+    font-size: 12pt;
+    padding: .2em .5em;
   }
 }
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+const marked = require('marked');
+const fs = require('fs');
+
 const Prism = require('prismjs');
 require('prismjs/components/prism-typescript');
 require('prismjs/components/prism-javascript');
@@ -9,40 +12,80 @@ require('prismjs/components/prism-yaml');
 require('prismjs/components/prism-properties');
 require('prismjs/components/prism-bash');
 
-const mod = process.argv[process.argv.length - 1];
+const moduleName = process.argv.pop();
+const inputMarkdown = process.argv.pop();
 
-let content = '';
-process.stdin.resume();
-process.stdin.on('data', b => content += b.toString());
-process.stdin.on('end', () => {
-  const fixed = content
-    .replace(/Travetto:\s*/gi, '')
-    .replace(/href="http(s)?:\/\/github[.]com\/travetto\//g, 'class="module-link" routerLink="/docs/')
-    .replace(/<code>(@[A-Za-z]+<\/code>)/g, (a, r) => `<code class="decorator">${r}`)
-    .replace(/<a\s*href="http(s)?:\/\//g, a => a.replace('<a', '<a class="external-link" target="_blank"'))
-    .replace(/<a\s*href=".\/src/g, a => `<a class="source-link" target="_blank" href="https://github.com/travetto/${mod}/tree/master/src`)
-    .replace(/#readme/g, '')
-    .replace(/(<code class="language-([^"]*)[^>]*>)(.*?)(<\/code>)/gms, (all, tagO, lang, text, tagC) => {
-      text = text
-        .replace(/&#(\d+);/g, (x, code) => String.fromCharCode(code))
-        .replace(/&([a-z][^;]*);/g, (a, k) => {
-          return {
-            gt: '>',
-            lt: '<',
-            quot: '"',
-            apos: "'"
-          }[k] || a
-        });
-      try {
-        const highlighted = Prism.highlight(text, Prism.languages[lang], lang)
-          .replace(/(@\s*<span[^>]*)function("\s*>)/g, (a, pre, post) => `${pre}meta${post}`);
-        return `${tagO}${highlighted}${tagC}`;
-      } catch (e) {
-        console.error(e.stack);
-      }
-    })
-    .replace(/[{}]/g, a => `~~ '${a}' ##`)
-    .replace(/~~/g, '{{')
-    .replace(/##/g, '}}');
-  console.log(fixed);
-});
+function highlight(text, lang) {
+  text = text
+    .replace(/&#(\d+);/g, (x, code) => String.fromCharCode(code))
+    .replace(/&([a-z][^;]*);/g, (a, k) => {
+      return {
+        gt: '>',
+        lt: '<',
+        quot: '"',
+        apos: "'"
+      }[k] || a
+    });
+
+  try {
+    return Prism.highlight(text, Prism.languages[lang], lang)
+      .replace(/(@\s*<span[^>]*)function("\s*>)/g, (a, pre, post) => `${pre}meta${post}`)
+      .replace(/[{}]/g, a => `{{ '${a}' }}`);
+  } catch (e) {
+    console.error(e.stack);
+  }
+}
+
+class MyRenderer extends marked.Renderer {
+  link(href, title, text) {
+    if (title) {
+      title = `title="${title}"`;
+    }
+    if (/^http(s)?\/\/github[.com]\/travetto/.test(href)) {
+      href = href.split('/travetto/')[1];
+      href = href.replace(/#readme/, '');
+      href = `/docs/${href}`;
+      return `<a class="module-link" routerLink="${href}" ${title}>${text}</a>`;
+    } else if (href.startsWith('http')) {
+      return `<a class="external-link" href="${href}" target="_blank" ${title}>${text}</a>`;
+    } else if (href.startsWith('.src')) {
+      return `<a class="source-link" href="${href}" target="_blank" ${title}>${text}</a>`;
+    }
+    return super.link(href, title, text);
+  }
+  codespan(code) {
+    if (/^@[A-Za-z0-9]+$/.test(code)) {
+      return `<code class="decorator">${code}</code>`;
+    } else {
+      return super.codespan(code);
+    }
+  }
+  code(text, lang, escaped) {
+    if (lang) {
+      return `<pre><code class="language-${lang}">${highlight(text, lang)}</code></pre>`;
+    } else {
+      return super.code(text, lang, escaped);
+    }
+  }
+}
+
+const opts = {
+  gfm: true,
+  breaks: true,
+  smartypants: true
+};
+
+const content = fs.readFileSync(inputMarkdown).toString().replace(/Travetto:\s*/gi, '');
+
+console.log(marked(content, { ...opts, renderer: new MyRenderer(opts) }));
+
+// (err, content) => {
+// content = content
+// .replace(/(<pre><code\s*>)(.*?)(<\/code><\/pre>)/gms, (all, tagO, text, tagC) => {
+//   if (!/\n/.test(text)) {
+//     return `<pre><code class="inline language-typescript">${highlight(text, 'typescript')}${tagC}`;
+//   } else {
+//     return all;
+//   }
+// })
+// });
