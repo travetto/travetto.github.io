@@ -1,7 +1,7 @@
 <h1 id="travetto-context">Context</h1>
-<p>This module provides a wrapper around <code>nodejs</code>s <code>async_hooks</code> to maintain context across async calls.<br>This is generally used for retaining contextual user information at various levels of async flow.</p>
-<p>The most common way of utilizing the context, is via the <code>@WithContext</code> decorator.  The decorator requires
-the class it&#39;s being used in, to have a <code>Context</code> member, as it is the source of the contextual information.</p>
+<p>This module provides a wrapper around <code>nodejs</code>s <a class="external-link" target="_blank" href="https://nodejs.org/api/async_hooks.html"><code>async_hooks</code></a> to maintain context across async calls.<br>This is generally used for retaining contextual user information at various levels of async flow.</p>
+<p>The most common way of utilizing the context, is via the <code class="decorator">@WithContext</code> decorator.  The decorator requires
+the class it&#39;s being used in, to have a <a class="source-link" target="_blank" href="https://github.com/travetto/context/tree/master/src/service/context.ts"><code>Context</code></a> member, as it is the source of the contextual information.</p>
 <p>The decorator will load the context on invocation, and will keep the context active during the entire asynchronous 
 call chain.</p>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">ContextAwareService</span> <span class="token punctuation">{{ '{' }}</span>

@@ -1,18 +1,25 @@
 <h1 id="travetto-config-">Config </h1>
-<p>The config module provides support for loading application config on startup. Configuration values support all valid <code>yaml</code> constructs.</p>
+<p>The config module provides support for loading application config on startup. Configuration values support all valid <a class="external-link" href="https://en.wikipedia.org/wiki/YAML"><code>yaml</code></a> constructs.</p>
 <h2 id="resolution">Resolution</h2>
 <p>Config loading follows a defined resolution path:</p>
 <ol>
 <li><p>Load framework module configurations.  Defines general configuration that should be easily overridden.</p>
-<pre><code>node_modules/@travetto/&lt;module&gt;/config/*.yml</code></pre></li>
-<li><p>Load local application configurations</p>
-<pre><code>config/*.yml</code></pre></li>
-<li><p>Load environment specific configurations as defined by the values in <code>process.env.ENV=&lt;val1&gt;,&lt;val2&gt;...</code> </p>
-<pre><code>env/&lt;env&gt;.yml</code></pre></li>
-<li><p>Read startup configuration from <code>process.env</code> to allow for overriding any values. Because we are overriding a<code>yaml</code> based configuration
-we need to compensate for the differences in usage patterns.  Generally all environment variables are passed in as <code>UPPER_SNAKE_CASE</code>.
-When reading from <code>process.env</code> we will map <code>UPPER_SNAKE_CASE</code> to <code>upper.snake.case</code>, and will attempt to match by case-insensitive name.</p>
+<pre><code class="language-bash">node_modules/@travetto/<span class="token operator">&lt;</span>module<span class="token operator">></span>/config/*.yml</code></pre>
 </li>
+<li><p>Load local application configurations</p>
+<pre><code class="language-bash">config/*.yml</code></pre>
+</li>
+<li><p>Load environment specific configurations as defined by the values in <code>process.env.ENV</code></p>
+<pre><code class="language-properties"><span class="token attr-name">process.env.ENV</span><span class="token punctuation">=</span><span class="token attr-value">&lt;val1>,&lt;val2>...</span></code></pre>
+<p>would load</p>
+<pre><code class="language-bash">env/<span class="token operator">&lt;</span>val1<span class="token operator">></span>.yml
+env/<span class="token operator">&lt;</span>val2<span class="token operator">></span>.yml</code></pre>
+</li>
+</ol>
+<ol start="4">
+<li>Read startup configuration from <code>process.env</code> to allow for overriding any values. Because we are overriding a<a class="external-link" href="https://en.wikipedia.org/wiki/YAML"><code>yaml</code></a> based configuration
+we need to compensate for the differences in usage patterns.  Generally all environment variables are passed in as <code>UPPER_SNAKE_CASE</code>.
+When reading from <code>process.env</code> we will map <code>UPPER_SNAKE_CASE</code> to <code>upper.snake.case</code>, and will attempt to match by case-insensitive name.</li>
 </ol>
 <h2 id="example-resolution">Example Resolution</h2>
 <p>A more complete example setup would look like:</p>
@@ -40,7 +47,7 @@ When reading from <code>process.env</code> we will map <code>UPPER_SNAKE_CASE</c
     <span class="token key atrule">user</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user
     <span class="token key atrule">password</span><span class="token punctuation">:</span> &lt;secret<span class="token punctuation">></span></code></pre>
 <h2 id="reading">Reading</h2>
-<p>The module provides a decorator, <code>@Config</code> that allows for classes to automatically be bound with config information
+<p>The module provides a decorator, <code class="decorator">@Config</code> that allows for classes to automatically be bound with config information
 on post construction. The decorator will install a <code>postConstruct</code> method if not already defined, that allows actually performs
 the binding of configuration.  </p>
 <p>The decorator takes in a namespace, of what part of the resolved configuration you want to bind to your class. Given the following class</p>

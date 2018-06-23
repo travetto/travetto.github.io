@@ -26,7 +26,7 @@ function run() {
 
       # Compile html
       if [ "$HTML" -ot "$README" ]; then
-        ./node_modules/.bin/marked $README | ./bin/process-markdown.js > $HTML
+        ./node_modules/.bin/marked $README | ./bin/process-markdown.js $x > $HTML
         CHANGE=1
       fi
 
