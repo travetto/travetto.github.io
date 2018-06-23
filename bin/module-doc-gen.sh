@@ -10,7 +10,7 @@ PAGE_FILE=$DOC_ROOT/pages.ts
 pushd $GHP_ROOT 2>&1 > /dev/null
 
 function run() {
-  local CREATED=
+  local CREATED=$1
   local IMPORTS="import { Type } from '@angular/core';"
   local PAGES=''
 
@@ -52,12 +52,14 @@ if [[ "$1" == "watch" ]]; then
   function block_for_change {
     inotifywait -e attrib,modify,move,create,delete $FILES
   }
+  
+  run 1
 
   while block_for_change; do
     run
   done
 else
-  run
+  run 1
 fi
 
 
