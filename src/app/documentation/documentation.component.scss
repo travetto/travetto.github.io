@@ -67,6 +67,12 @@
         }
       }
 
+      code.decorator {
+        background-color: desaturate(lighten(orange, 20%), 10%);
+        color: #333;
+        border-color: orange;
+      }
+
       a.external-link {
         code {
           background-color: desaturate(darken(blue, 10%), 30%);

@@ -1,6 +1,6 @@
 <h1 id="travetto-cache">Cache</h1>
-<p>Provides a simple wrapper around <code>lru-cache</code> to provide standard caching constructs.  </p>
-<p><code>Cacheable</code> is a decorator that allows caching at class methods. The decorator will rewrite the method
+<p>Provides a simple wrapper around <a class="external-link" href="https://github.com/isaacs/node-lru-cache"><code>lru-cache</code></a> to provide standard caching constructs.  </p>
+<p><code class="decorator">@Cacheable</code> is a decorator that allows caching at class methods. The decorator will rewrite the method
 to cache on successful results. The decorator supports synchronous as well as asynchronous methods.</p>
 <pre><code class="language-typescript">  <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token punctuation">{{ '{' }}</span>
 
@@ -10,7 +10,7 @@ to cache on successful results. The decorator supports synchronous as well as as
       <span class="token keyword">return</span> value<span class="token punctuation">;</span>
     <span class="token punctuation">{{ '}' }}</span>
   <span class="token punctuation">{{ '}' }}</span></code></pre>
-<p>The <code>Cacheable</code> decorator supports certain configurations:</p>
+<p>The <code class="decorator">@Cacheable</code> decorator supports certain configurations:</p>
 <ul>
 <li><code>name</code> the name of the cache space</li>
 <li><code>dispose</code> the function to invoke on cache eviction</li>

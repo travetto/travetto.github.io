@@ -15,6 +15,7 @@ process.stdin.on('end', () => {
   const fixed = content
     .replace(/Travetto:\s*/gi, '')
     .replace(/href="http(s)?:\/\/github[.]com\/travetto\//g, 'class="module-link" routerLink="/docs/')
+    .replace(/<code>(@[A-Za-z]+<\/code>)/g, (a, r) => `<code class="decorator">${r}`)
     .replace(/<a\s*href="http(s)?:\/\//g, a => a.replace('<a', '<a class="external-link"'))
     .replace(/#readme/g, '')
     .replace(/(<code class="language-([^"]*)[^>]*>)(.*?)(<\/code>)/gms, (all, tagO, lang, text, tagC) => {
