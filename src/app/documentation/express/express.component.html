@@ -9,6 +9,7 @@
 <li><code class="decorator">@Delete</code></li>
 <li><code class="decorator">@Patch</code></li>
 </ul>
+<p>A simple example is:</p>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/simple'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Simple</span> <span class="token punctuation">{{ '{' }}</span>
 
@@ -25,7 +26,7 @@
     <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name<span class="token punctuation">:</span> req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>name <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre><p>Additionally, the module is predicated upon <a class="external-link" href="https://github.com/travetto/di" target="_blank" null><code>Dependency Injection</code></a>, and so all standard di techniques work on<br>controllers.</p>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>Additionally, the module is predicated upon <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a>, and so all standard di techniques work on<br>controllers.</p>
 <p><strong>NOTE</strong> in development mode the module supports hot reloading of <code>class</code>es.  Routes can be added/modified/removed at runtime.</p>
 <h2 id="input-output">Input/Output</h2>
 <p>The module provides standard structure for rendering content on the response.  This includes:</p>
@@ -45,7 +46,7 @@
 <li><code class="inline language-typescript">bodyParser.raw({{ '{' }} type: &#39;image/*&#39; {{ '}' }})</code></li>
 <li><code class="inline language-typescript">session(this.config.session)</code></li>
 </ul>
-<p>Additionally it is sometimes necessary to register custom filters.  Additional filters can be registered with the <a class="external-link" href="https://github.com/travetto/di" target="_blank" null><code>Dependency Injection</code></a> by extending the <a class="source-link" href="https://githhub.com/travetto/express/tree/master/src/service/operator" target="_blank" null><code>Operator</code></a> class.  </p>
+<p>Additionally it is sometimes necessary to register custom filters.  Additional filters can be registered with the <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a> by extending the <a class="source-link" href="https://githhub.com/travetto/express/tree/master/src/service/operator" target="_blank" null><code>Operator</code></a> class.  </p>
 <pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
   target<span class="token punctuation">:</span> ExpressOperator<span class="token punctuation">,</span>
   qualifier<span class="token punctuation">:</span> <span class="token constant">AUTH</span>
@@ -64,7 +65,7 @@
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="extensions">Extensions</h2>
 <p>Integration with other modules can be supported by extensions.  The dependencies are <code>peerDependencies</code> and must be installed directly if you<br>want to use them:</p>
 <h3 id="schema">Schema</h3>
-<p><a class="external-link" href="https://github.com/travetto/schema" target="_blank" null><code>Schema</code></a> support for validating and typing request bodies</p>
+<p><a class="module-link" routerLink="/docs/schema" null><code>Schema</code></a> support for validating and typing request bodies</p>
 <p><code class="decorator">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide<br> validation before the controller even receives the request.</p>
 <pre><code class="language-typescript"> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
    name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -88,8 +89,46 @@
   <span class="token keyword">async</span> <span class="token function">search</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> TypedQuery<span class="token operator">&lt;</span>SearchParams<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
- <span class="token operator">...</span></code></pre><h3 id="context">Context</h3>
-<p><a class="external-link" href="https://github.com/travetto/context" target="_blank" null><code>Context</code></a> provides support for automatically injecting an async context into every request. The context management is provided via an <code>Operator</code> and is transparent to the programmer.</p>
+ <span class="token operator">...</span></code></pre><h3 id="model">Model</h3>
+<p><a class="module-link" routerLink="/docs/model" null><code>Model</code></a> supports <code class="decorator">@ModelController</code> for exposing common RESTful patterns for routes.</p>
+<pre><code class="language-typescript">@<span class="token meta">ModelController</span><span class="token punctuation">(</span><span class="token string">'/user'</span><span class="token punctuation">,</span> User<span class="token punctuation">)</span> 
+<span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">{{ '{' }}</span>
+  source<span class="token punctuation">:</span> ModelService<span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>is a shorthand that is equal to:</p>
+<pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/user'</span><span class="token punctuation">)</span> 
+<span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">{{ '{' }}</span>
+
+  source<span class="token punctuation">:</span> ModelService<span class="token punctuation">;</span>
+
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">getAllUser</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>source<span class="token punctuation">.</span><span class="token function">getAllByQuery</span><span class="token punctuation">(</span>User<span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>q<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">getUser</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>source<span class="token punctuation">.</span><span class="token function">getById</span><span class="token punctuation">(</span>User<span class="token punctuation">,</span> req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Delete</span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">deleteUser</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>source<span class="token punctuation">.</span><span class="token function">deleteById</span><span class="token punctuation">(</span>User<span class="token punctuation">,</span> req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
+  @<span class="token meta">SchemaBody</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">saveUser</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>TypedBody<span class="token operator">&lt;</span>User<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>source<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>User<span class="token punctuation">,</span> req<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Put</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span>
+  @<span class="token meta">SchemaBody</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">updateUser</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>TypedBody<span class="token operator">&lt;</span>User<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>source<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>User<span class="token punctuation">,</span> req<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span>
+</code></pre><h3 id="context">Context</h3>
+<p><a class="module-link" routerLink="/docs/context" null><code>Context</code></a> provides support for automatically injecting an async context into every request. The context management is provided via an <code>Operator</code> and is transparent to the programmer.</p>
 <pre><code class="language-typescript"> <span class="token operator">...</span>
   @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/preferences'</span><span class="token punctuation">)</span>
   @<span class="token meta">SchemaBody</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>

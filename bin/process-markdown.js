@@ -40,7 +40,7 @@ class MyRenderer extends marked.Renderer {
     if (title) {
       title = `title="${title}"`;
     }
-    if (/^http(s)?\/\/github[.com]\/travetto/.test(href)) {
+    if (/^http(s)?:\/\/github[.]com\/travetto/.test(href)) {
       href = href.split('/travetto/')[1];
       href = href.replace(/#readme/, '');
       href = `/docs/${href}`;

@@ -1,13 +1,17 @@
 <h1 id="model">Model</h1>
-<p>This module provides more constrained access to Mongo DB.  This is achieved using the following:</p>
-<ul>
-<li>Mongoose-based validations (not query)</li>
-<li>Decorator based definition of mongo operations<ul>
-<li><code class="decorator">@Unique</code> defines a unique index</li>
-<li><code class="decorator">@Index</code> defines a general index</li>
-<li><code class="decorator">@SubType</code> defines the ability to have multiple classes share a collection space</li>
-</ul>
-</li>
-<li><code>BaseModel</code> to provide common mechanism for all base models (construction from plain objects)</li>
-</ul>
+<p>This module provides a clean interface to data model persistence, modification and retrieval.  This module builds heavily upon the <a class="module-link" routerLink="/docs/schema" null><code>Schema</code></a>, which is used for data model validation.</p>
+<p>The module can be segmented into three main areas: Model declaration, access/storage, and querying</p>
+<h3 id="declaration">Declaration</h3>
+<p>Models are declared via the <code class="decorator">@Model</code> decorator, which allows the system to know that this is a class that is compatible with the<br>module.</p>
+<pre><code class="language-typescript">@<span class="token meta">Model</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">BaseModel</span> <span class="token punctuation">{{ '{' }}</span>
+  name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  dob<span class="token operator">?</span><span class="token punctuation">:</span> Date<span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>The <code>User</code> model is now ready to be used with the model services.</p>
+<h3 id="access-storage">Access/Storage</h3>
+<p>The <a class="source-link" href="https://githhub.com/travetto/model/tree/master/src/service/model.ts" target="_blank" null><code>ModelService</code></a> is the foundation for all access to the storage layer, and provides a comprehensive set of functionality.  The service includes support for modifying individual records, bulk update/insert/delete, partial updates, finding records, and more.  This should be the expected set of functionality for storage and retrieval.</p>
+<p>The <a class="source-link" href="https://githhub.com/travetto/model/tree/master/src/service/model.ts" target="_blank" null><code>ModelService</code></a> itself relies upon a <a class="source-link" href="https://githhub.com/travetto/model/tree/master/src/service/source.ts" target="_blank" null><code>ModelSource</code></a> which is the driver for the storage layer. Currently the only <code>ModelSource</code> implementations are for <a class="external-link" href="https://mongodb.com" target="_blank" null><code>mongodb</code></a> and <a class="external-link" href="https://elastic.co" target="_blank" null><code>elasticsearch</code></a>, with sql support on the roadmap.</p>
+<p>Additionally there is a class <a class="source-link" href="https://githhub.com/travetto/model/tree/master/src/service/class-model.ts" target="_blank" null><code>ClassModelService</code></a> that provides a wrapper around <code>ModelService</code> that is tied to a specific <code>Model</code> class.  This can be useful if you want to constrain the model access or if you have a high volume of function calls for the same model.</p>
+<h3 id="querying">Querying</h3>
 
