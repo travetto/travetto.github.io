@@ -6,6 +6,7 @@ require('prismjs/components/prism-javascript');
 require('prismjs/components/prism-css');
 require('prismjs/components/prism-scss');
 require('prismjs/components/prism-yaml');
+require('prismjs/components/prism-properties');
 
 let content = '';
 process.stdin.resume();

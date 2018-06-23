@@ -36,7 +36,7 @@ export const PAGES = [
   { path: 'compiler', title: 'Compiler', component: CompilerComponent },
   { path: 'config', title: 'Config ', component: ConfigComponent },
   { path: 'context', title: 'Context', component: ContextComponent },
-  { path: 'di', title: 'DI (Dependency Injection)', component: DiComponent },
+  { path: 'di', title: 'Dependency Injection', component: DiComponent },
   { path: 'email', title: 'Email', component: EmailComponent },
   { path: 'exec', title: 'Exec', component: ExecComponent },
   { path: 'express', title: 'Express', component: ExpressComponent },

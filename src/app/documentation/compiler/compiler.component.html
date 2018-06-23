@@ -1,14 +1,44 @@
 <h1 id="travetto-compiler">Compiler</h1>
-<p>Basis for a more thorough compilation process, including source maps.  The compiler also provides the ability for handling
-a piple of AST transformations.  The framework uses AST transformations to support it&#39;s own needs, with the reality that
-external modules, or even project code might want to provide it&#39;s own transformations. In addition to the loading of transformations
-the Compiler module also provides a set of utilities to enhance the transformation process.</p>
-<p>Transformations are defined by <code>transformation.*.ts</code> as the filename. The schema for a transformation is </p>
+<p>The framework, while using <code>typescript</code>, has need of some extended functionality. The additional functionality is</p>
+<ul>
+<li>Supports on-the-fly compilation, nothing needs to be compiled ahead of time</li>
+<li>Enhanced AST transformations, and transformer registration<ul>
+<li>All AST transformations are single-file based, and runs without access to the <code>TypeChecker</code></li>
+</ul>
+</li>
+<li>Intelligent caching of source files to minimize recompilation</li>
+<li>Support for watching sources files:<ul>
+<li>Detecting changes to files</li>
+<li>Detecting changes to specific classes</li>
+<li>Detecting changes to specific methods within classes</li>
+</ul>
+</li>
+<li>Allows for hot-reloading of classes during development<ul>
+<li>Utilizes <code>es2015</code> <code>Proxy</code>s to allow for swapping out implementation at runtime</li>
+</ul>
+</li>
+</ul>
+<p>Additionally, there is support for common AST transformation patterns to facilitate all the transformers used throughout the framework. Functionality includes:</p>
+<ul>
+<li><code>getDecoratorIdent(d: ts.Decorator)</code> gets the name of the decorator function</li>
+<li><code>findAnyDecorator(node: ts.Node, patterns, state)</code> attempts to find any matching decorators as defined in patterns</li>
+<li><code>addImport(file: ts.SourceFile, imports: Import[])</code> will add an import to the existing source file</li>
+<li><code>fromLiteral(val: any)</code> converts a literal value to the corresponding AST nodes</li>
+<li><code>extendObjectLiteral(addTo: object, lit?)</code>  extends an AST Node via a literal value, generally used to emulate <code>Object.assign</code> in the AST</li>
+<li><code>getObjectValue(node: ts.ObjectLiteralExpression, key: string)</code> extracts the literal value from an AST node if possible</li>
+<li><code>importingVisitor</code> provides a transformer visitor that collects imports, and adds them to the source file as needed</li>
+<li><code>importIfExternal(typeNode: ts.TypeNode, state: State)</code> will import a reference if the type is not defined within the file</li>
+<li><code>buildImportAliasMap(pathToType)</code> will generate an import lookup to be used for simple type resolution</li>
+</ul>
+<p>Transformations are defined by <code>support/transformation.&lt;name&gt;.ts</code> as the filename. The schema for a transformer is </p>
 <pre><code class="language-typescript">  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerTransformer</span> <span class="token punctuation">{{ '{' }}</span>
     priority<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Lower is higher priority</span>
     phase<span class="token punctuation">:</span> <span class="token string">'before'</span><span class="token operator">|</span><span class="token string">'after'</span><span class="token punctuation">,</span> <span class="token comment">// The phase as defined by Typescript's AST processing</span>
     transformer<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>TransformationContext<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
-       <span class="token keyword">return</span> <span class="token punctuation">(</span>file<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>SourceFile<span class="token punctuation">)</span> <span class="token operator">=></span> file    
+       <span class="token keyword">return</span> <span class="token punctuation">(</span>file<span class="token punctuation">:</span> ts<span class="token punctuation">.</span>SourceFile<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
+         <span class="token operator">...</span> modify source file <span class="token operator">...</span>
+         <span class="token keyword">return</span> file<span class="token punctuation">;</span>
+       <span class="token punctuation">{{ '}' }}</span>
     <span class="token punctuation">{{ '}' }}</span>
   <span class="token punctuation">{{ '}' }}</span></code></pre>
 

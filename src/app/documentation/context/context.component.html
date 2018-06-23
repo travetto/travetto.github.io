@@ -1,10 +1,10 @@
 <h1 id="travetto-context">Context</h1>
-<p>Provides a simple wrapper around <code>async_hooks</code> to provide request context across async calls.  </p>
-<p>The most common way of utilizing the context, is via the <code>@WithContext</code> decorator.
-The decorator will load the context on invocation, and will keep the context active during
-the entire asynchronous call chain.</p>
-<p>For the decorator to work, it require the <code>class</code> to have a context object already defined on it.</p>
-<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TestableContext</span> <span class="token punctuation">{{ '{' }}</span>
+<p>This module provides a wrapper around <code>nodejs</code>s <code>async_hooks</code> to maintain context across async calls.<br>This is generally used for retaining contextual user information at various levels of async flow.</p>
+<p>The most common way of utilizing the context, is via the <code>@WithContext</code> decorator.  The decorator requires
+the class it&#39;s being used in, to have a <code>Context</code> member, as it is the source of the contextual information.</p>
+<p>The decorator will load the context on invocation, and will keep the context active during the entire asynchronous 
+call chain.</p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">ContextAwareService</span> <span class="token punctuation">{{ '{' }}</span>
 
    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> context<span class="token punctuation">:</span>Context<span class="token punctuation">)</span><span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
@@ -12,10 +12,27 @@ the entire asynchronous call chain.</p>
    <span class="token keyword">async</span> <span class="token function">complexOperator</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
      <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">additionalOp</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     <span class="token function">assert</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">'finished'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
    <span class="token punctuation">{{ '}' }}</span>
 
    <span class="token keyword">async</span> <span class="token function">additionalOp</span><span class="token punctuation">(</span>check<span class="token punctuation">:</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
      <span class="token function">assert</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token operator">===</span> check<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token template-string"><span class="token string">`finished`</span></span><span class="token punctuation">;</span>
+   <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
+<p>The decorator also allows for a priming of the contextual information.  This is generally useful for system generated operations that
+are not initiated by a user.</p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">SystemInitiatedContext</span> <span class="token punctuation">{{ '{' }}</span>
+
+   <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> context<span class="token punctuation">:</span>Context<span class="token punctuation">)</span><span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+
+   @<span class="token meta">WithContext</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
+     user<span class="token punctuation">:</span> <span class="token string">'system'</span><span class="token punctuation">,</span>
+     uid<span class="token punctuation">:</span> <span class="token number">20</span>
+   <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+   <span class="token keyword">async</span> <span class="token function">runJob</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+     <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`User=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${{ '{' }}</span><span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>user<span class="token interpolation-punctuation punctuation">{{ '}' }}</span></span><span class="token string">, jobName=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${{ '{' }}</span>name<span class="token interpolation-punctuation punctuation">{{ '}' }}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
    <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre>
 

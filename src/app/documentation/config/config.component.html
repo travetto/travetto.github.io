@@ -1,42 +1,73 @@
 <h1 id="travetto-config-">Config </h1>
-<p>Common functionality for reading configuration from yaml files, and allowing overriding at execution time</p>
-<ul>
-<li>Process all config information:<ul>
-<li><code>node_modules/@travetto/*/config/*.yml</code></li>
-<li><code>config/*.yml</code></li>
-<li><code>env/&lt;env&gt;.yml</code></li>
-<li><code>process.env</code> (override only)</li>
-</ul>
+<p>The config module provides support for loading application config on startup. Configuration values support all valid <code>yaml</code> constructs.</p>
+<h2 id="resolution">Resolution</h2>
+<p>Config loading follows a defined resolution path:</p>
+<ol>
+<li><p>Load framework module configurations.  Defines general configuration that should be easily overridden.</p>
+<pre><code>node_modules/@travetto/&lt;module&gt;/config/*.yml</code></pre></li>
+<li><p>Load local application configurations</p>
+<pre><code>config/*.yml</code></pre></li>
+<li><p>Load environment specific configurations as defined by the values in <code>process.env.ENV=&lt;val1&gt;,&lt;val2&gt;...</code> </p>
+<pre><code>env/&lt;env&gt;.yml</code></pre></li>
+<li><p>Read startup configuration from <code>process.env</code> to allow for overriding any values. Because we are overriding a<code>yaml</code> based configuration
+we need to compensate for the differences in usage patterns.  Generally all environment variables are passed in as <code>UPPER_SNAKE_CASE</code>.
+When reading from <code>process.env</code> we will map <code>UPPER_SNAKE_CASE</code> to <code>upper.snake.case</code>, and will attempt to match by case-insensitive name.</p>
 </li>
-<li>Depending on which environments are specified, will selectively load <code>env/&lt;env&gt;.yml</code> files</li>
-<li>Every configuration property can be overridden via environment variables (case-insensitive).<ul>
-<li>Object navigation is separated by underscores</li>
-<li>e.g. <code>MAIL_TRANSPORT_HOST</code> would override <code>mail.transport.host</code> and specifically <code>transport.host</code>
-in the <code>mail</code> namespace.</li>
-</ul>
-</li>
-</ul>
-<p>Provides a decorator, <code>@Config(&quot;namespace&quot;)</code> that allows for classes to automatically bind config information
-on post construct. The decorator will install a <code>postConstruct</code> method if not already defined.  This is a hook
-that is used by other modules.</p>
-<p><code>`</code>typescript config.ts
-@Config(&#39;sample&#39;)
-class SampleConfig {{ '{' }}
-  private host: string;
-  private port: number;
-  private creds = {{ '{' }}
-    user: &#39;&#39;,
-    password: &#39;&#39;
-  {{ '}' }};
-{{ '}' }}</p>
-<pre><code>
-And the corresponding config file
+</ol>
+<h2 id="example-resolution">Example Resolution</h2>
+<p>A more complete example setup would look like:</p>
+<p><code>config/database.yml</code></p>
+<pre><code class="language-yaml"><span class="token key atrule">database</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9423</span>
+  <span class="token key atrule">creds</span><span class="token punctuation">:</span>
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> test
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> test</code></pre>
+<p><code>env/prod.yml</code></p>
+<pre><code class="language-yaml"><span class="token key atrule">database</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> prod<span class="token punctuation">-</span>host<span class="token punctuation">-</span>db
+  <span class="token key atrule">creds</span><span class="token punctuation">:</span>
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user</code></pre>
+<p>with environment variables</p>
+<pre><code class="language-properties"><span class="token attr-name">ENV</span><span class="token punctuation">=</span><span class="token attr-value">prod</span>
+<span class="token attr-name">DATABASE_PORT</span><span class="token punctuation">=</span><span class="token attr-value">1234</span>
+<span class="token attr-name">DATABASE_CREDS_PASSWORD</span><span class="token punctuation">=</span><span class="token attr-value">&lt;secret></span></code></pre>
+<p>At runtime the resolved config would be:</p>
+<pre><code class="language-yaml"><span class="token key atrule">database</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> prod<span class="token punctuation">-</span>host<span class="token punctuation">-</span>db
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">1234</span>
+  <span class="token key atrule">creds</span><span class="token punctuation">:</span>
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> &lt;secret<span class="token punctuation">></span></code></pre>
+<h2 id="reading">Reading</h2>
+<p>The module provides a decorator, <code>@Config</code> that allows for classes to automatically be bound with config information
+on post construction. The decorator will install a <code>postConstruct</code> method if not already defined, that allows actually performs
+the binding of configuration.  </p>
+<p>The decorator takes in a namespace, of what part of the resolved configuration you want to bind to your class. Given the following class</p>
+<pre><code class="language-typescript">@<span class="token meta">Config</span><span class="token punctuation">(</span><span class="token string">'database'</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">DBConfig</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">private</span> host<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> port<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> creds <span class="token operator">=</span> <span class="token punctuation">{{ '{' }}</span>
+    user<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    password<span class="token punctuation">:</span> <span class="token string">''</span>
+  <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
+<p>And the corresponding config file</p>
+<pre><code class="language-yaml"><span class="token key atrule">database</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9423</span>
+  <span class="token key atrule">creds</span><span class="token punctuation">:</span>
+    <span class="token key atrule">user</span><span class="token punctuation">:</span> bob
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> bobspw</code></pre>
+<p>The instance of <code>DBConfig</code>  would be equivalent to:</p>
+<pre><code class="language-js"><span class="token punctuation">{{ '{' }}</span>
+  host<span class="token punctuation">:</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+  port<span class="token punctuation">:</span> <span class="token number">9423</span><span class="token punctuation">,</span>
+  creds <span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span>
+    user<span class="token punctuation">:</span> <span class="token string">'bob'</span><span class="token punctuation">,</span>
+    password<span class="token punctuation">:</span> <span class="token string">'bobspw'</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
 
-```yaml app.yml
-- sample
-  host: google.com
-  port: 80
-  creds:
-    user: bob
-    password: bobspw</code></pre>
 
