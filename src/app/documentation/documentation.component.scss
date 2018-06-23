@@ -47,13 +47,20 @@
         border-bottom: 1px solid #ccc;
       }
 
-      h2 {
+      h2,
+      h3 {
         font-family: "Source Sans Pro", sans-serif;
         font-weight: normal;
         color: #444;
         line-height: 1.5em;
         border-bottom: 1px solid #ddd;
       }
+
+      h3 {
+        font-size: 18pt;
+        border-bottom: 1px solid #eee;
+      }
+
 
       ul {
         margin-top: 0;

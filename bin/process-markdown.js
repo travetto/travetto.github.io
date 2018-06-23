@@ -92,14 +92,3 @@ const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
   .replace(/[{}]/g, a => `{{ '${a}' }}`);
 
 console.log(output);
-
-// (err, content) => {
-// content = content
-// .replace(/(<pre><code\s*>)(.*?)(<\/code><\/pre>)/gms, (all, tagO, text, tagC) => {
-//   if (!/\n/.test(text)) {
-//     return `<pre><code class="inline language-typescript">${highlight(text, 'typescript')}${tagC}`;
-//   } else {
-//     return all;
-//   }
-// })
-// });
