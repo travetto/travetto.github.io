@@ -1,20 +1,20 @@
 <h1 id="travetto-asset-s3">Asset-S3</h1>
 <p>This provides an <code>s3</code> implementation of the <code>AssetSource</code> that which is a backend for the <a href="https://github.io/travetto/asset"><code>Asset</code></a> module.  </p>
 <p>The primary utilization of this module, is to configure the <code>AssetSource</code> injectable, and provide whatever configuration you would like to use.  </p>
-<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{{ "{" }}</span>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{{ '{' }}</span>
   @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">static</span> <span class="token function">getConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> AssetS3Config <span class="token punctuation">{{ "{" }}</span>
+  <span class="token keyword">static</span> <span class="token function">getConf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> AssetS3Config <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AssetS3Config</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">{{ "}" }}</span>
+  <span class="token punctuation">{{ '}' }}</span>
   @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">static</span> <span class="token function">getSource</span><span class="token punctuation">(</span>cfg<span class="token punctuation">:</span> AssetS3Config<span class="token punctuation">)</span><span class="token punctuation">:</span> AssetSource <span class="token punctuation">{{ "{" }}</span>
+  <span class="token keyword">static</span> <span class="token function">getSource</span><span class="token punctuation">(</span>cfg<span class="token punctuation">:</span> AssetS3Config<span class="token punctuation">)</span><span class="token punctuation">:</span> AssetSource <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AssetS3Source</span><span class="token punctuation">(</span>cfg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">{{ "}" }}</span>
-<span class="token punctuation">{{ "}" }}</span></code></pre>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
 <p>As seen, there is a default configuration that you can easily use, with some sensible defaults.</p>
 <p>The default configuration class looks like:</p>
 <pre><code class="language-typescript">@<span class="token meta">Config</span><span class="token punctuation">(</span><span class="token string">'asset.s3'</span><span class="token punctuation">)</span>
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AssetS3Config</span> <span class="token punctuation">{{ "{" }}</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AssetS3Config</span> <span class="token punctuation">{{ '{' }}</span>
   region <span class="token operator">=</span> <span class="token string">'us-east-1'</span><span class="token punctuation">;</span>
   base <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
 
@@ -25,10 +25,10 @@
 
   config<span class="token punctuation">:</span> aws<span class="token punctuation">.</span><span class="token constant">S3</span><span class="token punctuation">.</span>ClientConfiguration<span class="token punctuation">;</span>
   <span class="token operator">...</span>
-<span class="token punctuation">{{ "}" }}</span></code></pre>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
 <p><strong>NOTE</strong> Do not commit your <code>accessKeyId</code> or <code>secretAccessKey</code> values to your source repository, especially if it is public facing.  Not only is 
 it a security risk, but Amazon will scan public repos, looking for keys, and if found will react swiftly.</p>
 <p>Additionally, you can see that the class is registered with the <code>Config</code> annotation, and so these values can be overridden using the standard
-<a routerLink="/docs/config"><code>Configuration</code></a> resolution paths.</p>
+<a class="module-link" routerLink="/docs/config"><code>Configuration</code></a> resolution paths.</p>
 
 

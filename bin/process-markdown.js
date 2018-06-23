@@ -13,7 +13,6 @@ process.stdin.on('data', b => content += b.toString());
 process.stdin.on('end', () => {
   const fixed = content
     .replace(/Travetto:\s*/gi, '')
-    .replace(/[{}]/g, a => `{{${a}}}`)
     .replace(/href="http(s)?:\/\/github[.]com\/travetto\//g, 'class="module-link" routerLink="/docs/')
     .replace(/#readme/g, '')
     .replace(/(<code class="language-([^"]*)[^>]*>)(.*?)(<\/code>)/gms, (all, tagO, lang, text, tagC) => {
@@ -34,6 +33,9 @@ process.stdin.on('end', () => {
       } catch (e) {
         console.error(e.stack);
       }
-    });
+    })
+    .replace(/[{}]/g, a => `~~ '${a}' ##`)
+    .replace(/~~/g, '{{')
+    .replace(/##/g, '}}');
   console.log(fixed);
 });

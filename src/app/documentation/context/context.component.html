@@ -4,19 +4,19 @@
 The decorator will load the context on invocation, and will keep the context active during
 the entire asynchronous call chain.</p>
 <p>For the decorator to work, it require the <code>class</code> to have a context object already defined on it.</p>
-<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TestableContext</span> <span class="token punctuation">{{ "{" }}</span>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TestableContext</span> <span class="token punctuation">{{ '{' }}</span>
 
-   <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> context<span class="token punctuation">:</span>Context<span class="token punctuation">)</span><span class="token punctuation">{{ "{" }}</span><span class="token punctuation">{{ "}" }}</span>
+   <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> context<span class="token punctuation">:</span>Context<span class="token punctuation">)</span><span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
    @<span class="token meta">WithContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-   <span class="token keyword">async</span> <span class="token function">complexOperator</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
-     <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token punctuation">{{ "{" }}</span> name <span class="token punctuation">{{ "}" }}</span><span class="token punctuation">)</span>
+   <span class="token keyword">async</span> <span class="token function">complexOperator</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+     <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">additionalOp</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">{{ "}" }}</span>
+   <span class="token punctuation">{{ '}' }}</span>
 
-   <span class="token keyword">async</span> <span class="token function">additionalOp</span><span class="token punctuation">(</span>check<span class="token punctuation">:</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+   <span class="token keyword">async</span> <span class="token function">additionalOp</span><span class="token punctuation">(</span>check<span class="token punctuation">:</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
      <span class="token function">assert</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token operator">===</span> check<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">{{ "}" }}</span>
-<span class="token punctuation">{{ "}" }}</span></code></pre>
+   <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
 
 

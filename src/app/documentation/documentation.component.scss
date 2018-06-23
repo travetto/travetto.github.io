@@ -58,6 +58,14 @@
       ul {
         margin-top: 0;
       }
+
+      a.module-link {
+        code {
+          background-color: desaturate(lighten(green, 20%), 80%);
+          color: white;
+          border-color: green;
+        }
+      }
     }
   }
 }

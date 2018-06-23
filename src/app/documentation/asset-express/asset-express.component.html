@@ -2,26 +2,26 @@
 <p>Asset Express, provides a clean and direct mechansim for handling uploads via the <code>express</code> framework, as well as some best
 practices with respect to temporary file deletion.</p>
 <p>Once the files are uploaded, they are exposed on <code>express</code>&#39;s request object as <code>req.files</code>. The uploaded files are constructed as
-<code>Asset</code> instances, which allows for easy interoperability with the <a routerLink="/docs/asset"><code>Asset</code></a> module for
+<code>Asset</code> instances, which allows for easy interoperability with the <a class="module-link" routerLink="/docs/asset"><code>Asset</code></a> module for
 storage.</p>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/avatar'</span><span class="token punctuation">)</span>
-<span class="token keyword">class</span> <span class="token class-name">Controller</span> <span class="token punctuation">{{ "{" }}</span>
+<span class="token keyword">class</span> <span class="token class-name">Controller</span> <span class="token punctuation">{{ '{' }}</span>
 
-  <span class="token keyword">constructor</span><span class="token punctuation">(</span>assetService<span class="token punctuation">:</span> AssetService<span class="token punctuation">,</span> imageService<span class="token punctuation">:</span> ImageService<span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span><span class="token punctuation">{{ "}" }}</span>
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span>assetService<span class="token punctuation">:</span> AssetService<span class="token punctuation">,</span> imageService<span class="token punctuation">:</span> ImageService<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
   @<span class="token meta">AssetUpload</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">setAvatar</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">,</span> res<span class="token punctuation">:</span>Response<span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
+  <span class="token keyword">async</span> <span class="token function">setAvatar</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">,</span> res<span class="token punctuation">:</span>Response<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">const</span> stored <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>assetService<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">{{ "{" }}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span>
       path<span class="token punctuation">:</span> stored<span class="token punctuation">.</span>path
-    <span class="token punctuation">{{ "}" }}</span><span class="token punctuation">;</span>
-  <span class="token punctuation">{{ "}" }}</span>
+    <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
 
   @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/:path'</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">getAvatar</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{{ "{" }}</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>imageService<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token punctuation">{{ "{" }}</span>w<span class="token punctuation">:</span> req<span class="token punctuation">.</span>query<span class="token punctuation">.</span>w<span class="token punctuation">,</span> h<span class="token punctuation">:</span> req<span class="token punctuation">.</span>query<span class="token punctuation">.</span>h<span class="token punctuation">{{ "}" }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">{{ "}" }}</span>
-<span class="token punctuation">{{ "}" }}</span></code></pre>
+  <span class="token keyword">async</span> <span class="token function">getAvatar</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>imageService<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token punctuation">{{ '{' }}</span>w<span class="token punctuation">:</span> req<span class="token punctuation">.</span>query<span class="token punctuation">.</span>w<span class="token punctuation">,</span> h<span class="token punctuation">:</span> req<span class="token punctuation">.</span>query<span class="token punctuation">.</span>h<span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre>
 
 

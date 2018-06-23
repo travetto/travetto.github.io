@@ -1,17 +1,23 @@
 #!/bin/bash
 
-DOC_ROOT=src/app/documentation
+SELF=`realpath $(dirname $0)`
+GHP_ROOT=`dirname $SELF`
+ROOT=`dirname $GHP_ROOT`
+
+DOC_ROOT=$GHP_ROOT/src/app/documentation
 PAGE_FILE=$DOC_ROOT/pages.ts
+
+pushd $GHP_ROOT 2>&1 > /dev/null
 
 function run() {
   local CREATED=
   local IMPORTS="import { Type } from '@angular/core';"
   local PAGES=''
 
-  for x in `ls ../ | grep -v 'github.io\|inky\|js-yaml\|test-plugin'`; do   
-    if [[ -d "../$x" ]]; then
+  for x in `ls $ROOT | grep -v 'github.io\|inky\|js-yaml\|test-plugin'`; do   
+    if [[ -d "$ROOT/$x" ]]; then
       local HTML="$DOC_ROOT/$x/$x.component.html"
-      local README="../$x/README.md"
+      local README="$ROOT/$x/README.md"
 
       if [[ ! -f "$HTML" ]]; then
         ng g c documentation/$x
@@ -20,7 +26,7 @@ function run() {
 
       # Compile html
       if [ "$HTML" -ot "$README" ]; then
-        ./node_modules/.bin/marked $README ./highlight.js > $HTML
+        ./node_modules/.bin/marked $README | ./bin/process-markdown.js > $HTML
         CHANGE=1
       fi
 
@@ -41,7 +47,7 @@ function run() {
 }
 
 if [[ "$1" == "watch" ]]; then
-  FILES=`find ../ -name 'README.md' | grep -v 'node_modules' | grep -v 'js-yaml\|inky\|github\|plugin'`
+  FILES=`find $ROOT -name 'README.md' | grep -v 'node_modules' | grep -v 'js-yaml\|inky\|github\|plugin'`
 
   function block_for_change {
     inotifywait -e attrib,modify,move,create,delete $FILES
@@ -53,3 +59,6 @@ if [[ "$1" == "watch" ]]; then
 else
   run
 fi
+
+
+popd 2>&1 > /dev/null
