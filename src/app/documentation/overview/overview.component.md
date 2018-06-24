@@ -9,10 +9,28 @@ The framework relies up five key principles:
   to typescript and it's compiler.
 * **Code over configuration.**  This means that the framework prefers meta-programming via decorators
  over configuration.  Code is always the best place to define configuration.
-* **Do not ask the developer to duplicate information.**  Specifically, source code transformation (and analysis) is a key element of providing seamless functionality while requiring as little as possible from the person using the framework.
+* **Do not ask the developer to repeat information.**  Specifically, source code transformation (and analysis) is a key element of providing seamless functionality while requiring as little as possible from the person using the framework.
 * **Strive for a minimal footprint.**  When libraries are considered, an overarching goal is to
   keep the size and quantity of dependencies and functionality to a minimum.  The net result
   should be as little code as possible, and as few dependencies as possible.
 * **Development responsiveness is paramount.**  The framework should
   aim for instant feedback when possible to minimize the time between making a change and
   seeing it.
+
+
+## Modules
+Every module within the framework follows the overarching philosophy.  For the most part each
+module is as isolated as possible.  
+
+<div class="legend">
+  <div class="system">System</div>
+  <div class="core">Core</div>
+  <div class="lib">Library</div>
+  <div class="provider">Provider</div>
+  <div class="common-lib">Common Library</div>
+</div>
+
+<div class="modules">
+  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title.replace('-', ' ')"></span></a>
+</div>
+

@@ -1,0 +1,195 @@
+.common-lib {
+  background-color: lightcyan;
+}
+
+.lib {
+  background-color: lightblue;
+}
+
+.system {
+  background-color: #eee;
+}
+
+.core {
+  background-color: lightgreen;
+}
+
+.provider {
+  background-color: lightgoldenrodyellow;
+}
+
+.legend {
+  >div {
+    font-size: 10pt;
+    display: inline-block;
+    padding: .25em;
+  }
+  margin-bottom: .5em;
+}
+
+.modules {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 10px;
+  grid-auto-rows: 80px;
+
+  a {
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    min-width: 100px;
+    hyphens: auto;
+    color: #333;
+    line-height: 80px;
+    transition: .5s opacity;
+    box-shadow: 1px 1px .3em -.1em black;
+
+    span {
+      font-size: 12pt;
+      line-height: normal;
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+    }
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  .asset-express,
+  .asset-mongo,
+  .asset-s3,
+  .model-elasticsearch,
+  .model-mongo {
+    @extend .provider;
+  }
+
+  .pool,
+  .exec,
+  .util,
+  .schedule,
+  .log {
+    @extend .lib;
+  }
+
+  .registry,
+  .compiler,
+  .base {
+    @extend .system;
+  }
+
+  .test,
+  .auth,
+  .asset,
+  .model,
+  .express,
+  .schema,
+  .di,
+  .config {
+    @extend .core;
+  }
+
+  .email,
+  .context,
+  .cache {
+    @extend .common-lib;
+  }
+
+  .schedule {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .asset-express {
+    grid-row: 0;
+    grid-column: 8;
+  }
+  .asset-mongo {
+    grid-row: 1;
+    grid-column: 6;
+  }
+  .asset-s3 {
+    grid-row: 1;
+    grid-column: 7;
+  }
+  .email {
+    grid-row: 1;
+    grid-column: 9;
+  }
+  .test {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  .model-elasticsearch {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  .model-mongo {
+    grid-row: 2;
+    grid-column: 3;
+  }
+  .auth {
+    grid-row: 2;
+    grid-column: 4/6;
+  }
+  .asset {
+    grid-row: 2;
+    grid-column: 6/9;
+  }
+  .context {
+    grid-row: 2;
+    grid-column: 9;
+  }
+  .pool {
+    grid-row: 3;
+    grid-column: 1;
+  }
+  .model {
+    grid-row: 3;
+    grid-column: 2/5;
+  }
+  .express {
+    grid-row: 3;
+    grid-column: 5/9;
+  }
+  .cache {
+    grid-row: 3;
+    grid-column: 9;
+  }
+  .exec {
+    grid-row: 4;
+    grid-column: 1;
+  }
+  .schema {
+    grid-row: 4;
+    grid-column: 2;
+  }
+  .di {
+    grid-row: 4;
+    grid-column: 3/10;
+  }
+  .registry {
+    grid-row: 5;
+    grid-column: 1/9;
+  }
+  .util {
+    grid-row: 5;
+    grid-column: 9;
+  }
+  .compiler {
+    grid-row: 6;
+    grid-column: 1/8;
+  }
+  .config {
+    grid-row: 6;
+    grid-column: 8;
+  }
+  .log {
+    grid-row: 6;
+    grid-column: 9;
+  }
+  .base {
+    grid-row: 7;
+    grid-column: 1/10;
+  }
+}

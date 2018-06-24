@@ -17,4 +17,7 @@ export class DocumentationComponent implements OnInit {
   ngOnInit() {
   }
 
+  onActivate(event) {
+    window.document.scrollingElement.scrollTop = 0;
+  }
 }

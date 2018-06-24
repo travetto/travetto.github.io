@@ -30,7 +30,7 @@
       list-style-position: outside;
       list-style-type: none;
       li {
-        line-height: 1em;
+        font-size: 12pt;
         padding: .2em 0;
         width: 100%;
         display: block;
@@ -38,10 +38,10 @@
           transition: border-color .5s;
 
           &.active {
-            border-color: #444;
+            border-color: lighten(green, 10%);
           }
           &:hover {
-            border-color: #444;
+            border-color: green;
           }
 
           color: #444;
