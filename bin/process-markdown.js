@@ -91,7 +91,15 @@ const content = fs.readFileSync(inputMarkdown).toString()
   .replace(/Travetto:\s*/gi, '')
   .replace(/```([^\n]*?)```/g, (a, c) => '`█' + c + '`');
 
-const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
-  .replace(/[{}]/g, a => `{{ '${a}' }}`);
+let links = '';
 
+const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
+  .replace(/[{}]/g, a => `{{ '${a}' }}`)
+  .replace(/<h[23][^>]+>Outline.*?<\/[uo]l>/ms, (a) => {
+    links = a;
+    return '';
+  });
+if (links) {
+  console.log(`<div class="documentation-links">${links}</div>`);
+}
 console.log(`<div class="documentation">${output}</div>`);

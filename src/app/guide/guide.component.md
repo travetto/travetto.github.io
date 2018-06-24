@@ -3,20 +3,20 @@ Getting Started
 
 The following tutorial wil walk you through setting up a `travetto` application from scratch.  We'll be building a simple todo application. The entire source of the finished project can be found at [github](https://github.com/travetto/sample-app).
 
-## Steps
-
-0. [Prerequisites](#prerequisites)
-1. [Project initialization](#project-initialization)
-2. [Establishing the model](#establishing-the-model)
-3. [Configuring the data source](#configuring-the-data-source)
-4. [Building the service layer](#building-the-service-layer)
-5. [Writing unit tests](#writing-unit-tests)
-6. [Creating the express routes](#creating-the-express-routes)
-7. [Test the final product](#test-the-final-product)
+### Outline
+* [Prerequisites](#prerequisites)
+* [Project initialization](#project-initialization)
+* [Establishing the model](#establishing-the-model)
+* [Configuring the data source](#configuring-the-data-source)
+* [Building the service layer](#building-the-service-layer)
+* [Writing unit tests](#writing-unit-tests)
+* [Creating the express routes](#creating-the-express-routes)
+* [Test the final product](#test-the-final-product)
 
 ## Prerequisites
 
 Install
+
 * [`Node`](https://nodejs.org/en/download/current/) v10.x + (required)
 * [`Mongodb`](https://docs.mongodb.com/manual/administration/install-community/) 3.6+ (required)
 * [`vscode`](https://code.visualstudio.com/download) (recommended)

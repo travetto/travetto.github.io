@@ -17,7 +17,6 @@ li {
 
 .documentation {
   padding: 1em;
-  max-width: 1000px;
 
   h1 {
     line-height: 2em;
@@ -215,8 +214,10 @@ li {
   overflow-y: auto;
   width: 200px;
   min-width: 200px;
-  background-color: #f3f8f3;
+  background-color: none;
   padding: 1.5em;
+  border-right: 1px solid #ccc;
+  text-align: right;
 
   h3 {
     font-size: 20pt;
@@ -251,8 +252,8 @@ li {
 
         color: #444;
         text-decoration: none;
-        padding-left: .5em;
-        border-left: 3px solid #aaa;
+        padding-right: .5em;
+        border-right: 3px solid #aaa;
       }
     }
   }
