@@ -1,7 +1,7 @@
 Getting Started
 ====
 
-The following tutorial wil walk you through setting up a `travetto` application from scratch.  We'll be building a simple todo application.
+The following tutorial wil walk you through setting up a `travetto` application from scratch.  We'll be building a simple todo application. The entire source of the finished project can be found at [github](https://github.com/travetto/sample-app).
 
 ## Steps
 
