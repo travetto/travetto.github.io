@@ -42,7 +42,7 @@ class MyRenderer extends marked.Renderer {
       title = `title="${title}"`;
     }
     if (/^#/.test(href)) {
-      return `<a class="anchor-link" routerLink="." fragment="${href.substring(1)}" ${title}>${text}</a>`;
+      return `<a class="anchor-link" routerLink="." (click)="scrollTo('${href.substring(1)}')" fragment="${href.substring(1)}" ${title}>${text}</a>`;
     } else if (/^http(s)?:\/\/github[.]com\/travetto/.test(href)) {
       href = href.split('/travetto/')[1];
       href = href.replace(/#readme/, '');
@@ -95,7 +95,7 @@ let links = '';
 
 const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
   .replace(/[{}]/g, a => `{{ '${a}' }}`)
-  .replace(/<h[23][^>]+>Outline.*?<\/[uo]l>/ms, (a) => {
+  .replace(/<h[23][^>]+>(Outline|Overview).*?<\/[uo]l>/ms, (a) => {
     links = a;
     return '';
   });

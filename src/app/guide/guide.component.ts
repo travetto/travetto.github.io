@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-guide',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GuideComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private ref: ElementRef) { }
 
   ngOnInit() {
   }
 
+  scrollTo(anchor) {
+    (this.ref.nativeElement as HTMLElement).querySelector(`#${anchor}`).scrollIntoView();
+  }
 }
