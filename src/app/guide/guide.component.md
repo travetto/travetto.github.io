@@ -65,7 +65,7 @@ Let's create the model for the todo application.  The fields we will need should
 * `created` the date the todo was created
 * `completed` whether or not the todo was completed
 
-```src/model.ts```
+Create the file `src/model.ts`
 ```typescript
 import { Model, ModelCore } from '@travetto/model';
 
@@ -82,7 +82,7 @@ as you can see, the model structure is simple.  Everything that uses the `Model`
 ## Configuring the data source
 Next we need to prepare the `MongoModelSource` to be used at runtime.
 
-```src/config.ts```
+We need to create `src/config.ts`
 ```typescript
 import { InjectableFactory } from '@travetto/di';
 import { ModelMongoSource, ModelMongoConfig } from '@travetto/model-mongo';
@@ -105,7 +105,7 @@ Next we establish the functionality for the service layer. The operations we nee
 * Remove a todo
 * Get all todos
 
-```src/service.ts```
+Now we need to create `src/service.ts`
 ```typescript
 import { ModelService } from '@travetto/model';
 import { Injectable } from '@travetto/di';
@@ -144,7 +144,7 @@ some simple tests to verify the service layer is running correctly.
 
 First we need to initialize the testing configuration as the config in the `src/` folder is not automatically scanned.
 
-```test/config.ts```
+Create the new test config at `test/config.ts`
 ```typescript
 import { InjectableFactory } from '@travetto/di';
 import { ModelSource, ModelService } from '@travetto/model';
@@ -166,7 +166,7 @@ export class TestConfig {
 }
 ```
 
-```test/service.ts```
+The tests should be defined at `test/service.ts`
 ```typescript
 import * as assert from 'assert';
 
@@ -246,7 +246,7 @@ export class TodoTest {
 ## Creating the express routes
 Now we establish the routes, providing an interface to the service layer.
 
-```src/controller.ts```
+Finally, we establish the controller at `src/controller.ts`
 ```typescript
 import { Request } from 'express';
 
