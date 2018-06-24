@@ -20,7 +20,12 @@ The framework relies up five key principles:
 
 ## Modules
 Every module within the framework follows the overarching philosophy.  For the most part each
-module is as isolated as possible.  
+module is as isolated as possible.  The modules are stacked vertically to generally indicate dependencies.  The only exception is for common libraries, which are unrelated.
+
+
+<div class="modules">
+  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title.replace('-', ' ')"></span></a>
+</div>
 
 <div class="legend">
   <div>Legend:</div>
@@ -30,8 +35,3 @@ module is as isolated as possible.
   <div class="provider">Provider</div>
   <div class="common-lib">Common Library</div>
 </div>
-
-<div class="modules">
-  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title.replace('-', ' ')"></span></a>
-</div>
-

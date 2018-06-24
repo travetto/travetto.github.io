@@ -10,7 +10,11 @@
 <li><strong>Development responsiveness is paramount.</strong>  The framework should<br>aim for instant feedback when possible to minimize the time between making a change and<br>seeing it.</li>
 </ul>
 <h2 id="modules">Modules</h2>
-<p>Every module within the framework follows the overarching philosophy.  For the most part each<br>module is as isolated as possible.  </p>
+<p>Every module within the framework follows the overarching philosophy.  For the most part each<br>module is as isolated as possible.  The modules are stacked vertically to generally indicate dependencies.  The only exception is for common libraries, which are unrelated.</p>
+<div class="modules">
+  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title.replace('-', ' ')"></span></a>
+</div>
+
 <div class="legend">
   <div>Legend:</div>
   <div class="system">System</div>
@@ -19,9 +23,4 @@
   <div class="provider">Provider</div>
   <div class="common-lib">Common Library</div>
 </div>
-
-<div class="modules">
-  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title.replace('-', ' ')"></span></a>
-</div>
-
 
