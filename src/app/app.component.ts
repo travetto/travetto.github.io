@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
 
-  // notice = `
+  notice = '';
+  // `
   // The initial version of the framework just launched into alpha. <a href="https://github.com/travetto/">Read more</a>
   // `;
 }
