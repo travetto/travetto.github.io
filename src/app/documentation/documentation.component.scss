@@ -9,6 +9,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     width: 200px;
+    min-width: 200px;
     background-color: #f3f8f3;
     padding: 1.5em;
 
@@ -18,19 +19,35 @@
       margin-bottom: 0;
     }
 
+    ul+h3 {
+      margin-top: 1em;
+    }
+
+
     >ul {
       margin: 0;
       padding: 0;
       list-style-position: outside;
       list-style-type: none;
       li {
-        line-height: 1.4em;
+        line-height: 1em;
+        padding: .2em 0;
         width: 100%;
         display: block;
         a {
-          color: #666;
+          transition: border-color .5s;
+
+          &.active {
+            border-color: #444;
+          }
+          &:hover {
+            border-color: #444;
+          }
+
+          color: #444;
           text-decoration: none;
-          border-bottom: 1px solid #aaa;
+          padding-left: .5em;
+          border-left: 3px solid #aaa;
         }
       }
     }
