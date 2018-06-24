@@ -31,6 +31,7 @@ import { UtilComponent } from './util/util.component';
 
 import { PAGES } from './pages';
 import { OverviewComponent } from './overview/overview.component';
+import { TestPluginComponent } from './test-plugin/test-plugin.component';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { OverviewComponent } from './overview/overview.component';
     SchemaComponent,
     StarterComponent,
     UtilComponent,
-    OverviewComponent
+    OverviewComponent,
+    TestPluginComponent
   ]
 })
 export class DocumentationModule { }

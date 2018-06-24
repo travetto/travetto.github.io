@@ -14,7 +14,23 @@ The following tutorial wil walk you through setting up a `travetto` application 
 6. [Creating the express routes](#creating-the-express-routes)
 
 ## Prerequisites
+
+Install
+* [`Node`](https://nodejs.org/en/download/current/) v10.x + (required)
+* [`Mongodb`](hhttps://docs.mongodb.com/manual/administration/install-community/) 3.6+ (required)
+* [`vscode`](https://code.visualstudio.com/download) (recommended)
+* [`Travetto Test Plugin`](https://marketplace.visualstudio.com/items?itemName=arcsine.travetto-test-plugin) (recommended)
+
 ## Project initialization
+```bash
+mkdir todo-project
+cd todo-project
+
+git init .
+
+npm i @travetto/model
+```
+
 ## Establishing the model
 ## Configuring the data source
 ## Building the service layer
