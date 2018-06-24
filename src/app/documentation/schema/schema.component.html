@@ -1,7 +1,7 @@
 <div class="documentation"><h1 id="schema">Schema</h1>
 <p>This module provide a mechanisms for registering classes and field level information as well the ability to apply that information at runtime.</p>
 <h2 id="registration">Registration</h2>
-<p>The registry’s schema information is defined by <code>typescript</code> AST and only applies to classes registered as <code class="decorator">@Schema</code>s.<br>The module utilizes AST transformations to collect schema information, and facilitate the registration process without<br>user intervention.</p>
+<p>The registry’s schema information is defined by <code>typescript</code> AST and only applies to classes registered as <code class="decorator">@Schema</code>s. The module utilizes AST transformations to collect schema information, and facilitate the registration process without user intervention.</p>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -22,7 +22,7 @@
       <span class="token key atrule">name</span><span class="token punctuation">:</span> favoriteFood
       <span class="token key atrule">type</span><span class="token punctuation">:</span> string
       <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
-      <span class="token key atrule">allowedValues</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"pizza"</span><span class="token punctuation">,</span> <span class="token string">"burrito"</span><span class="token punctuation">,</span> <span class="token string">"salad"</span> <span class="token punctuation">]</span></code></pre><p>This provides a powerful base for data binding and validation at runtime.  Additionally there may be types that cannot be detected, or<br>some information that the programmer would like to override. Below are the supported field decorators:</p>
+      <span class="token key atrule">allowedValues</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"pizza"</span><span class="token punctuation">,</span> <span class="token string">"burrito"</span><span class="token punctuation">,</span> <span class="token string">"salad"</span> <span class="token punctuation">]</span></code></pre><p>This provides a powerful base for data binding and validation at runtime.  Additionally there may be types that cannot be detected, or some information that the programmer would like to override. Below are the supported field decorators:</p>
 <ul>
 <li><code class="decorator">@Field</code> defines a field that will be serialized, generally used in conjunction with <code class="inline language-typescript">@Schema(false)</code> which disables the auto registration.</li>
 <li><code class="decorator">@Require</code> defines a that field should be required</li>

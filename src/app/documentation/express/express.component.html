@@ -1,7 +1,7 @@
 <div class="documentation"><h1 id="express">Express</h1>
-<p>The module provides a declarative API for creating an <a class="external-link" href="https://expressjs.com" target="_blank" null><code>express</code></a> application.  Since the<br>framework is declarative, decorators are used to configure almost everything.</p>
+<p>The module provides a declarative API for creating an <a class="external-link" href="https://expressjs.com" target="_blank" null><code>express</code></a> application.  Since the  framework is declarative, decorators are used to configure almost everything.</p>
 <h2 id="route-management">Route management</h2>
-<p>To define a route, you must first declare a <code class="decorator">@Controller</code> which is only allowed on classes. Once declared<br>Each method of the controller is a candidate for routing.  By design, everything is asynchronous, and so<br>async/await is natively supported.  The HTTP methods that are supported via:</p>
+<p>To define a route, you must first declare a <code class="decorator">@Controller</code> which is only allowed on classes. Once declared each method of the controller is a candidate for routing.  By design, everything is asynchronous, and so async/await is natively supported.  The HTTP methods that are supported via:</p>
 <ul>
 <li><code class="decorator">@Get</code></li>
 <li><code class="decorator">@Post</code></li>
@@ -26,7 +26,7 @@
     <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name<span class="token punctuation">:</span> req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>name <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre><p>Additionally, the module is predicated upon <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a>, and so all standard di techniques work on<br>controllers.</p>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>Additionally, the module is predicated upon <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a>, and so all standard di techniques work on controllers.</p>
 <p><strong>NOTE</strong> in development mode the module supports hot reloading of <code>class</code>es.  Routes can be added/modified/removed at runtime.</p>
 <h2 id="input-output">Input/Output</h2>
 <p>The module provides standard structure for rendering content on the response.  This includes:</p>
@@ -46,7 +46,7 @@
 <li><code class="inline language-typescript">bodyParser.raw({{ '{' }} type: &#39;image/*&#39; {{ '}' }})</code></li>
 <li><code class="inline language-typescript">session(this.config.session)</code></li>
 </ul>
-<p>Additionally it is sometimes necessary to register custom filters.  Additional filters can be registered with the <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a> by extending the <a class="source-link" href="https://githhub.com/travetto/express/tree/master/src/service/operator" target="_blank" null><code>Operator</code></a> class.  </p>
+<p>Additionally it is sometimes necessary to register custom filters.  Filters can be registered with the <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a> by extending the <a class="source-link" href="https://githhub.com/travetto/express/tree/master/src/service/operator" target="_blank" null><code>Operator</code></a> class.  </p>
 <pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
   target<span class="token punctuation">:</span> ExpressOperator<span class="token punctuation">,</span>
   qualifier<span class="token punctuation">:</span> <span class="token constant">AUTH</span>
@@ -63,10 +63,10 @@
     <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="extensions">Extensions</h2>
-<p>Integration with other modules can be supported by extensions.  The dependencies are <code>peerDependencies</code> and must be installed directly if you<br>want to use them:</p>
+<p>Integration with other modules can be supported by extensions.  The dependencies are <code>peerDependencies</code> and must be installed directly if you want to use them:</p>
 <h3 id="schema">Schema</h3>
 <p><a class="module-link" routerLink="/docs/schema" null><code>Schema</code></a> support for validating and typing request bodies</p>
-<p><code class="decorator">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide<br> validation before the controller even receives the request.</p>
+<p><code class="decorator">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide validation before the controller even receives the request.</p>
 <pre><code class="language-typescript"> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
    name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
    age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
@@ -78,7 +78,7 @@
     <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
- <span class="token operator">...</span></code></pre><p><code class="decorator">@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide<br> validation before the controller even receives the request. </p>
+ <span class="token operator">...</span></code></pre><p><code class="decorator">@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide validation before the controller even receives the request. </p>
 <pre><code class="language-typescript"> <span class="token keyword">class</span> <span class="token class-name">SearchParams</span> <span class="token punctuation">{{ '{' }}</span>
    page<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
    pageSize<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>

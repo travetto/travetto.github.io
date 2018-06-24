@@ -13,7 +13,7 @@
 env/<span class="token operator">&lt;</span>val2<span class="token operator">></span>.yml</code></pre></li>
 </ol>
 <ol start="4">
-<li>Read startup configuration from <code>process.env</code> to allow for overriding any values. Because we are overriding a<a class="external-link" href="https://en.wikipedia.org/wiki/YAML" target="_blank" null><code>yaml</code></a> based configuration<br>we need to compensate for the differences in usage patterns.  Generally all environment variables are passed in as <code>UPPER_SNAKE_CASE</code>.<br>When reading from <code>process.env</code> we will map <code>UPPER_SNAKE_CASE</code> to <code>upper.snake.case</code>, and will attempt to match by case-insensitive name.</li>
+<li>Read startup configuration from <code>process.env</code> to allow for overriding any values. Because we are overriding a<a class="external-link" href="https://en.wikipedia.org/wiki/YAML" target="_blank" null><code>yaml</code></a> based configuration we need to compensate for the differences in usage patterns.  Generally all environment variables are passed in as <code>UPPER_SNAKE_CASE</code>. When reading from <code>process.env</code> we will map <code>UPPER_SNAKE_CASE</code> to <code>upper.snake.case</code>, and will attempt to match by case-insensitive name.</li>
 </ol>
 <h2 id="example-resolution">Example Resolution</h2>
 <p>A more complete example setup would look like:</p>
@@ -37,7 +37,7 @@ env/<span class="token operator">&lt;</span>val2<span class="token operator">></
   <span class="token key atrule">creds</span><span class="token punctuation">:</span>
     <span class="token key atrule">user</span><span class="token punctuation">:</span> admin<span class="token punctuation">-</span>user
     <span class="token key atrule">password</span><span class="token punctuation">:</span> &lt;secret<span class="token punctuation">></span></code></pre><h2 id="reading">Reading</h2>
-<p>The module provides a decorator, <code class="decorator">@Config</code> that allows for classes to automatically be bound with config information<br>on post construction. The decorator will install a <code>postConstruct</code> method if not already defined, that allows actually performs<br>the binding of configuration.  </p>
+<p>The module provides a decorator, <code class="decorator">@Config</code> that allows for classes to automatically be bound with config information on post construction. The decorator will install a <code>postConstruct</code> method if not already defined, that allows actually performs the binding of configuration.  </p>
 <p>The decorator takes in a namespace, of what part of the resolved configuration you want to bind to your class. Given the following class</p>
 <pre><code class="language-typescript">@<span class="token meta">Config</span><span class="token punctuation">(</span><span class="token string">'database'</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">DBConfig</span> <span class="token punctuation">{{ '{' }}</span>

@@ -10,7 +10,7 @@
 <li><code>console.trace</code> which logs at the <code>TRACE</code> level</li>
 <li><code>console.log</code> which logs at the <code>INFO</code> level</li>
 </ul>
-<p><strong>Note:</strong> In production mode, all <code>console.debug</code> and <code>console.trace</code> invocations are compiled away for performance/security reasons. This means<br>that the code is actually removed, and will not execute.</p>
+<p><strong>Note:</strong> In production mode, all <code>console.debug</code> and <code>console.trace</code> invocations are compiled away for performance/security reasons. This means that the code is actually removed, and will not execute.</p>
 <p>A sample of the transformation would be:</p>
 <pre><code class="language-typescript"><span class="token keyword">function</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">trace</span><span class="token punctuation">(</span><span class="token string">'Start Work'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

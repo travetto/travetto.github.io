@@ -1,6 +1,6 @@
 <div class="documentation"><h1 id="cache">Cache</h1>
 <p>Provides a simple wrapper around <a class="external-link" href="https://github.com/isaacs/node-lru-cache" target="_blank" null><code>lru-cache</code></a> to provide standard caching constructs.  </p>
-<p><code class="decorator">@Cacheable</code> is a decorator that allows caching at class methods. The decorator will rewrite the method<br>to cache on successful results. The decorator supports synchronous as well as asynchronous methods.</p>
+<p><code class="decorator">@Cacheable</code> is a decorator that allows caching at class methods. The decorator will rewrite the method to cache on successful results. The decorator supports synchronous as well as asynchronous methods.</p>
 <pre><code class="language-typescript">  <span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token punctuation">{{ '{' }}</span>
 
     @<span class="token meta">Cacheable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> max<span class="token punctuation">:</span> <span class="token number">1000</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>

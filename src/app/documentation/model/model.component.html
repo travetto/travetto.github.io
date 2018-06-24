@@ -2,7 +2,7 @@
 <p>This module provides a clean interface to data model persistence, modification and retrieval.  This module builds heavily upon the <a class="module-link" routerLink="/docs/schema" null><code>Schema</code></a>, which is used for data model validation.</p>
 <p>The module can be segmented into three main areas: Model declaration, access/storage, and querying</p>
 <h2 id="declaration">Declaration</h2>
-<p>Models are declared via the <code class="decorator">@Model</code> decorator, which allows the system to know that this is a class that is compatible with the<br>module.</p>
+<p>Models are declared via the <code class="decorator">@Model</code> decorator, which allows the system to know that this is a class that is compatible with the module.</p>
 <pre><code class="language-typescript">@<span class="token meta">Model</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">BaseModel</span> <span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -58,7 +58,7 @@
 </ul>
 <h3 id="string-fields">String Fields</h3>
 <ul>
-<li><code class="inline language-typescript">field : {{ '{' }} $regex: RegExp; {{ '}' }}</code> checks the field against the regular expresesion</li>
+<li><code class="inline language-typescript">field : {{ '{' }} $regex: RegExp; {{ '}' }}</code> checks the field against the regular expression</li>
 </ul>
 <h3 id="geo-point-fields">Geo Point Fields</h3>
 <ul>
