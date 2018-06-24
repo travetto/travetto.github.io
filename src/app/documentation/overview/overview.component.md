@@ -23,6 +23,7 @@ Every module within the framework follows the overarching philosophy.  For the m
 module is as isolated as possible.  
 
 <div class="legend">
+  <div>Legend:</div>
   <div class="system">System</div>
   <div class="core">Core</div>
   <div class="lib">Library</div>
