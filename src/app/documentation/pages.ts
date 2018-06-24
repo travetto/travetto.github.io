@@ -51,6 +51,10 @@ export const PAGES = [
   { path: 'util', title: 'Util', component: UtilComponent },
 ];
 
+PAGES.forEach(x => {
+  x.title = x.title.replace('-', ' ');
+});
+
 PAGES.sort((a: { title: string }, b: { title: string }) => {
   return a.title.localeCompare(b.title);
 });

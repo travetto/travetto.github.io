@@ -17,7 +17,7 @@ Every module within the framework follows the overarching philosophy.  For the m
 
 
 <div class="modules">
-  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title.replace('-', ' ')"></span></a>
+  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title"></span></a>
 </div>
 
 <div class="legend">
