@@ -104,13 +104,6 @@ li {
       color: #333;
     }
 
-    &.inline {
-      overflow: visible;
-      display: inline-block;
-      font-size: 12pt;
-      padding: .2em .5em;
-    }
-
     &[class*="language-"] {
       overflow-x: auto;
       font-size: 14pt;
@@ -195,6 +188,14 @@ li {
         }
       }
     }
+
+    &.inline {
+      overflow: visible;
+      display: inline-block;
+      font-size: 12pt;
+      padding: .2em .5em;
+    }
+
   }
 
   pre {
