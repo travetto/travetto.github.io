@@ -1,4 +1,4 @@
-<h1 id="log">Log</h1>
+<div class="documentation"><h1 id="log">Log</h1>
 <p>This module provides logging functionality relying up the built in <code class="inline language-typescript">console</code> operations. This is achieved via AST transformations. The code is rewritten at compile time to transform the <code>console</code> operations into proper logging commands. In addition to the transformation, class name and line number are added to the log messages to provide additional context.</p>
 <p>The supported operations are:</p>
 <ul>
@@ -47,4 +47,4 @@
 <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">'Test'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">fatal</span><span class="token punctuation">(</span><span class="token string">'hi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>The corresponding output would be</p>
-<pre><code class="language-output">undefined</code></pre>
+<pre><code class="language-output">undefined</code></pre></div>

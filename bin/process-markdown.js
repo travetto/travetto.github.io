@@ -92,4 +92,4 @@ const content = fs.readFileSync(inputMarkdown).toString()
 const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
   .replace(/[{}]/g, a => `{{ '${a}' }}`);
 
-console.log(output);
+console.log(`<div class="documentation">${output}</div>`);

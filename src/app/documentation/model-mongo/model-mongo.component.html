@@ -1,4 +1,4 @@
-<h1 id="model-mongo">Model-Mongo</h1>
+<div class="documentation"><h1 id="model-mongo">Model-Mongo</h1>
 <p>This module provides an <a class="external-link" href="https://mongodb.com" target="_blank" null><code>mongodb</code></a>-based implementation of <code>ModelSource</code> for the <a class="module-link" routerLink="/docs/model" null><code>Model</code></a> module.  This source allows the <code>Model</code> module to read, write and query against <code>elasticserch</code>. Given the dynamic nature of <code>mongodb</code>, during development when models are modified, nothing needs to be done to adapt to the latest schema.</p>
 <p>All that is needed to use the <code>ModelSource</code> is to register it with the <a class="module-link" routerLink="/docs/di" null><code>Dependency Injection</code></a> module.</p>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Init</span> <span class="token punctuation">{{ '{' }}</span>
@@ -15,4 +15,4 @@
   options <span class="token operator">=</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>and can be overridden via environment variables or config files, as defined in <a class="module-link" routerLink="/docs/config" null><code>Config</code></a>.</p>
 <p><strong>NOTE</strong> During testing, the source will automatically spin up a <code>mongodb</code> server via a <code>docker</code> container if you are not already running the service.</p>
-
+</div>
