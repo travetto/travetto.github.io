@@ -100,6 +100,6 @@ const output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
     return '';
   });
 if (links) {
-  console.log(`<div class="documentation-links">${links}</div>`);
+  console.log(`<div class="documentation-links"><div class="inner">${links}</div></div>`);
 }
 console.log(`<div class="documentation">${output}</div>`);

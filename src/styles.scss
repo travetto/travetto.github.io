@@ -210,14 +210,22 @@ li {
 }
 
 .documentation-links {
-  overflow-x: hidden;
-  overflow-y: auto;
   width: 200px;
   min-width: 200px;
+  padding-right: 1em;
+  overflow-x: hidden;
   background-color: none;
-  padding: 1.5em;
   border-right: 1px solid #ccc;
   text-align: right;
+  position: relative;
+
+  .inner {
+    padding-top: 1.5em;
+    width: 200px;
+    min-width: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
   h3 {
     font-size: 20pt;
@@ -230,7 +238,7 @@ li {
   }
 
 
-  >ul {
+  ul {
     margin: 0;
     padding: 0;
     list-style-position: outside;
