@@ -51,7 +51,7 @@ class MyRenderer extends marked.Renderer {
     } else if (href.startsWith('http')) {
       return `<a class="external-link" href="${href}" target="_blank" ${title}>${text}</a>`;
     } else if (href.startsWith('.')) {
-      href = `https://githhub.com/travetto/${moduleName}/tree/master/${href.replace(/^.[/]/ ,'')}`;
+      href = `https://github.com/travetto/${moduleName}/tree/master/${href.replace(/^.[/]/ ,'')}`;
       return `<a class="source-link" href="${href}" target="_blank" ${title}>${text}</a>`;
     }
     return super.link(href, title, text);
