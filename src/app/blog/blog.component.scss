@@ -1,0 +1,28 @@
+:host {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: block;
+
+  article {
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    h2 small {
+      line-height: 12pt;
+      display: inline-block;
+      font-size: 12pt;
+      font-weight: normal;
+    }
+
+    .byline {
+      color: #333;
+      font-size: 12pt;
+      margin-bottom: 1em;
+    }
+
+    /ng-deep/ .content {
+      line-height: 1.5em;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { JsonpModule, HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {
@@ -10,6 +11,7 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { GuideComponent } from './guide/guide.component';
 import { DocumentationModule } from './documentation/documentation.module';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,10 @@ const routes: Routes = [
       {
         path: 'guide',
         component: GuideComponent
+      },
+      {
+        path: 'blog',
+        component: BlogComponent
       }
     ]
   }, {
@@ -36,11 +42,13 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LandingComponent,
-    GuideComponent
+    GuideComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule, MatButtonModule, MatTabsModule,
     MatSidenavModule, MatTooltipModule, MatToolbarModule,
+    HttpModule, JsonpModule,
     DocumentationModule,
     RouterModule.forRoot(routes)
   ],
