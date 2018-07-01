@@ -22,7 +22,7 @@ function run() {
     local HTML="$DOC_ROOT/$MODULE/$MODULE.component.html"
 
     if [[ ! -f "$HTML" ]]; then
-      ng g c documentation/$x
+      ng g c documentation/$MODULE
       CREATED=1
     fi
 

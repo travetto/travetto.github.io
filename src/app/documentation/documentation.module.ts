@@ -32,6 +32,8 @@ import { UtilComponent } from './util/util.component';
 import { PAGES } from './pages';
 import { OverviewComponent } from './overview/overview.component';
 import { TestPluginComponent } from './test-plugin/test-plugin.component';
+import { AuthExpressComponent } from './auth-express/auth-express.component';
+import { AuthModelComponent } from './auth-model/auth-model.component';
 
 @NgModule({
   imports: [
@@ -76,7 +78,9 @@ import { TestPluginComponent } from './test-plugin/test-plugin.component';
     StarterComponent,
     UtilComponent,
     OverviewComponent,
-    TestPluginComponent
+    TestPluginComponent,
+    AuthExpressComponent,
+    AuthModelComponent
   ]
 })
 export class DocumentationModule { }

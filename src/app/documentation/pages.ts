@@ -3,6 +3,8 @@ import { AssetExpressComponent } from './asset-express/asset-express.component';
 import { AssetMongoComponent } from './asset-mongo/asset-mongo.component';
 import { AssetComponent } from './asset/asset.component';
 import { AssetS3Component } from './asset-s3/asset-s3.component';
+import { AuthExpressComponent } from './auth-express/auth-express.component';
+import { AuthModelComponent } from './auth-model/auth-model.component';
 import { AuthComponent } from './auth/auth.component';
 import { BaseComponent } from './base/base.component';
 import { CacheComponent } from './cache/cache.component';
@@ -30,6 +32,8 @@ export const PAGES = [
   { path: 'asset', title: 'Asset', component: AssetComponent },
   { path: 'asset-s3', title: 'Asset-S3', component: AssetS3Component },
   { path: 'auth', title: 'Auth', component: AuthComponent },
+  { path: 'auth-express', title: 'Auth-Express', component: AuthExpressComponent },
+  { path: 'auth-model', title: 'Auth-Model', component: AuthModelComponent },
   { path: 'base', title: 'Base', component: BaseComponent },
   { path: 'cache', title: 'Cache', component: CacheComponent },
   { path: 'compiler', title: 'Compiler', component: CompilerComponent },
@@ -50,12 +54,3 @@ export const PAGES = [
   { path: 'test', title: 'Test', component: TestComponent },
   { path: 'util', title: 'Util', component: UtilComponent },
 ];
-
-PAGES.forEach(x => {
-  x.title = x.title.replace('-', ' ');
-});
-
-PAGES.sort((a: { title: string }, b: { title: string }) => {
-  return a.title.localeCompare(b.title);
-});
-
