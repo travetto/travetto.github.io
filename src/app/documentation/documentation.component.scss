@@ -6,5 +6,9 @@
 
   .router-outlet {
     flex: 1;
+    /deep/ .documentation {
+      max-width: 800px;
+      min-width: 800px;
+    }
   }
 }

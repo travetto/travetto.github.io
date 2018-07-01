@@ -10,7 +10,9 @@ import { PAGES } from './pages';
 })
 export class DocumentationComponent implements OnInit {
 
-  pages = PAGES;
+  pages = PAGES.sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  });
 
   constructor() { }
 

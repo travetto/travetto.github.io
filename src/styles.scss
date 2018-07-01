@@ -16,6 +16,9 @@ li {
 }
 
 .documentation {
+  max-width: 1000px;
+  min-width: 1000px;
+
   padding: 1em;
 
   h1 {
@@ -199,6 +202,7 @@ li {
 
   pre {
     margin-top: 0;
+
   }
 
   ul {
