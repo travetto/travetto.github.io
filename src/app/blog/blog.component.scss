@@ -1,7 +1,12 @@
 :host {
-  max-width: 1000px;
   margin: 0 auto;
   display: block;
+  max-width: 800px !important;
+
+  .documentation {
+    max-width: 800px;
+    min-width: 0px;
+  }
 
   article {
     display: block;
@@ -21,8 +26,11 @@
       margin-bottom: 1em;
     }
 
-    /ng-deep/ .content {
+    & /deep/ .content {
       line-height: 1.5em;
+      .centered {
+        text-align: center;
+      }
     }
   }
 }
