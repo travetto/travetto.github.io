@@ -2,12 +2,16 @@
 
 SELF=`realpath $(dirname $0)`
 GHP_ROOT=`dirname $SELF`
-ROOT=`dirname $GHP_ROOT`
+MOD_ROOT=`realpath $1`
 
 DOC_ROOT=$GHP_ROOT/src/app/documentation
 PAGE_FILE=$DOC_ROOT/pages.ts
 
 pushd $GHP_ROOT 2>&1 > /dev/null
+
+function get_md() {
+  (find $GHP_ROOT/src -name '*.md'; find $MOD_ROOT -name '*.md') | grep -v node_modules
+}
 
 function run() {
   local CREATED=$1
@@ -15,7 +19,7 @@ function run() {
   local PAGES=''
 
   # Handle components markdown
-  for MARKDOWN in `find $ROOT -name README.md | grep -v 'github.io\|inky\|js-yaml\|test-plugin\|starter\|node_modules' | sort`; do  
+  for MARKDOWN in `find $MOD_ROOT -name README.md | grep -v 'github.io\|inky\|js-yaml\|test-plugin\|starter\|node_modules' | sort`; do  
 
     MODULE=`echo "$MARKDOWN" | sed -e 's|^.*/travetto/||g' | sed -e 's|/.*$||g'`
 
@@ -48,7 +52,7 @@ function run() {
   fi
 
   #Handle Markdown in website app
-  for MARKDOWN in `find $GHP_ROOT/src -name '*.md' | grep -v node_modules`; do
+  for MARKDOWN in `get_md`; do
     local HTML=`echo "$MARKDOWN" | sed -e 's/[.]md$/.html/'`
 
     if [ "$HTML" -ot "$MARKDOWN" ]; then
@@ -58,9 +62,9 @@ function run() {
   done
 }
 
-if [[ "$1" == "watch" ]]; then
+if [[ "$2" == "watch" ]]; then
   function block_for_change {
-    local FILES=`find $ROOT -name '*.md' | grep -v node_modules`
+    local FILES=`get_md`
     inotifywait -e attrib,modify,move,create,delete $FILES
   }
   
