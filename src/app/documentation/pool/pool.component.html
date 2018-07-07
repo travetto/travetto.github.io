@@ -1,8 +1,8 @@
 <div class="documentation"><h1 id="pool">Pool</h1>
 <p>This module provides an API for dealing with pools of elements, and special attention is given to pools that are used for managing jobs as opposed to simple resources.</p>
 <p>The module wraps around <a class="external-link" href="https://github.com/coopernurse/node-pool" target="_blank" null><code>generic-pool</code></a> as a base for the pooling mechanism.</p>
-<p>With respect to managing jobs, <a class="source-link" href="https://githhub.com/travetto/pool/tree/master/src/concurrent/concurrent.ts" target="_blank" null><code>ConcurrentPool</code></a> is provided to allow for concurrent operation, and processing of jobs as quickly as possible.</p>
-<p>To manage the flow of jobs, there are various <a class="source-link" href="https://githhub.com/travetto/pool/tree/master/src/concurrent/types.ts" target="_blank" null><code>DataSource</code></a> implementation that allow for a wide range of use cases.</p>
+<p>With respect to managing jobs, <a class="source-link" href="https://github.com/travetto/pool/tree/master/src/concurrent/concurrent.ts" target="_blank" null><code>ConcurrentPool</code></a> is provided to allow for concurrent operation, and processing of jobs as quickly as possible.</p>
+<p>To manage the flow of jobs, there are various <a class="source-link" href="https://github.com/travetto/pool/tree/master/src/concurrent/types.ts" target="_blank" null><code>DataSource</code></a> implementation that allow for a wide range of use cases.</p>
 <p>The supported <code>DataSource</code>s are</p>
 <ul>
 <li><code class="inline language-typescript">Array</code> is a list of jobs, will execute in order until list is exhausted. </li>
