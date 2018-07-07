@@ -8,14 +8,28 @@ $SMALL-HEADER-HEIGHT: 30px;
   height: 100%;
 }
 
+:host [href=landing] {
+  .wrapper {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
+  mat-toolbar {
+    background: linear-gradient(180deg, rgba(76, 175, 80, 1) 0%, rgba(76, 175, 80, .8) 100%) !important;
+  }
+}
+
+
 mat-toolbar {
   height: $HEADER-HEIGHT;
-  background: linear-gradient(180deg, rgba(76, 175, 80, 1) 0%, rgba(76, 175, 80, .8) 100%) !important;
+  position: relative;
   z-index: 100;
 
   img.logo {
     width: 50px;
     height: 50px;
+    display: inline-block;
+    margin-right: 5px;
   }
 
   span.name {
@@ -62,11 +76,6 @@ mat-toolbar {
 
 .wrapper {
   width: 100%;
-  &[href=landing] {
-    position: absolute;
-    top: 0;
-    z-index: -1;
-  }
 
   router-outlet {
     display: none;
