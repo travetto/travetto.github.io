@@ -17,7 +17,7 @@
    version="1.1"
    id="svg1159"
    enable-background="new"
-   sodipodi:docname="logo.svg"
+   sodipodi:docname="logo-inverted.svg"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    inkscape:export-filename="/home/tim/Code/travetto-related/travetto.github.io/src/assets/logo.png"
    inkscape:export-xdpi="25.4"
@@ -26,27 +26,15 @@
      id="defs1153">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient3562">
+       id="linearGradient3577">
       <stop
-         style="stop-color:#4bb050;stop-opacity:1"
+         style="stop-color:#ffffff;stop-opacity:1;"
          offset="0"
-         id="stop3558" />
+         id="stop3573" />
       <stop
-         style="stop-color:#7ee262;stop-opacity:0"
+         style="stop-color:#ffffff;stop-opacity:0;"
          offset="1"
-         id="stop3560" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient3556"
-       inkscape:collect="always">
-      <stop
-         id="stop3552"
-         offset="0"
-         style="stop-color:#4bb050;stop-opacity:1;" />
-      <stop
-         id="stop3554"
-         offset="1"
-         style="stop-color:#7ee262;stop-opacity:0" />
+         id="stop3575" />
     </linearGradient>
     <linearGradient
        id="linearGradient3494"
@@ -56,13 +44,22 @@
          offset="0"
          id="stop3492" />
     </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3577"
+       id="linearGradient3579"
+       x1="137.95587"
+       y1="81.327614"
+       x2="380.27667"
+       y2="447.20856"
+       gradientUnits="userSpaceOnUse" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
-       id="clipPath2018">
+       id="clipPath3597">
       <path
          sodipodi:type="star"
-         style="opacity:0;fill:#4caf50;fill-opacity:1;stroke:#4caf50;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0"
-         id="path2020"
+         style="display:inline;opacity:1;fill:#ffffff;fill-opacity:0.00392157;stroke:#808080;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50196078"
+         id="path3599"
          sodipodi:sides="6"
          sodipodi:cx="255.51192"
          sodipodi:cy="256.4881"
@@ -79,24 +76,6 @@
          inkscape:export-xdpi="11"
          inkscape:export-ydpi="11" />
     </clipPath>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3562"
-       id="linearGradient3548"
-       x1="157.61063"
-       y1="336.07755"
-       x2="475.52667"
-       y2="141.33328"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3556"
-       id="linearGradient3550"
-       gradientUnits="userSpaceOnUse"
-       x1="143.26794"
-       y1="78.014412"
-       x2="376.8273"
-       y2="449.62726" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -109,7 +88,7 @@
      inkscape:cx="924.59024"
      inkscape:cy="803.58391"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="layer7"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1053"
@@ -133,10 +112,10 @@
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="Layer 3"
-     style="">
+     style="display:inline">
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:#4bb050;fill-opacity:1;stroke:#808080;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50196081"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#808080;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50196078"
        id="path1711"
        sodipodi:sides="6"
        sodipodi:cx="255.5119"
@@ -159,10 +138,11 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,215)">
+     transform="translate(0,215)"
+     style="display:inline">
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#322cff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#4baf50;fill-opacity:1;stroke:#322cff;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path1713"
        sodipodi:sides="6"
        sodipodi:cx="254.75594"
@@ -184,18 +164,38 @@
      inkscape:label="Layer 4"
      style="">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#4bb050;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 35.922713,383.26798 475.10109,129.70823"
        id="path1857"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       clip-path="url(#clipPath2018)" />
+       clip-path="url(#clipPath3597)" />
+    <path
+       inkscape:export-ydpi="11"
+       inkscape:export-xdpi="11"
+       inkscape:transform-center-y="-3.2313462e-06"
+       inkscape:transform-center-x="3.2190476e-06"
+       d="M 475.1011,383.26798 255.51192,510.04785 35.922729,383.26797 35.92273,129.70822 255.51192,2.9283447 475.10111,129.70822 Z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="true"
+       sodipodi:arg2="1.0471976"
+       sodipodi:arg1="0.52359878"
+       sodipodi:r2="219.5892"
+       sodipodi:r1="253.55975"
+       sodipodi:cy="256.4881"
+       sodipodi:cx="255.51192"
+       sodipodi:sides="6"
+       id="path2020"
+       style="opacity:0;fill:#4caf50;fill-opacity:1;stroke:#4caf50;stroke-width:0;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0"
+       sodipodi:type="star" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer5"
-     inkscape:label="Layer 2">
+     inkscape:label="Layer 2"
+     style="display:inline">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;line-height:1.25;font-family:'Julius Sans One';-inkscape-font-specification:'Julius Sans One';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -209,12 +209,12 @@
          style="stroke-width:0.26458332"></tspan></text>
     <g
        aria-label="T"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:348.91799927px;line-height:1.25;font-family:'Julius Sans One';-inkscape-font-specification:'Julius Sans One';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient3548);fill-opacity:1.0;stroke:none;stroke-width:0.6;stroke-miterlimit:4;stroke-dasharray:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:348.91799927px;line-height:1.25;font-family:'Julius Sans One';-inkscape-font-specification:'Julius Sans One';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient3579);fill-opacity:1;stroke:none;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none"
        id="text1730"
        transform="translate(0,-8.4666671)">
       <path
          d="m 240.53687,188.20233 h -82.92625 v -30.52955 h 195.45175 v 30.52955 h -82.17029 v 218.94682 h -30.35521 z"
-         style="fill:url(#linearGradient3550);fill-opacity:1.0;stroke-width:0.6;stroke-miterlimit:4;stroke-dasharray:none;stroke:none"
+         style="fill:url(#linearGradient3579);fill-opacity:1;stroke:none;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none"
          id="path1768"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccccccc" />
