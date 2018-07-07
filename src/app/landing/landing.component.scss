@@ -6,7 +6,8 @@
 .header {
   height: 400px;
   width: 100%;
-  background-image: url(/assets/landing-bg.jpg);
+  background-color: linear-gradient( rgba(0, 0, 0, .7), rgba(0, 0, 0, 0.7));
+  background-image: url(/assets/landing/bg.jpg);
   background-size: auto 400px;
   background-position: 50% 50%;
   background-repeat: repeat-x;
@@ -48,6 +49,7 @@ section {
     padding-bottom: 1em;
   }
   img {
+    border-radius: 10px;
     flex: 2 2 0;
     background: #eee;
     height: 400px;

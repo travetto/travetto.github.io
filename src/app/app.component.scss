@@ -10,6 +10,8 @@ $SMALL-HEADER-HEIGHT: 30px;
 
 mat-toolbar {
   height: $HEADER-HEIGHT;
+  background: linear-gradient(180deg, rgba(76, 175, 80, 1) 0%, rgba(76, 175, 80, .8) 100%) !important;
+  z-index: 100;
 
   img.logo {
     width: 50px;
@@ -60,7 +62,11 @@ mat-toolbar {
 
 .wrapper {
   width: 100%;
-  position: relative;
+  &[href=landing] {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+  }
 
   router-outlet {
     display: none;
@@ -80,7 +86,7 @@ footer {
   font-family: "Source Sans Pro", sans-serif;
 
   width: 100%;
-  background-color: #333;
+  background: linear-gradient( rgba(0, 0, 0, .7), rgba(0, 0, 0, 0.7)), url('/assets/landing/bg.jpg') center;
   color: #eee;
 
   div {
