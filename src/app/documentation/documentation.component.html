@@ -2,17 +2,17 @@
   <div class="inner">
     <h3>Pages</h3>
     <ul>
-      <li><a [routerLinkActive]="['active']" routerLink="/docs/overview">Overview</a></li>
-      <!--    <li><a routerLink="/docs/testing-plugin">Testing Plugin</a></li> -->
-    </ul>
-    <h3>Modules</h3>
-    <ul>
-      <li *ngFor="let page of pages">
-        <a [routerLinkActive]="['active']" [routerLink]="'/docs/' + page.path">{{page.title}}</a>
+      <li [routerLinkActive]="['active']" *ngFor="let page of pages" class="{{page.path}}">
+        <a [routerLink]="'/docs/' + page.path">{{page.title}}</a>
+        <ul *ngIf="page.subs">
+          <li *ngFor="let subp of page.subs" [ngClass]="{active:hasFragment(subp.path)}">
+            <a [routerLink]="'/docs/' + page.path" [fragment]="subp.path">{{subp.title}}</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
 </div>
 <div class="router-outlet">
-  <router-outlet (activate)="onActivate($event)"></router-outlet>
+  <router-outlet></router-outlet>
 </div>

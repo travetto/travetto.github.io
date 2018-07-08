@@ -1,0 +1,63 @@
+<div class="documentation"><h1 id="auth" id="auth">Auth</h1>
+<p>This module provides the high-level backdrop for managing security principals.  The goal of this module is to be a centralized location for various security frameworks to plug into.  The primary contributions are:</p>
+<ul>
+<li>Interfaces for standard security primitives</li>
+<li>Principal configuration</li>
+<li>Centralized service for accessing, and testing the security principal</li>
+<li>Common security-related utilities</li>
+</ul>
+<h2 id="interfaces-primitives">Interfaces / Primitives</h2>
+<p>The module’s goal is to be as flexible as possible.  To that end, the primary contract that this module defines, is that of the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/auth/src/types.ts" target="_blank" null><code class="inline">AuthContext</code></a>.</p>
+<pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
+  id<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  permissions<span class="token punctuation">:</span> <span class="token type">Set</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
+  principal<span class="token punctuation">:</span> <span class="token constant">U</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>The structure is simple, but drives home the primary use cases of the framework.  The goals are</p>
+<ul>
+<li>Be able to identify a user uniquely</li>
+<li>To have a reference to a user’s set of permissions</li>
+<li>To have access to the raw principal</li>
+</ul>
+<p>This is the only contract that needs to be satisfied to be able to integrate a security framework.  Additionally, there are a series of error messages that should be standardized across error handling. These messages help to provide a consistent experience at the sub module level, and to mask some of the external framework’s machinations.</p>
+<h2 id="principal-configuration">Principal Configuration</h2>
+<p>Additionally, there exists a common practice of mapping various external security principals into a local contract. These external principals, as provided from countless authentication schemes, need to be homogeonized for use.  This has been handled in other frameworks by using external configuration, and creating a mapping between the two set of fields.  Within this framework, we leverage <code class="inline">typescript</code>‘s power to enforce the configuration via code.  This requires that there is a type to describe the external principal. At that point, we are ready to define our mapping:</p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">ExternalUser</span> <span class="token punctuation">{{ '{' }}</span>
+  id<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  perms<span class="token punctuation">:</span> <span class="token type">Set</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span>
+
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PrincipalConfig</span><span class="token punctuation">(</span><span class="token type">ExternalUser</span><span class="token punctuation">,</span> <span class="token punctuation">{{ '{' }}</span>
+  id<span class="token punctuation">:</span> <span class="token string">'id'</span><span class="token punctuation">,</span>
+  permissions<span class="token punctuation">:</span> <span class="token string">'perms'</span>
+<span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>At this point, the config is now type-checked against the <code class="inline language-typescript">ExternalUser</code> class, such that passing in bad field names will throw a compile-time error.  With the configuration established, a programmer can now invoke:</p>
+<pre><code class="language-typescript"><span class="token keyword">const</span> context<span class="token punctuation">:</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token type">ExternalUser</span><span class="token operator">></span> <span class="token operator">=</span> config<span class="token punctuation">.</span><span class="token function">toContext</span><span class="token punctuation">(</span>externalPrincipal<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>And now the context is established.</p>
+<h2 id="centralized-auth-services">Centralized Auth Services</h2>
+<p>Given the above contract definitions, the next step is to provide a localized place for interacting with the security principal for a given set of operations.  Again, with a desire to be flexible, the <code class="inline">AuthService</code> is as simple as possible:</p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AuthService</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
+
+  context<span class="token punctuation">:</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span><span class="token punctuation">;</span>
+  readonly authenticated<span class="token punctuation">:</span><span class="token builtin">boolean</span><span class="token punctuation">;</span>
+  readonly unauthenticated<span class="token punctuation">:</span><span class="token builtin">boolean</span><span class="token punctuation">;</span>
+
+  <span class="token function">clearContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token keyword">void</span><span class="token punctuation">;</span>
+  <span class="token function">checkPermissions</span><span class="token punctuation">(</span>include<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> exclude<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>The context can be read/set and will be backed by the <a class="module-link" routerLink="/docs/core" fragment="context" null><code class="inline">Context</code></a> module.  This provides access to the security principal through an entire call chain, asynchronous or other-wise.  This is also leveraged by the <a class="module-link" routerLink="/docs/auth" fragment="auth-rest" null><code class="inline">Auth-Rest</code></a> module to keep the security context available throughout the entire request.</p>
+<p><code class="inline language-typescript">checkPermissions</code> is probably the only functionality that needs to be explained. The function operates in a <code class="inline">DENY/ALLOW</code> mode.  This means that a permission check will succeed only if:</p>
+<ul>
+<li>The user is logged in</li>
+<li>The user does not have any permissions in the exclusion list</li>
+<li>The include list is empty, or the user has at least one permission in the include list. </li>
+</ul>
+<h2 id="common-utilities">Common Utilities</h2>
+<p>The <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/auth/src/util.ts" target="_blank" null><code class="inline language-typescript">AuthUtil</code></a> provides the following functionality:</p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AuthUtil</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">generateHash</span><span class="token punctuation">(</span>password<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> salt<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> iterations <span class="token operator">=</span> <span class="token number">25000</span><span class="token punctuation">,</span> keylen <span class="token operator">=</span> <span class="token number">256</span><span class="token punctuation">,</span> digest <span class="token operator">=</span> <span class="token string">'sha256'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">generateSalt</span><span class="token punctuation">(</span>saltlen <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">generatePassword</span><span class="token punctuation">(</span>password<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> saltlen <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">,</span> validator<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>password<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token builtin">boolean</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span></code></pre><p>The functionality above is aimed at password generation/management, but the functionality with grow over time as more sub modules are added.</p>
+</div>
+
+      <app-auth-model></app-auth-model>
+
+      <app-auth-rest></app-auth-rest>
+
+      <app-auth-passport></app-auth-passport>

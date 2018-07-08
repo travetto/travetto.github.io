@@ -1,11 +1,15 @@
 :host {
-  display: flex;
-  flex-flow: row;
+  display: grid;
+  grid-template-areas: "nav content";
+  grid-template-columns: 300px 1fr;
+  grid-column-gap: 20px;
 }
 
 .documentation {
-  flex: 1;
-  overflow-x: auto;
-  max-width: 800px;
-  min-width: 800px;
+  grid-area: content;
+  padding: 1em;
+}
+
+.documentation-links {
+  grid-area: nav;
 }

@@ -15,16 +15,13 @@ The framework relies up five key principles:
 ## Modules
 Every module within the framework follows the overarching philosophy.  For the most part each module is as isolated as possible.  The modules are stacked vertically to generally indicate dependencies.  The only exception is for common libraries, which are unrelated.
 
-
 <div class="modules">
-  <a [class]="page.path" *ngFor="let page of pages" [routerLink]="'/docs/' + page.path" ><span [innerHTML]="page.title"></span></a>
-</div>
-
-<div class="legend">
-  <div>Legend:</div>
-  <div class="system">System</div>
-  <div class="core">Core</div>
-  <div class="lib">Library</div>
-  <div class="provider">Provider</div>
-  <div class="common-lib">Common Library</div>
+  <div [class]="page.path" *ngFor="let page of pages">
+    <a [routerLink]="'/docs/' + page.path" [innerHtml]="page.title"></a>
+    <ul *ngIf="page.subs && page.subs.length">
+      <li class="sub" *ngFor="let sub of page.subs">
+        <a [routerLink]="'/docs/' + page.path" [fragment]="sub.path" [innerHtml]="sub.title"></a>
+      </li>
+    </ul>
+  </div>
 </div>

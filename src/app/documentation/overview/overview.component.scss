@@ -10,200 +10,166 @@
   background-color: #eee;
 }
 
-.core {
+.core-comps {
   background-color: lightgreen;
 }
 
-.provider {
-  background-color: lightgoldenrodyellow;
-}
-
-.legend {
-  text-align: right;
-  >div {
-    font-size: 10pt;
-    display: inline-block;
-    padding: .25em .4em;
-    border-radius: 3px;
-  }
-  margin-top: .5em;
+.external-comps {
+  background-color: pink;
 }
 
 .modules {
+  max-width: 900px;
   display: grid;
-  grid-template-columns: auto;
-  grid-gap: 10px;
-  grid-auto-rows: 80px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 10;
+  margin: 1em auto;
 
-  a {
+  div {
     border-radius: 5px;
     display: block;
     text-align: center;
     min-width: 80px;
+    opacity: .8;
+    margin: 5px;
     hyphens: auto;
-    color: #333;
-    line-height: 80px;
     transition: .5s opacity;
     box-shadow: 1px 1px .3em -.1em black;
 
-    span {
-      font-size: 11pt;
-      line-height: normal;
+    a {
+      color: #333;
+      font-size: 20pt;
+      line-height: 2em;
+      text-decoration: none;
+      display: block;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .sub {
+      & a {
+        font-size: 11pt;
+      }
+
       display: inline-block;
-      vertical-align: middle;
-      width: 100%;
+
+      padding-right: 1em;
+
+      &:last-of-type {
+        padding-right: 0em;
+      }
     }
 
     &:hover {
-      opacity: .6;
+      opacity: 1;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 
-  .asset-express,
-  .asset-mongo,
-  .asset-s3,
-  .model-elasticsearch,
-  .model-mongo,
-  .auth-model,
-  .auth-express {
-    @extend .provider;
-  }
-
-  .pool,
-  .exec,
-  .util,
-  .log {
+  .email,
+  .auth,
+  .asset,
+  .utils {
     @extend .lib;
   }
 
-  .registry,
-  .compiler,
-  .base {
+  .core,
+  .config,
+  .base,
+  .di {
     @extend .system;
   }
 
   .test,
-  .auth,
-  .asset,
   .model,
-  .express,
-  .schema,
-  .di,
-  .config {
-    @extend .core;
+  .rest,
+  .schema {
+    @extend .core-comps;
   }
 
-  .email,
-  .context,
-  .schedule,
-  .cache {
-    @extend .common-lib;
+  .cli,
+  .generator-app {
+    @extend .external-comps;
   }
 
-  .schedule {
-    grid-row: 1;
-    grid-column: 1;
+
+  .cli {
+    grid-row: 2;
+    grid-column: 4/span 3;
   }
-  .asset-express {
-    grid-row: 0;
-    grid-column: 9;
+
+  .generator-app {
+    grid-row: 2;
+    grid-column: 1/span 3;
   }
-  .asset-mongo {
-    grid-row: 1;
-    grid-column: 7;
-  }
-  .asset-s3 {
-    grid-row: 1;
-    grid-column: 8;
-  }
+
   .email {
-    grid-row: 1;
-    grid-column: 10;
+    grid-row: 3;
+    grid-column: 5/span 2;
   }
-  .test {
-    grid-row: 2;
-    grid-column: 1;
-  }
-  .model-elasticsearch {
-    grid-row: 2;
-    grid-column: 2;
-  }
-  .model-mongo {
-    grid-row: 2;
-    grid-column: 3;
-  }
+
   .auth {
     grid-row: 3;
-    grid-column: 4/6;
+    grid-column: 3/span 2;
   }
-  .auth-express {
-    min-width: 160px;
-    grid-row: 2;
-    grid-column: 4/7;
-  }
-  .auth-model {
-    grid-row: 1;
-    grid-column: 3/7;
-  }
-  .asset {
-    grid-row: 2;
-    grid-column: 7/10;
-  }
-  .context {
-    grid-row: 2;
-    grid-column: 10;
-  }
-  .pool {
-    grid-row: 3;
-    grid-column: 1;
-  }
+
   .model {
     grid-row: 3;
-    grid-column: 2/4;
+    grid-column: 1/span 2;
   }
-  .express {
-    grid-row: 3;
-    grid-column: 6/10;
-  }
-  .cache {
-    grid-row: 3;
-    grid-column: 10;
-  }
-  .exec {
+
+  .asset {
     grid-row: 4;
-    grid-column: 1;
+    grid-column: 5/span 2;
   }
+
+  .rest {
+    grid-row: 4;
+    grid-column: 3/span 2;
+  }
+
   .schema {
     grid-row: 4;
-    grid-column: 2;
+    grid-column: 1/span 2;
   }
+
   .di {
-    grid-row: 4;
-    grid-column: 3/11;
-  }
-  .registry {
     grid-row: 5;
-    grid-column: 1/10;
+    grid-column: 1/span 6;
   }
-  .util {
-    grid-row: 5;
-    grid-column: 10;
-  }
-  .compiler {
+
+  .utils {
     grid-row: 6;
-    grid-column: 1/9;
+    grid-column: 4/span 3;
   }
-  .config {
+
+  .test {
     grid-row: 6;
-    grid-column: 9;
+    grid-column: 1/span 3;
   }
-  .log {
-    grid-row: 6;
-    grid-column: 10;
-  }
-  .base {
+
+
+
+  .core {
     grid-row: 7;
-    grid-column: 1/11;
+    grid-column: 1/span 6;
+  }
+
+  .config {
+    grid-row: 8;
+    grid-column: 1/span 6;
+  }
+
+  .base {
+    grid-row: 9;
+    grid-column: 1/span 6;
   }
 }
 

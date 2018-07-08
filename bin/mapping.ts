@@ -1,0 +1,90 @@
+export interface Mapping {
+  module: string;
+  title?: string;
+  tag?: string;
+  children?: Mapping[];
+  component?: string;
+  list?: boolean;
+}
+
+export const MAPPING: Mapping[] = [
+  {
+    module: 'overview',
+    title: 'Overview',
+    component: 'OverviewComponent',
+    list: false
+  },
+  { module: 'cli' },
+  { module: 'generator-app', title: 'App Generator' },
+  { module: 'base' },
+  { module: 'config' },
+  { module: 'di' },
+  { module: 'schema' },
+  {
+    module: 'model',
+    children: [
+      { module: 'model-elasticsearch' },
+      { module: 'model-mongo' }
+    ]
+  },
+  {
+    module: 'rest',
+    children: [
+      { module: 'swagger' },
+      { module: 'rest-express' },
+      { module: 'rest-koa' },
+      { module: 'rest-fastify' },
+      { module: 'rest-aws-lambda' },
+    ]
+  },
+  {
+    module: 'core',
+    title: 'System Components',
+    component: 'CoreComponent',
+    children: [
+      { module: 'compiler' },
+      { module: 'context' },
+      { module: 'registry' }
+    ]
+  },
+  {
+    module: 'test',
+    children: [
+      { module: 'test-plugin', title: 'Test Plugin' }
+    ]
+  },
+  {
+    module: 'utils',
+    title: 'App Utilities',
+    component: 'UtilsComponent',
+    children: [
+      { module: 'log' },
+      { module: 'cache' },
+      { module: 'exec' },
+      { module: 'schedule' },
+      { module: 'net' }
+    ]
+  },
+  {
+    module: 'asset',
+    children: [
+      { module: 'asset-mongo' },
+      { module: 'asset-s3' },
+      { module: 'asset-rest' },
+    ]
+  },
+  {
+    module: 'auth',
+    children: [
+      { module: 'auth-model' },
+      { module: 'auth-rest' },
+      { module: 'auth-passport' },
+    ]
+  },
+  {
+    module: 'email',
+    children: [
+      { module: 'email-template' }
+    ]
+  }
+];

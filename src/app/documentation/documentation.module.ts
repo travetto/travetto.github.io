@@ -3,37 +3,46 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { DocumentationComponent } from './documentation.component';
-import { TestComponent } from './test/test.component';
-import { AssetComponent } from './asset/asset.component';
-import { AssetExpressComponent } from './asset-express/asset-express.component';
-import { AssetMongoComponent } from './asset-mongo/asset-mongo.component';
-import { AssetS3Component } from './asset-s3/asset-s3.component';
-import { AuthComponent } from './auth/auth.component';
-import { BaseComponent } from './base/base.component';
-import { CacheComponent } from './cache/cache.component';
-import { CompilerComponent } from './compiler/compiler.component';
-import { ConfigComponent } from './config/config.component';
-import { ContextComponent } from './context/context.component';
-import { DiComponent } from './di/di.component';
-import { EmailComponent } from './email/email.component';
-import { ExecComponent } from './exec/exec.component';
-import { ExpressComponent } from './express/express.component';
-import { LogComponent } from './log/log.component';
-import { ModelComponent } from './model/model.component';
-import { ModelElasticsearchComponent } from './model-elasticsearch/model-elasticsearch.component';
-import { ModelMongoComponent } from './model-mongo/model-mongo.component';
-import { PoolComponent } from './pool/pool.component';
-import { RegistryComponent } from './registry/registry.component';
-import { ScheduleComponent } from './schedule/schedule.component';
-import { SchemaComponent } from './schema/schema.component';
-import { StarterComponent } from './starter/starter.component';
-import { UtilComponent } from './util/util.component';
 
 import { PAGES } from './pages';
 import { OverviewComponent } from './overview/overview.component';
 import { TestPluginComponent } from './test-plugin/test-plugin.component';
-import { AuthExpressComponent } from './auth-express/auth-express.component';
-import { AuthModelComponent } from './auth-model/auth-model.component';
+import { CoreComponent } from './core/core.component';
+import { UtilsComponent } from './utils/utils.component';
+import { AssetComponent } from './gen/asset/asset.component';
+import { AssetMongoComponent } from './gen/asset-mongo/asset-mongo.component';
+import { AssetS3Component } from './gen/asset-s3/asset-s3.component';
+import { AssetRestComponent } from './gen/asset-rest/asset-rest.component';
+import { AuthComponent } from './gen/auth/auth.component';
+import { AuthModelComponent } from './gen/auth-model/auth-model.component';
+import { AuthRestComponent } from './gen/auth-rest/auth-rest.component';
+import { AuthPassportComponent } from './gen/auth-passport/auth-passport.component';
+import { BaseComponent } from './gen/base/base.component';
+import { CompilerComponent } from './gen/compiler/compiler.component';
+import { ConfigComponent } from './gen/config/config.component';
+import { ContextComponent } from './gen/context/context.component';
+import { LogComponent } from './gen/log/log.component';
+import { RegistryComponent } from './gen/registry/registry.component';
+import { DiComponent } from './gen/di/di.component';
+import { EmailComponent } from './gen/email/email.component';
+import { EmailTemplateComponent } from './gen/email-template/email-template.component';
+import { SchemaComponent } from './gen/schema/schema.component';
+import { ModelComponent } from './gen/model/model.component';
+import { ModelElasticsearchComponent } from './gen/model-elasticsearch/model-elasticsearch.component';
+import { ModelMongoComponent } from './gen/model-mongo/model-mongo.component';
+import { RestComponent } from './gen/rest/rest.component';
+import { RestExpressComponent } from './gen/rest-express/rest-express.component';
+import { RestKoaComponent } from './gen/rest-koa/rest-koa.component';
+import { RestFastifyComponent } from './gen/rest-fastify/rest-fastify.component';
+import { RestAwsLambdaComponent } from './gen/rest-aws-lambda/rest-aws-lambda.component';
+import { SwaggerComponent } from './gen/swagger/swagger.component';
+import { TestComponent } from './gen/test/test.component';
+import { CacheComponent } from './gen/cache/cache.component';
+import { ExecComponent } from './gen/exec/exec.component';
+import { ScheduleComponent } from './gen/schedule/schedule.component';
+import { CliComponent } from './gen/cli/cli.component';
+import { GeneratorAppComponent } from './gen/generator-app/generator-app.component';
+import { NetComponent } from './gen/net/net.component';
 
 @NgModule({
   imports: [
@@ -52,35 +61,44 @@ import { AuthModelComponent } from './auth-model/auth-model.component';
   ],
   declarations: [
     DocumentationComponent,
-    TestComponent,
+    OverviewComponent,
+    TestPluginComponent,
+    CoreComponent,
+    UtilsComponent,
     AssetComponent,
-    AssetExpressComponent,
     AssetMongoComponent,
     AssetS3Component,
+    AssetRestComponent,
     AuthComponent,
+    AuthModelComponent,
+    AuthRestComponent,
+    AuthPassportComponent,
     BaseComponent,
-    CacheComponent,
     CompilerComponent,
     ConfigComponent,
     ContextComponent,
+    LogComponent,
+    RegistryComponent,
     DiComponent,
     EmailComponent,
-    ExecComponent,
-    ExpressComponent,
-    LogComponent,
+    EmailTemplateComponent,
+    SchemaComponent,
     ModelComponent,
     ModelElasticsearchComponent,
     ModelMongoComponent,
-    PoolComponent,
-    RegistryComponent,
+    RestComponent,
+    RestExpressComponent,
+    RestKoaComponent,
+    RestFastifyComponent,
+    RestAwsLambdaComponent,
+    SwaggerComponent,
+    TestComponent,
+    CacheComponent,
+    ExecComponent,
     ScheduleComponent,
-    SchemaComponent,
-    StarterComponent,
-    UtilComponent,
-    OverviewComponent,
-    TestPluginComponent,
-    AuthExpressComponent,
-    AuthModelComponent
+    CliComponent,
+    GeneratorAppComponent,
+    NetComponent
   ]
 })
 export class DocumentationModule { }

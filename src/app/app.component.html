@@ -3,7 +3,7 @@
 
     <img class="logo" src="/assets/logo-inverted.png">
 
-    <span class="name">Travetto</span>
+    <span class="name"><a [routerLink]="'/'">Travetto</a></span>
     <span class="spacer"></span>
     <a mat-button [routerLink]="'/landing'" href="/">Home</a>
     <a mat-button [routerLink]="'/guide'" href="/guide">Getting Started</a>
@@ -12,21 +12,21 @@
     <a mat-button href="https://github.com/travetto">Github</a>
   </mat-toolbar>
 
-  <div class="wrapper">
-    <div class="notice" *ngIf="notice"><span class="content" [innerHTML]="notice"></span></div>
+  <div class="notice" *ngIf="notice"><span class="content" [innerHTML]="notice"></span></div>
+  <div class="main-module">
     <router-outlet></router-outlet>
-    <footer>
-      <div class="copyright">ArcSine Technologies &copy; 2018</div>
-      <div class="spacer"></div>
-      <div class="social">
-        <span>Connect on</span>
-        <a href="https://twitter.com/travetto_ts" target="_blank">
+  </div>
+  <footer>
+    <div class="copyright">ArcSine Technologies &copy; 2018</div>
+    <div class="spacer"></div>
+    <div class="social">
+      <span>Connect on</span>
+      <a href="https://twitter.com/travetto_ts" target="_blank">
         <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/twitter.svg" />
       </a>
-        <a href="https://github.com/travetto" targt="_blank">
+      <a href="https://github.com/travetto" targt="_blank">
         <img height="32" width="32" src="https://unpkg.com/simple-icons@latest/icons/github.svg" />
       </a>
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 </div>

@@ -12,6 +12,7 @@ import { LandingComponent } from './landing/landing.component';
 import { GuideComponent } from './guide/guide.component';
 import { DocumentationModule } from './documentation/documentation.module';
 import { BlogComponent } from './blog/blog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -50,7 +51,8 @@ const routes: Routes = [
     MatSidenavModule, MatTooltipModule, MatToolbarModule,
     HttpModule, JsonpModule,
     DocumentationModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled' }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

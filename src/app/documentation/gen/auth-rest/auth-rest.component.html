@@ -1,0 +1,87 @@
+<div class="documentation"><h2 id="auth-rest" id="auth-rest">Auth-Rest</h2>
+<p>This is a primary integration for the <a class="module-link" routerLink="/docs/auth"  null><code class="inline">Auth</code></a> module.  This is another level of scaffolding allowing for compatible authentication frameworks to integrate.  </p>
+<p>The integration with the <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> module touches multiple levels. Primarily:</p>
+<ul>
+<li>Security information management</li>
+<li>Patterns for auth framework integrations</li>
+<li>Route declaration</li>
+</ul>
+<h3 id="security-information-management">Security information management</h3>
+<p>When working with framework’s authentication, the user information is exposed via the <code class="inline language-typescript">Request</code> object.  The auth functionality is exposed on the request as the property <code class="inline">auth</code>.</p>
+<pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Request</span> <span class="token punctuation">{{ '{' }}</span>
+  auth<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span>
+    context<span class="token punctuation">:</span> <span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span><span class="token punctuation">;</span> 
+    authenticated<span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    unauthenticated<span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token function">checkPermissions</span><span class="token punctuation">(</span>include<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> exclude<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token function">login</span><span class="token punctuation">(</span>providers<span class="token punctuation">:</span> <span class="token builtin">symbol</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span><span class="token operator">|</span>undefined<span class="token operator">></span><span class="token punctuation">;</span>
+    logout<span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>This allows for any filters/middleware to access this information without deeper knowledge of the framework itself.  Also, for performance benefits, the auth context is stored in the user session as a means to minimize future lookups. Since we are storing the entire principal in the session, it is best to keep the principal as small as possible.</p>
+<h3 id="patterns-for-integration">Patterns for Integration</h3>
+<p>Every external framework integration relies upon the <code class="inline language-typescript">AuthProvider</code> contract.  This contract defines the boundaries between both frameworks and what is needed to pass between. As stated elsewhere, the goal is to be as flexible as possible, and so the contract is as minimal as possible:</p>
+<pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AuthProvider</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">logout</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token keyword">async</span> <span class="token function">login</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token operator">|</span> undefined<span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token function">serialize</span><span class="token punctuation">(</span>ctx<span class="token punctuation">:</span> <span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  <span class="token keyword">async</span> <span class="token function">deserialize</span><span class="token punctuation">(</span>serialized<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">>></span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>By default, logout does nothing, as the  session cleanup will generally suffice.  Additionally, the <code class="inline language-typescript">serialize</code>/<code class="inline language-typescript">deserialize</code> functionality default to <code class="inline language-typescript">JSON.stringify</code>/<code class="inline language-typescript">JSON.parse</code> respectively.  These can be overridden as needed, but sensible defaults help to minimize the friction between pieces.</p>
+<p>The only required method to be defined is the <code class="inline language-typescript">login</code> method.  This takes in a <code class="inline language-typescript">Request</code> and <code class="inline language-typescript">Response</code>, and is responsible for:</p>
+<ul>
+<li>Returning an <code class="inline language-typescript">AuthContext</code> if authentication was successful</li>
+<li>Throwing an error if it failed</li>
+<li>Returning undefined if the authentication is multi-staged and has not completed yet</li>
+</ul>
+<p>A sample auth provider would look like:</p>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">DumbProvider</span> <span class="token keyword">extends</span> <span class="token class-name">AuthProvider</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">login</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{{ '{' }}</span> username<span class="token punctuation">,</span> password <span class="token punctuation">{{ '}' }}</span> <span class="token operator">=</span> req<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>username <span class="token operator">===</span> <span class="token string">'test'</span> <span class="token operator">&amp;&amp;</span> password <span class="token operator">===</span> <span class="token string">'test'</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span>
+        id<span class="token punctuation">:</span> <span class="token string">'test'</span><span class="token punctuation">,</span>
+        permissions<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        principal<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span>
+          username<span class="token punctuation">:</span> <span class="token string">'test'</span>
+        <span class="token punctuation">{{ '}' }}</span>
+      <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">else</span> <span class="token punctuation">{{ '{' }}</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token constant">ERR_INVALID_CREDS</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">{{ '}' }}</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>The provider must be registered with a custom symbol to be used within the framework.  At startup, all registered <code class="inline language-typescript">AuthProvider</code>s are collected and stored for reference at runtime, via symbol. For example:</p>
+<pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token constant">FB_AUTH</span> <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'facebook'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{{ '{' }}</span>
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token constant">FB_AUTH</span><span class="token punctuation">)</span>
+  <span class="token keyword">static</span> <span class="token function">facebookProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">AuthProvider</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AuthProvider</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>The symbol <code class="inline language-typescript">FB_AUTH</code> is what will be used to reference providers at runtime.  This was chosen, over <code class="inline language-typescript">class</code> references due to the fact that most providers will not be defined via a new class, but via an <code class="decorator inline">@InjectableFactory</code> method.</p>
+<h3 id="route-declaration">Route Declaration</h3>
+<p>Like the <code class="inline language-typescript">AuthService</code>, there are common auth patterns that most users will implement. The framework has codified these into decorators that a developer can pick up and use.</p>
+<p><code class="decorator inline">@Authenticate</code> provides middleware that will authenticate the user as defined by the specified providers, or throw an error if authentication is unsuccessful.</p>
+<pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Auth</span> <span class="token punctuation">{{ '{' }}</span>
+
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/facebook'</span><span class="token punctuation">)</span>
+  @<span class="token meta">Authenticate</span><span class="token punctuation">(</span><span class="token constant">FB_AUTH</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">fbLogin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+
+  <span class="token operator">...</span>
+
+<span class="token punctuation">{{ '}' }}</span></code></pre><p><code class="decorator inline">@Authenticated</code> and <code class="decorator inline">@Unauthenticated</code> will simply enforce whether or not a user is logged in and throw the appropriate error messages as needed.</p>
+<pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Auth</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token operator">...</span>
+
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/self'</span><span class="token punctuation">)</span>
+  @<span class="token meta">Authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">getSelf</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> req<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>context<span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/logout'</span><span class="token punctuation">)</span>
+  @<span class="token meta">Unauthenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">logout</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">await</span> req<span class="token punctuation">.</span>auth<span class="token punctuation">.</span><span class="token function">logout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span></code></pre></div>

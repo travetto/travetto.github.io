@@ -1,0 +1,171 @@
+<div class="documentation"><h1 id="rest" id="rest">Rest</h1>
+<p>The module provides a declarative API for creating and describing an RESTful application.  Since the framework is declarative, decorators are used to configure almost everything. The module is framework agnostic (but resembles <a class="external-link" href="https://expressjs.com" target="_blank" null><code class="inline">express</code></a> in the <code class="inline">Request</code> and <code class="inline">Response</code> objects). </p>
+<h2 id="routes-controller">Routes: Controller</h2>
+<p>To define a route, you must first declare a <code class="decorator inline">@Controller</code> which is only allowed on classes. Controllers can be configured with:</p>
+<ul>
+<li><code class="inline">title</code> - The definition of the controller</li>
+<li><code class="inline">description</code> - High level description fo the controller</li>
+</ul>
+<p><a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments can also be used to define the <code class="inline">title</code> attribute.</p>
+<pre><code class="language-typescript"><span class="token comment">/**
+ * <span class="token type">Provides</span> basic interface to our primary service
+ */</span>
+@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/simple-route'</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">SimpleController</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="routes-endpoints">Routes: Endpoints</h2>
+<p>Once the controller is declared, each method of the controller is a candidate for routing.  By design, everything is asynchronous, and so async/await is natively supported.  </p>
+<p>The HTTP methods that are supported via:</p>
+<ul>
+<li><code class="decorator inline">@Get</code></li>
+<li><code class="decorator inline">@Post</code></li>
+<li><code class="decorator inline">@Put</code></li>
+<li><code class="decorator inline">@Delete</code></li>
+<li><code class="decorator inline">@Patch</code></li>
+<li><code class="decorator inline">@Head</code></li>
+<li><code class="decorator inline">@Options</code></li>
+</ul>
+<p>Each endpoint decorator handles the following config:</p>
+<ul>
+<li><code class="inline">title</code> - The definition of the endpoint</li>
+<li><code class="inline">description</code> - High level description fo the endpoint</li>
+<li><code class="inline">responseType?</code> - Class describing the response type</li>
+<li><code class="inline">requestType?</code> - Class describing the request body</li>
+</ul>
+<p><a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments can also be used to define the <code class="inline">title</code> attribute, as well as describing the parameters using <code class="decorator inline">@param</code> tags in the comment.</p>
+<p>Additionally, the annotated return type on the method will also be used to describe the <code class="inline">responseType</code> if specified.</p>
+<pre><code class="language-typescript"><span class="token comment">/**
+ * <span class="token type">Provides</span> basic interface to our primary service
+ */</span>
+@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/simple-route'</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">SimpleController</span> <span class="token punctuation">{{ '{' }}</span>
+
+  <span class="token comment">/**
+   * <span class="token type">Gets</span> the most basic of data
+   */</span>
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
+  <span class="token function">simpleGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token type">Data</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token operator">...</span>
+    <span class="token keyword">return</span> data<span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><h3 id="parameters">Parameters</h3>
+<p>Endpoints can be configured to describe and enforce parameter behavior.  Request parameters can be defined  in three areas:</p>
+<ul>
+<li><code class="decorator inline">@PathParam</code></li>
+<li><code class="decorator inline">@QueryParam</code></li>
+<li><code class="decorator inline">@BodyParam</code></li>
+</ul>
+<p>Each <code class="decorator inline">@Param</code> can be configured to indicate:</p>
+<ul>
+<li><code class="inline">name</code> - Name of param, field name</li>
+<li><code class="inline">description</code> - Description of param</li>
+<li><code class="inline">required?</code> - Is the field required?</li>
+<li><code class="inline">type</code> - The class of the type to be enforced</li>
+</ul>
+<p><a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments can also be used to describe parameters using <code class="decorator inline">@param</code> tags in the comment.</p>
+<h3 id="example">Example</h3>
+<p>A simple example could look like:</p>
+<pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/simple'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Simple</span> <span class="token punctuation">{{ '{' }}</span>
+
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> service<span class="token punctuation">:</span> <span class="token type">MockService</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+
+  <span class="token comment">/**
+   * <span class="token type">Get</span> a random user by name
+   */</span>
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/name'</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">doIt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token builtin">string</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`/simple/name => </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${{ '{' }}</span>user<span class="token punctuation">.</span>first<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">{{ '}' }}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  <span class="token comment">/**
+   * <span class="token type">Get</span> a user by id
+   */</span>
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/:id'</span><span class="token punctuation">)</span>
+  @<span class="token meta">PathParam</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name<span class="token punctuation">:</span> <span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token keyword">type</span><span class="token punctuation">:</span> <span class="token type">Number</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">doIt</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token builtin">string</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>params<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`/simple/name => </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${{ '{' }}</span>user<span class="token punctuation">.</span>first<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">{{ '}' }}</span></span><span class="token string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+
+  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/name'</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">doIt</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name<span class="token punctuation">:</span> req<span class="token punctuation">.</span>body<span class="token punctuation">.</span>name <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token regex">/\/img(.*)[.](jpg|png|gif)/</span><span class="token punctuation">)</span>
+  @<span class="token meta">QueryParam</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name<span class="token punctuation">:</span> <span class="token string">'w'</span><span class="token punctuation">,</span> <span class="token keyword">type</span><span class="token punctuation">:</span> <span class="token type">Number</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+  @<span class="token meta">QueryParam</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> name<span class="token punctuation">:</span> <span class="token string">'h'</span><span class="token punctuation">,</span> <span class="token keyword">type</span><span class="token punctuation">:</span> <span class="token type">Number</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">getImage</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span><span class="token type">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">const</span> img <span class="token operator">=</span>  <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>path<span class="token punctuation">,</span> req<span class="token punctuation">.</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">...</span> <span class="token keyword">return</span> image <span class="token operator">...</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>Additionally, the module is predicated upon <a class="module-link" routerLink="/docs/di"  null><code class="inline">Dependency Injection</code></a>, and so all standard di techniques work on controllers.</p>
+<p><strong>NOTE</strong> in development mode the module supports hot reloading of <code class="inline">class</code>es.  Routes can be added/modified/removed at runtime.</p>
+<h2 id="input-output">Input/Output</h2>
+<p>The module provides standard structure for rendering content on the response.  This includes:</p>
+<ul>
+<li>JSON</li>
+<li>String responses</li>
+<li>Files </li>
+</ul>
+<p>Additionally, there is support for typing requests and request bodies.  This can be utilized by other modules to handle special types of requests.</p>
+<h2 id="creating-and-running-an-app">Creating and Running an App</h2>
+<p>To run a REST server, you will need to construct an entry point using the <code class="decorator inline">@Application</code> decorator, as well as define a valid <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/rest/src/types.ts" target="_blank" null><code class="inline">RestAppProvider</code></a> to provide initialization for the application.  This could look like:</p>
+<pre><code class="language-typescript">@<span class="token meta">Application</span><span class="token punctuation">(</span><span class="token string">'sample'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SampleApp</span> <span class="token punctuation">{{ '{' }}</span>
+
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">static</span> <span class="token function">getProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">RestAppProvider</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RestExpressAppProvider</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+
+  @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  contextInterceptor<span class="token punctuation">:</span> <span class="token type">ContextInterceptor</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> app<span class="token punctuation">:</span> <span class="token type">RestApp</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span> <span class="token punctuation">{{ '}' }}</span>
+
+  <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>app<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>And using the pattern established in the <a class="module-link" routerLink="/docs/di"  null><code class="inline">Dependency Injection</code></a> module, you would run your program using <code class="inline">npx travetto sample</code>.</p>
+<h2 id="custom-interceptors">Custom Interceptors</h2>
+<p>Additionally it is sometimes necessary to register custom interceptors.  Interceptors can be registered with the <a class="module-link" routerLink="/docs/di"  null><code class="inline">Dependency Injection</code></a> by extending the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/rest/src/interceptor" target="_blank" null><code class="inline">RestInterceptor</code></a> class.  The interceptors are tied to the defined <code class="inline">Request</code> and <code class="inline">Response</code> objects of the framework, and not the underlying app framework.  This allows for Interceptors to be used across multiple frameworks as needed. A simple logging interceptor:</p>
+<pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoggingInterceptor</span> <span class="token keyword">extends</span> <span class="token class-name">ExpressInterceptor</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">intercept</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>method<span class="token punctuation">,</span> req<span class="token punctuation">.</span>path<span class="token punctuation">,</span> req<span class="token punctuation">.</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>Currently <a class="module-link" routerLink="/docs/asset" fragment="asset-rest" null><code class="inline">Asset-Rest</code></a> is implemented in the fashion, as well as <a class="module-link" routerLink="/docs/auth" fragment="auth-rest" null><code class="inline">Auth-Rest</code></a>.</p>
+<h2 id="context-support">Context Support</h2>
+<p><a class="module-link" routerLink="/docs/core" fragment="context" null><code class="inline">Context</code></a> provides support for automatically injecting an async context into every request. The context management is provided via an <code class="inline">Interceptor</code> and is transparent to the programmer.</p>
+<pre><code class="language-typescript"> <span class="token operator">...</span>
+  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/preferences'</span><span class="token punctuation">)</span>
+  @<span class="token meta">SchemaBody</span><span class="token punctuation">(</span><span class="token type">User</span><span class="token punctuation">)</span>
+  <span class="token keyword">async</span> <span class="token function">save</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">TypedBody</span><span class="token operator">&lt;</span><span class="token type">Preferences</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+ <span class="token operator">...</span>
+ <span class="token keyword">class</span> <span class="token class-name">PreferenceService</span> <span class="token punctuation">{{ '{' }}</span>
+   <span class="token keyword">private</span> context<span class="token punctuation">:</span> <span class="token type">Context</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">async</span> <span class="token function">update</span><span class="token punctuation">(</span>prefs<span class="token punctuation">:</span> <span class="token type">Preferences</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+     <span class="token keyword">const</span> userId <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>userId<span class="token punctuation">;</span>
+     <span class="token operator">...</span> store preferences <span class="token keyword">for</span> user <span class="token operator">...</span>
+     <span class="token keyword">return</span><span class="token punctuation">;</span>  
+   <span class="token punctuation">{{ '}' }}</span>
+ <span class="token punctuation">{{ '}' }}</span></code></pre></div>
+
+      <app-swagger></app-swagger>
+
+      <app-rest-express></app-rest-express>
+
+      <app-rest-koa></app-rest-koa>
+
+      <app-rest-fastify></app-rest-fastify>
+
+      <app-rest-aws-lambda></app-rest-aws-lambda>

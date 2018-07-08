@@ -1,14 +1,32 @@
 :host {
-  flex-direction: row;
-  flex-flow: row;
-  flex-wrap: nowrap;
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "nav content";
+
+  grid-column-gap: 20px;
+  grid-template-columns: 300px 1fr;
+
+  .documentation-links {
+    grid-area: nav;
+  }
 
   .router-outlet {
-    flex: 1;
-    /deep/ .documentation {
-      max-width: 800px;
-      min-width: 800px;
-    }
+    grid-area: content;
+    overflow: hidden;
+  }
+
+  li ul {
+    display: none;
+  }
+
+  li.active>ul {
+    display: block;
+  }
+
+  li.base,
+  li.asset {
+    border-top: 1px solid #ccc;
+    padding-top: .5em;
+    margin-top: .25em;
   }
 }

@@ -1,7 +1,7 @@
 Getting Started
 ====
 
-The following tutorial wil walk you through setting up a `travetto` application from scratch.  We'll be building a simple todo application. The entire source of the finished project can be found at [github](https://www.github.com/travetto/sample-app).
+The following tutorial wil walk you through setting up a `travetto` application from scratch.  We'll be building a simple todo application. The entire source of the finished project can be found at [`github`](https://www.github.com/travetto/sample-app).  Additionally, you can use the [`Yeoman Generator`](https://github.com/travetto/travetto/tree/master/module/generator-app)
 
 ### Overview
 * [Prerequisites](#prerequisites)
@@ -10,7 +10,8 @@ The following tutorial wil walk you through setting up a `travetto` application 
 * [Configuring the data source](#configuring-the-data-source)
 * [Building the service layer](#building-the-service-layer)
 * [Writing unit tests](#writing-unit-tests)
-* [Creating the express routes](#creating-the-express-routes)
+* [Creating the rest routes](#creating-the-rest-routes)
+* [Creating the App Entry-point](#creating-the-app-entry-point)
 * [Test the final product](#test-the-final-product)
 
 ## Prerequisites
@@ -31,17 +32,7 @@ $ cd todo-project
 $ git init .
 
 $ npm init -f 
-$ npm i @travetto/{test,express,model-mongo}
-```
-
-Modify `package.json` to include the following script configuration:
-```json
- ...
- "scripts": {
-    "test": "./node_modules/.bin/travetto-test",
-    "start": "./node_modules/.bin/travetto",
-  },
-  ...
+$ npm i @travetto/{log,test,rest-express,model-mongo}
 ```
 
 Set `tsconfig.json` to the following:
@@ -76,6 +67,12 @@ export class Todo implements ModelCore {
   created?: Date;
   completed?: boolean;
 }
+
+@Schema()
+export class TodoSearch {
+  offset?: number;
+  limit?: number;
+}
 ```
 as you can see, the model structure is simple.  Everything that uses the `Model` services needs to implement `ModelCore`.
 
@@ -108,11 +105,13 @@ Next we establish the functionality for the service layer. The operations we nee
 Now we need to create `src/service.ts`
 ```typescript
 import { ModelService } from '@travetto/model';
-import { Injectable } from '@travetto/di';
-import { Todo } from './model';
+import { Injectable, Inject } from '@travetto/di';
+import { Todo, TodoSearch } from './model';
 
 @Injectable()
 export class TodoService {
+
+  @Inject()
   private modelService: ModelService;
 
   async add(todo: Todo) {
@@ -121,8 +120,8 @@ export class TodoService {
     return saved;
   }
 
-  async getAll() {
-    return this.modelService.getAllByQuery(Todo, {});
+  async getAll(search: TodoSearch) {
+    return this.modelService.getAllByQuery(Todo, search);
   }
 
   async complete(id: string, completed = true) {
@@ -172,10 +171,10 @@ import * as assert from 'assert';
 
 import { Suite, Test, BeforeAll } from '@travetto/test';
 import { DependencyRegistry } from '@travetto/di';
-import { TodoService } from '../src/service';
 import { ModelRegistry } from '@travetto/model';
 import { SchemaRegistry } from '@travetto/schema';
 
+import { TodoService } from '../src/service';
 import { Todo } from '../src/model';
 
 @Suite()
@@ -243,47 +242,92 @@ export class TodoTest {
 }
 ```
 
-## Creating the express routes
+## Creating the rest routes
 Now we establish the routes, providing an interface to the service layer.
 
 Finally, we establish the controller at `src/controller.ts`
 ```typescript
-import { Request } from 'express';
-
-import { Controller, Get, TypedBody, Post, Put, Delete } from '@travetto/express';
-import { SchemaBody } from '@travetto/express/support/extension.schema';
+import { Controller, Get, TypedBody, Post, Put, Delete, Request, TypedQuery } from '@travetto/rest';
+import { Inject } from '@travetto/di';
+import { SchemaBody, SchemaQuery } from '@travetto/schema/extension/rest';
 
 import { TodoService } from './service';
-import { Todo } from './model';
+import { Todo, TodoSearch } from './model';
 
 @Controller('/todo')
 export class TodoController {
-  constructor(private svc: TodoService) { }
 
+  @Inject()
+  private svc: TodoService;
+
+  /**
+   * Get all todos
+   */
   @Get('/')
-  async getAll() {
-    return this.svc.getAll();
+  @SchemaQuery(TodoSearch)
+  async getAll(req: TypedQuery<TodoSearch>): Promise<Todo[]> {
+    return this.svc.getAll(req.query);
   }
 
+  /**
+   * Get Todo by id
+   * @param id {String} Todo id
+   */
   @Get('/:id')
-  async getById(req: Request) {
+  async getById(req: Request): Promise<Todo> {
     return this.svc.get(req.params.id);
   }
 
+  /**
+   * Create a todo
+   */
   @Post('/')
   @SchemaBody(Todo)
-  async create(req: TypedBody<Todo>) {
-    await this.svc.add(req.body);
+  async create(req: TypedBody<Todo>): Promise<Todo> {
+    return await this.svc.add(req.body);
   }
 
+  /**
+   * Complete a todod
+   * @param id {String} Todo id
+   */
   @Put('/:id/complete')
   async complete(req: Request) {
-    await this.svc.complete(req.params.id, req.query.completed);
+    return await this.svc.complete(req.params.id, req.query.completed);
   }
 
+  /**
+   * Delete a todo
+   * @param id {String} Todo id
+   */
   @Delete('/:id')
   async remove(req: Request) {
     await this.svc.remove(req.params.id);
+  }
+}
+```
+
+## Creating the App Entry-point
+Finally, to pull all of this together, we need to launch the application entry point.  This requires us to use the `@Application` decorator to identify a class as an entry-point for the application.  Any application can have multiple entry-points.
+
+The entry-point should be at `src/app.ts` as:
+```typescript
+import { Application, InjectableFactory } from '@travetto/di';
+import { RestApp, RestAppProvider } from '@travetto/rest';
+import { RestExpressAppProvider } from '@travetto/rest-express';
+
+@Application('todo')
+export class TodoApp {
+
+  @InjectableFactory()
+  static getProvider(): RestAppProvider {
+    return new RestExpressAppProvider();
+  }
+
+  constructor(private app: RestApp) { }
+
+  run() {
+    this.app.run();
   }
 }
 ```
@@ -292,39 +336,62 @@ export class TodoController {
 First we must start the application
 
 ```bash
-$ npm start
-
-> todo-app@1.0.0 start /home/tim/Code/todo-app
-> travetto
-
-INFO Initializing: application,dev
-Found configurations for []
+$ npx travetto todo
+DEBUG Initializing Phase bootstrap [ 'schema', 'base', 'log', 'config', 'compiler', 'registry' ]
+Found configurations for [ 'dev' ]
+INFO Initializing: application,dev,todo
 INFO Configured {
   "registry": {
     "injectable": {
       "@travetto/config": "Config",
-      "@travetto/express": [
-        "Controller",
+      "@travetto/model": [
         "ModelController"
+      ],
+      "@travetto/rest": [
+        "Controller"
       ]
     },
     "schema": {
       "@travetto/model": "Model"
+    },
+    "rest": {
+      "interceptor": {
+        "@travetto/rest": [
+          "ContextInterceptor"
+        ]
+      }
+    }
+  },
+  "api": {
+    "client": {
+      "output": "./api-client",
+      "format": "typescript-angular",
+      "formatOptions": "supportsES6=true,ngVersion=6.1"
     }
   }
 }
-Watching files 145
-Initialized 0.068
-2018-06-24T05:01:00 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.model:src.service.registry#$ModelRegistry
-2018-06-24T05:01:00 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.express:src.service.registry#$ControllerRegistry
-2018-06-24T05:01:00 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.schema:src.service.registry#$SchemaRegistry
-2018-06-24T05:01:00 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.di:src.service.registry#$DependencyRegistry
-2018-06-24T05:01:00 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.registry:src.service.root#$RootRegistry
-2018-06-24T05:01:00 debug [@trv.d.src.srv.registry:113] Auto-creating [ 'ExpressApp', [length]: 1 ]
-body-parser deprecated undefined extended: provide extended option node_modules/@travetto/base/src/phase.js:20:21
-express-session deprecated undefined resave option; provide resave option node_modules/@travetto/di/src/service/registry.js:164:24
-2018-06-24T05:01:00 debug [@trv.xpr.src.srv.app: 92] Registering Controller Instance @app:src.express#TodoController /todo 5
-2018-06-24T05:01:00 info  [@trv.xpr.src.srv.app: 79] Listening on 3000
+Configured Transformers before [ 'test:line-numbers',
+  'registry',
+  'di',
+  'log',
+  'rest',
+  'schema',
+  'test:assert' ]
+Initialized 0.072
+2018-08-20T23:13:16 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.model:src.service.registry#$ModelRegistry
+2018-08-20T23:13:16 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.rest:src.service.registry#$ControllerRegistry
+2018-08-20T23:13:16 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.schema:src.service.registry#$SchemaRegistry
+2018-08-20T23:13:16 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.di:src.service.registry#$DependencyRegistry
+2018-08-20T23:13:16 debug [@trv.rg.src.srv.registry: 42] Initialized @travetto.registry:src.service.root#$RootRegistry
+body-parser deprecated undefined extended: provide extended option node_modules/@travetto/registry/src/source/class-source.js:74:17
+express-session deprecated undefined resave option; provide resave option node_modules/@travetto/registry/src/source/class-source.js:74:17
+express-session deprecated undefined saveUninitialized option; provide saveUninitialized option node_modules/@travetto/registry/src/source/class-source.js:74:17
+2018-08-20T23:13:16 info  [@trv.rst.src.srv.app: 62] Sorting interceptors 0 []
+2018-08-20T23:13:16 debug [@trv.rst.src.app: 62] Registering Controller Instance @travetto.swagger:src.service.controller#SwaggerController / 2
+(node:29806) DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
+2018-08-20T23:13:16 debug [@trv.rst.src.app: 62] Registering Controller Instance @app:src.route#TodoController /todo 5
+2018-08-20T23:13:16 info  [@trv.rst.src.srv.app: 82] Listening on 3000
+
 ```
 
 next, let's execute `curl` requests to interact with the new api

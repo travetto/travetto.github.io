@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { PAGES } from './pages';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-documentation',
@@ -8,18 +9,22 @@ import { PAGES } from './pages';
   styleUrls: ['./documentation.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class DocumentationComponent implements OnInit {
+export class DocumentationComponent {
+  pages = [
+    { path: 'overview', title: 'Overview' },
+    ...PAGES
+  ];
+  url = '';
 
-  pages = PAGES.sort((a, b) => {
-    return a.title.localeCompare(b.title);
-  });
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private router: Router) {
+    router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        this.url = e.url;
+      }
+    });
   }
 
-  onActivate(event) {
-    window.document.scrollingElement.scrollTop = 0;
+  hasFragment(f) {
+    return this.url.endsWith(`#${f}`);
   }
 }
