@@ -206,3 +206,12 @@
     grid-column: 1/11;
   }
 }
+
+@media (max-width: 700px) {
+  .documentation {
+    .modules {
+      max-width: 700px;
+      overflow-x: auto;
+    }
+  }
+}

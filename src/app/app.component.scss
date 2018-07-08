@@ -1,7 +1,6 @@
 $HEADER-HEIGHT: 64px;
 $FOOTER-HEIGHT: 70px;
-$SMALL-HEADER-HEIGHT: 30px;
-
+$SMALL-HEADER-HEIGHT: 40px;
 
 :host {
   display: block;
@@ -156,13 +155,11 @@ footer {
       width: 100%;
       [mat-button] {
         min-width: 0;
-        font-size: 10px;
-        padding: 0;
-        margin: 0 5px;
+        font-size: 15px;
       }
       height: $SMALL-HEADER-HEIGHT;
       .name {
-        font-size: 20px;
+        font-size: 25px;
       }
       svg.logo {
         display: none;
@@ -170,8 +167,12 @@ footer {
       padding: 0px;
       padding-left: 2px;
       img.logo {
-        height: 20px;
-        width: 20px;
+        height: 36px;
+        width: 36px;
+      }
+      a {
+        height: $SMALL-HEADER-HEIGHT;
+        line-height: $SMALL-HEADER-HEIGHT;
       }
       a[href="/landing"] {
         display: none;

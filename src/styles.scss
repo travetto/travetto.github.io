@@ -270,3 +270,39 @@ li {
     }
   }
 }
+
+
+@media (max-width: 700px) {
+  html body app-root {
+    .documentation {
+      max-width: 700px !important;
+      min-width: 300px !important;
+      display: block !important;
+      padding: .25em 1em;
+    }
+    .wrapper>* {
+      display: block !important;
+    }
+    .documentation-links {
+      display: block !important;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      .inner {
+        width: 100%;
+        padding: .25em 1em;
+        box-sizing: border-box;
+        margin: 0;
+        text-align: left;
+        ul {
+          width: 100%;
+          li {
+            width: auto;
+            display: inline-block;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
