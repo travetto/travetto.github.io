@@ -43,6 +43,7 @@ import { ScheduleComponent } from './gen/schedule/schedule.component';
 import { CliComponent } from './gen/cli/cli.component';
 import { GeneratorAppComponent } from './gen/generator-app/generator-app.component';
 import { NetComponent } from './gen/net/net.component';
+import { ModuleChartComponent } from './module-chart/module-chart.component';
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import { NetComponent } from './gen/net/net.component';
     ScheduleComponent,
     CliComponent,
     GeneratorAppComponent,
-    NetComponent
+    NetComponent,
+    ModuleChartComponent
   ]
 })
 export class DocumentationModule { }

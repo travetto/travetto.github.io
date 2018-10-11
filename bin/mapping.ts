@@ -12,7 +12,10 @@ export const MAPPING: Mapping[] = [
     module: 'overview',
     title: 'Overview',
     component: 'OverviewComponent',
-    list: false
+    list: false,
+    children: [{
+      module: 'module-chart'
+    }]
   },
   { module: 'cli' },
   { module: 'generator-app', title: 'App Generator' },

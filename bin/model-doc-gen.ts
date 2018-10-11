@@ -9,6 +9,7 @@ import { getParent } from './util';
 
 const SELF = __dirname;
 const GHP_ROOT = path.dirname(SELF);
+const RELATED_ROOT = path.dirname(GHP_ROOT);
 const MOD_ROOT = fs.realpathSync(process.argv[2]);
 const DOC_ROOT = `${GHP_ROOT}/src/app/documentation`;
 
@@ -163,6 +164,10 @@ function waitForChange() {
   const files = [...markdowns(`${GHP_ROOT}/src`), ...markdowns(MOD_ROOT)];
   cp.execSync(`inotifywait -e attrib,modify,move,create,delete ${files.join(' ')}`);
 }
+
+cp.execSync(`ln -sf ${RELATED_ROOT}/test-plugin/README.md ${DOC_ROOT}/test-plugin/test-plugin.component.md`);
+cp.execSync(`ln -sf ${RELATED_ROOT}/todo-app/README.md ${GHP_ROOT}/src/app/guide/guide.component.md`);
+cp.execSync(`ln -sf ${path.dirname(MOD_ROOT)}/README.md ${DOC_ROOT}/overview/overview.component.md`);
 
 if (process.argv[3] === 'watch') {
   while (true) {
