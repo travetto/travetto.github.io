@@ -6,7 +6,7 @@
 
 
 
-  grid-column-gap: 20px;
+  grid-column-gap: 10px;
   grid-template-columns: 300px 1fr;
 
   .documentation-links {
@@ -28,7 +28,7 @@
 
   li.base,
   li.asset {
-    border-top: 1px solid #ccc;
+    border-top: 1px dotted #ccc;
     padding-top: .5em;
     margin-top: .25em;
   }

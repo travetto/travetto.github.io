@@ -13,7 +13,7 @@ html {
 
 p,
 li {
-  color: #333;
+  color: #000;
   line-height: 1.5em;
 }
 
@@ -55,7 +55,7 @@ li {
   h4 {
     margin-top: .7em;
     font-size: 18pt;
-    color: #666;
+    color: #333;
     border-bottom: 1px solid #eee;
   }
 
@@ -63,6 +63,9 @@ li {
     font-size: 16pt;
   }
 
+  strong {
+    font-weight: 500;
+  }
 
   ol,
   ul {
@@ -312,10 +315,10 @@ li {
           border-color: green;
         }
 
-        color: #444;
+        color: black;
         text-decoration: none;
         padding-right: .5em;
-        border-right: 3px solid #aaa;
+        border-right: 2px solid #aaa;
       }
 
       ul {

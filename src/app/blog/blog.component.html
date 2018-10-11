@@ -2,7 +2,7 @@
   <article *ngFor="let post of posts">
     <h2>
       <small>
-        {{post.updated | date }}
+        {{post.published | date }}
       </small> {{post.title}}
     </h2>
     <div class="byline">

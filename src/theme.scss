@@ -1,10 +1,10 @@
 @import '~@angular/material/theming';
 
-$general-typography: mat-typography-config( $font-family: '"Source Sans Pro", sans-serif',
+$general-typography: mat-typography-config($font-family: '"Source Sans Pro", sans-serif',
 $display-3: mat-typography-level(40px, 24px, 400),
 $headline: mat-typography-level(35px, 24px, 400),
 $title: mat-typography-level(28px, 24px, 400),
-$body-1: mat-typography-level(20px, 20px, 400),
+$body-1: mat-typography-level(20px, 20px, 300),
 $body-2: mat-typography-level(20px, 20px, 600));
 //  $body-2:        mat-typography-level(14px, 24px, 600)  
 // Plus imports for other components in your app.
@@ -32,6 +32,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include angular-material-theme($app-theme);
 
 body.mat-typography {
+
   .mat-display-1,
   .mat-display-2,
   .mat-display-3,

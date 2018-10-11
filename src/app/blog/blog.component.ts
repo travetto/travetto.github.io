@@ -39,7 +39,7 @@ export class BlogComponent implements OnInit {
     }).subscribe(data => {
       this.posts = data.json().items;
       for (const item of this.posts) {
-
+        console.log(item);
       }
     });
   }
