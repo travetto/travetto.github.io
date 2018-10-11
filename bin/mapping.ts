@@ -14,11 +14,11 @@ export const MAPPING: Mapping[] = [
     component: 'OverviewComponent',
     list: false,
     children: [{
-      module: 'module-chart'
+      module: 'module-chart', component: 'ModuleChartComponent', title: ' '
     }]
   },
   { module: 'cli' },
-  { module: 'generator-app', title: 'App Generator' },
+  { module: 'generator-app' },
   { module: 'base' },
   { module: 'config' },
   { module: 'di' },

@@ -1,4 +1,8 @@
-<div class="documentation"><h1 id="overview" id="framework-overview">Framework Overview</h1>
+<div class="documentation"><h1 id="overview">   
+  <sub><img src="https://travetto.io/assets/logo.png" height="40"></sub>
+  The Travetto Framework
+</h1>
+
 <p>The goal of the framework is to provide a holistic application platform with the a focus on interactive development.</p>
 <h2 id="philosophy">Philosophy</h2>
 <p>The framework relies up five key principles:</p>
@@ -11,13 +15,7 @@
 </ul>
 <h2 id="modules">Modules</h2>
 <p>Every module within the framework follows the overarching philosophy.  For the most part each module is as isolated as possible.  The modules are stacked vertically to generally indicate dependencies.  The only exception is for common libraries, which are unrelated.</p>
-<div class="modules">
-  <div [class]="page.path" *ngFor="let page of pages">
-    <a [routerLink]="'/docs/' + page.path" [innerHtml]="page.title"></a>
-    <ul *ngIf="page.subs && page.subs.length">
-      <li class="sub" *ngFor="let sub of page.subs">
-        <a [routerLink]="'/docs/' + page.path" [fragment]="sub.path" [innerHtml]="sub.title"></a>
-      </li>
-    </ul>
-  </div>
-</div></div>
+<p><img src="https://2.bp.blogspot.com/-UHEnn_I_CnA/WzmNrEgL7ZI/AAAAAAAARPw/nEkywI1ig8U7BEIOV47CivTp0IXg3uYSACLcBGAs/s640/Screenshot_20180701_222259.png" alt="Module Layout"></p>
+</div>
+
+      <app-module-chart></app-module-chart>

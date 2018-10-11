@@ -18,7 +18,7 @@ export const PAGES = [
   { path: 'cli', title: 'CLI Support', component: CliComponent, subs: [
 
 ] },
-  { path: 'generator-app', title: 'App Generator', component: GeneratorAppComponent, subs: [
+  { path: 'generator-app', title: 'Yeoman App Generator', component: GeneratorAppComponent, subs: [
 
 ] },
   { path: 'base', title: 'Base', component: BaseComponent, subs: [

@@ -59,11 +59,11 @@ function compileModule(root: string, moduleConf: Mapping, sub?: string) {
     .replace(/[^A-Za-z0-9\-]+/g, '')
     .trim();
 
-  const componentName = moduleConf.component || readLines(`${root}/${mod}/${mod}.component.ts`)
+  const componentName = moduleConf.component || (readLines(`${root}/${mod}/${mod}.component.ts`)
     .find(x => /\bclass\b/.test(x))
     .split(/class\s*/)[1]
     .split(/[^A-Za-z0-9_\-]+/)
-    .find(x => !!x);
+    .find(x => !!x));
 
   const componentTitle = moduleConf.title || content.split('\n')
     .find(x => x.includes('<h1'))
