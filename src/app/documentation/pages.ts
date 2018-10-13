@@ -25,7 +25,7 @@ export const PAGES = [
 
 ] },
   { path: 'config', title: 'Config ', component: ConfigComponent, subs: [
-
+  { path: 'yaml', title: 'Simple YAML Parser' }
 ] },
   { path: 'di', title: 'Dependency Injection  ', component: DiComponent, subs: [
 

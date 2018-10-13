@@ -20,7 +20,10 @@ export const MAPPING: Mapping[] = [
   { module: 'cli' },
   { module: 'generator-app' },
   { module: 'base' },
-  { module: 'config' },
+  {
+    module: 'config',
+    children: [{ module: 'yaml', title: 'Simple YAML Parser' }]
+  },
   { module: 'di' },
   { module: 'schema' },
   {

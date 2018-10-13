@@ -44,6 +44,7 @@ import { CliComponent } from './gen/cli/cli.component';
 import { GeneratorAppComponent } from './gen/generator-app/generator-app.component';
 import { NetComponent } from './gen/net/net.component';
 import { ModuleChartComponent } from './module-chart/module-chart.component';
+import { YamlComponent } from './gen/yaml/yaml.component';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import { ModuleChartComponent } from './module-chart/module-chart.component';
     CliComponent,
     GeneratorAppComponent,
     NetComponent,
-    ModuleChartComponent
+    ModuleChartComponent,
+    YamlComponent
   ]
 })
 export class DocumentationModule { }
