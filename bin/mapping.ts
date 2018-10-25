@@ -68,7 +68,8 @@ export const MAPPING: Mapping[] = [
       { module: 'cache' },
       { module: 'exec' },
       { module: 'schedule' },
-      { module: 'net' }
+      { module: 'net' },
+      { module: 'jwt' }
     ]
   },
   {

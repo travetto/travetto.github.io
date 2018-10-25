@@ -45,6 +45,7 @@ import { GeneratorAppComponent } from './gen/generator-app/generator-app.compone
 import { NetComponent } from './gen/net/net.component';
 import { ModuleChartComponent } from './module-chart/module-chart.component';
 import { YamlComponent } from './gen/yaml/yaml.component';
+import { JwtComponent } from './gen/jwt/jwt.component';
 
 @NgModule({
   imports: [
@@ -102,7 +103,8 @@ import { YamlComponent } from './gen/yaml/yaml.component';
     GeneratorAppComponent,
     NetComponent,
     ModuleChartComponent,
-    YamlComponent
+    YamlComponent,
+    JwtComponent
   ]
 })
 export class DocumentationModule { }

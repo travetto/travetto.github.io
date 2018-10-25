@@ -1,5 +1,7 @@
 #!/usr/bin/env ts-node
 
+// tslint:disable:no-non-null-assertion
+
 import * as fs from 'fs';
 import * as path from 'path';
 import * as cp from 'child_process';
@@ -13,9 +15,16 @@ const RELATED_ROOT = path.dirname(GHP_ROOT);
 const MOD_ROOT = fs.realpathSync(process.argv[2]);
 const DOC_ROOT = `${GHP_ROOT}/src/app/documentation`;
 
-const readLines = f => fs.readFileSync(f).toString().split('\n');
+interface Page {
+  path: string;
+  title: string;
+  component?: string;
+  subs?: Page[];
+}
 
-function writeContents(f, contents) {
+const readLines = (f: string) => fs.readFileSync(f).toString().split('\n');
+
+function writeContents(f: string, contents: string) {
   const existing = fs.existsSync(f) ? fs.readFileSync(f).toString() : undefined;
 
   if (existing !== contents) {
@@ -24,7 +33,7 @@ function writeContents(f, contents) {
   }
 }
 
-function markdowns(root) {
+function markdowns(root: string) {
   return cp.execSync(`find ${root} -name '*.md' | grep -v node_modules`).toString().split('\n').filter(x => !!x);
 }
 
@@ -54,19 +63,19 @@ function compileModule(root: string, moduleConf: Mapping, sub?: string) {
   let content = render(markdown).replace(/%MODULE%/g, mod).replace('<h1', `<h1 id="${mod}"`);
 
   const componentTag = moduleConf.tag || readLines(`${root}/${mod}/${mod}.component.ts`)
-    .find(x => /selector\s*:/.test(x))
+    .find(x => /selector\s*:/.test(x))!
     .split(/selector\s*:\s* /)[1]
     .replace(/[^A-Za-z0-9\-]+/g, '')
     .trim();
 
   const componentName = moduleConf.component || (readLines(`${root}/${mod}/${mod}.component.ts`)
-    .find(x => /\bclass\b/.test(x))
+    .find(x => /\bclass\b/.test(x))!
     .split(/class\s*/)[1]
     .split(/[^A-Za-z0-9_\-]+/)
     .find(x => !!x));
 
   const componentTitle = moduleConf.title || content.split('\n')
-    .find(x => x.includes('<h1'))
+    .find(x => x.includes('<h1'))!
     .split(/<h1[^>]*>/)[1]
     .split('<')[0];
 
@@ -82,7 +91,7 @@ function compileModule(root: string, moduleConf: Mapping, sub?: string) {
     componentTag,
     list: moduleConf.list === undefined || moduleConf.list,
     imports: [`import { ${componentName} } from '.${sub ? `/${sub}` : ''}/${mod}/${mod}.component';`],
-    page: { path: mod, title: componentTitle, component: componentName, subs: [] }
+    page: { path: mod, title: componentTitle, component: componentName, subs: [] } as Page
   };
 
   let subContent = '';
@@ -93,9 +102,12 @@ function compileModule(root: string, moduleConf: Mapping, sub?: string) {
       childRes = compileModule(DOC_ROOT, child);
     }
     // ret.imports.push(...childRes.imports);
-    ret.page.subs.push({ path: child.module, title: childRes.componentTitle.replace(`${componentTitle}-`, '') });
+    ret.page.subs!.push({
+      path: child.module,
+      title: childRes!.componentTitle.replace(`${componentTitle}-`, '')
+    });
     subContent = `${subContent}
-      <${childRes.componentTag}></${childRes.componentTag}>
+      <${childRes!.componentTag}></${childRes!.componentTag}>
 `;
   }
 
@@ -114,8 +126,8 @@ function compileModule(root: string, moduleConf: Mapping, sub?: string) {
 
 function renderDocs() {
   const state = {
-    imports: [],
-    pages: [] as ReturnType<typeof compileModule>['page'][]
+    imports: [] as string[],
+    pages: [] as Page[]
   };
 
   for (const moduleConf of MAPPING) {

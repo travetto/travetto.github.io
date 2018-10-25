@@ -10,23 +10,24 @@ require('prismjs/components/prism-css');
 require('prismjs/components/prism-scss');
 require('prismjs/components/prism-yaml');
 require('prismjs/components/prism-json');
+require('prismjs/components/prism-sql');
 require('prismjs/components/prism-properties');
 require('prismjs/components/prism-bash');
+
+const tokenMapping: { [key: string]: string } = {
+  gt: '>',
+  lt: '<',
+  quot: '"',
+  apos: `'`
+};
 
 function highlight(text: string, lang: string) {
   text = text
     .replace(/&#(\d+);/g, (x, code) => String.fromCharCode(code))
-    .replace(/&([a-z][^;]*);/g, (a, k) => {
-      return {
-        gt: '>',
-        lt: '<',
-        quot: '"',
-        apos: `'`
-      }[k] || a;
-    });
+    .replace(/&([a-z][^;]*);/g, (a, k) => tokenMapping[k] || a);
 
   try {
-    return Prism.highlight(text, Prism.languages[lang], lang)
+    return (Prism.highlight(text, Prism.languages[lang], lang) as string)
       .replace(/(@\s*<span[^>]*)function("\s*>)/g, (a, pre, post) => `${pre}meta${post}`);
   } catch (e) {
     console.error(e.stack);
@@ -35,7 +36,10 @@ function highlight(text: string, lang: string) {
 
 
 class MyRenderer extends marked.Renderer {
-  link(href, title, text) {
+  constructor(options?: marked.MarkedOptions) {
+    super(options);
+  }
+  link(href: string, title: string, text: string) {
     if (title) {
       title = `title="${title}"`;
     }
@@ -59,7 +63,7 @@ class MyRenderer extends marked.Renderer {
     }
     return super.link(href, title, text);
   }
-  codespan(code) {
+  codespan(code: string) {
     if (/^█/.test(code)) {
       return `<code class="inline language-typescript">${code.substring(1)}</code>`;
     } else if (/^@[A-Za-z0-9()"'=, ]+$/.test(code)) {
@@ -70,7 +74,7 @@ class MyRenderer extends marked.Renderer {
       return `<code class="inline">${code}</code>`;
     }
   }
-  code(text, lang, escaped) {
+  code(text: string, lang: string, escaped?: boolean) {
     let out: string;
     if (lang) {
       if (lang.includes('-inline')) {
@@ -95,14 +99,14 @@ const opts = {
   smartypants: true
 };
 
-export function render(markdownFile) {
+export function render(markdownFile: string): string {
   const content = fs.readFileSync(markdownFile).toString()
     .replace(/Travetto:\s*/gi, '')
     .replace(/```([^\n]*?)```/g, (a, c) => '`█' + c + '`');
 
   let links = '';
 
-  let output = marked(content, { ...opts, renderer: new MyRenderer(opts) })
+  let output = (marked(content, { ...opts, renderer: new MyRenderer(opts) }) as string)
     .replace(/[{}]/g, a => `{{ '${a}' }}`)
     .replace(/<h[23][^>]+>(Outline|Overview).*?<\/[uo]l>/ms, (a) => {
       links = a;

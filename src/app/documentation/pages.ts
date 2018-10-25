@@ -57,7 +57,8 @@ export const PAGES = [
   { path: 'cache', title: 'Cache' },
   { path: 'exec', title: 'Exec' },
   { path: 'schedule', title: 'Schedule ' },
-  { path: 'net', title: 'Net' }
+  { path: 'net', title: 'Net' },
+  { path: 'jwt', title: 'JWT' }
 ] },
   { path: 'asset', title: 'Asset', component: AssetComponent, subs: [
   { path: 'asset-mongo', title: 'Mongo' },
