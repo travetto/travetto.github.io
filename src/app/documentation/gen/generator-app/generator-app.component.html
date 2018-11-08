@@ -1,8 +1,10 @@
 <div class="documentation"><h1 id="generator-app" id="yeoman-app-generator">Yeoman App Generator</h1>
 <p>A simple <a class="external-link" href="http://yeoman.io" target="_blank" null><code class="inline">yeoman</code></a> generator for scaffolding a reference project.  To get started, you need to make sure: </p>
+<pre class="as-header install">Install: Setting up yeoman and the generator  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> i -g yo <span class="token comment">#<span class="token type">Ensure</span> yeoman is installed globally</span>
 $ <span class="token function">npm</span> i -g @travetto/generator-app <span class="token comment">#<span class="token type">Ensure</span> this yeoman generator is installed</span>
 $ <span class="token function">git</span> config --global.username <span class="token operator">&lt;</span><span class="token type">Username</span><span class="token operator">></span> <span class="token comment">#<span class="token type">Set</span> your git username</span></code></pre><p>Once installed you can invoke the scaffolding by running</p>
+<pre class="as-header terminal">Terminal: Running generator  </pre>
 <pre><code class="language-bash">$ yo @travetto/app</code></pre><p>Currently, the generator supports, two main features.</p>
 <h2 id="restful-architecture">Restful Architecture</h2>
 <p>The <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> provides the necessary integration for exposing restful apis.  When selecting the <code class="inline">rest</code> feature, you will need to specify which backend you want to include with your application, the default being <code class="inline">express</code>.  Currently you can select from:</p>
@@ -25,6 +27,7 @@ $ <span class="token function">git</span> config --global.username <span class="
 </li>
 </ul>
 <p>A default model is constructed, a <code class="inline">Todo</code> class:</p>
+<pre class="as-header code">Code: Todo model  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Model</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token keyword">implements</span> <span class="token class-name">ModelCore</span> <span class="token punctuation">{{ '{' }}</span>
   id<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -33,6 +36,7 @@ $ <span class="token function">git</span> config --global.username <span class="
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>Basic tests are also included for the <code class="inline">model</code> to verify that database interaction and functionality is working properly.</p>
 <h2 id="rest-model">Rest + Model</h2>
 <p>In the case both <code class="inline">Rest</code> and <code class="inline">Model</code> features are enabled, the code will produce a controller that exposes the <code class="inline">Todo</code> model via restful patterns.</p>
+<pre class="as-header code">Code: Todo controller  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/todo'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TodoController</span> <span class="token punctuation">{{ '{' }}</span>
 
@@ -52,4 +56,5 @@ $ <span class="token function">git</span> config --global.username <span class="
   <span class="token keyword">async</span> <span class="token keyword">delete</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="executing">Executing</h2>
 <p>Once finished the application will reflect the modules chosen, and will be ready for execution, if you have configured a runnable application.  Currently, this requires the <code class="inline">rest</code> feature to be selected.</p>
+<pre class="as-header terminal">Terminal: starting app  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> start</code></pre></div>

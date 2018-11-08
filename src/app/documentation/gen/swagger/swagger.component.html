@@ -1,9 +1,11 @@
 <div class="documentation"><h2 id="swagger" id="swagger">Swagger</h2>
-<p>In the <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> module, the controllers and endpoints can be described via decorators, comments, or typings. This only provides the general metadata internally. This is not sufficient to generate a usable API doc, and so this module exists to bridge that gap.</p>
+<pre class="as-header install">Install: primary  </pre>
+<pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/swagger</code></pre><p>In the <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> module, the controllers and endpoints can be described via decorators, comments, or typings. This only provides the general metadata internally. This is not sufficient to generate a usable API doc, and so this module exists to bridge that gap.</p>
 <p>The module is provides a <a class="external-link" href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#swaggerObject" target="_blank" null><code class="inline">swagger</code></a> v2 representation of the API metadata provided via the <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> and <a class="module-link" routerLink="/docs/schema"  null><code class="inline">Schema</code></a> modules.</p>
 <h3 id="configuration">Configuration</h3>
 <p>By installing the dependency, the <a class="external-link" href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#swaggerObject" target="_blank" null><code class="inline">swagger</code></a> endpoint is automatically generated and exposed at the root of the application as <code class="path inline">/swagger.json</code>.  </p>
 <p>All of the high level configurations can be found in the following structure:</p>
+<pre class="as-header config">Config: Swagger configuration  </pre>
 <pre><code class="language-yaml"><span class="token key atrule">api</span><span class="token punctuation">:</span>
   <span class="token key atrule">info</span><span class="token punctuation">:</span>
     <span class="token key atrule">contact</span><span class="token punctuation">:</span>

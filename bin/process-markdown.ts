@@ -74,6 +74,18 @@ class MyRenderer extends marked.Renderer {
       return `<code class="inline">${code}</code>`;
     }
   }
+  strong(text: string) {
+    const headerType = /^\s*Terminal\s*:/.test(text) ? 'terminal' :
+      /^\s*Install\s*:/.test(text) ? 'install' :
+        /^\s*Config\s*:/.test(text) ? 'config' :
+          /^\s*Code\s*:/.test(text) ? 'code' : '';
+
+    if (headerType) {
+      return `<pre class="as-header ${headerType}">${text}  </pre>`;
+    } else {
+      return super.strong(text);
+    }
+  }
   code(text: string, lang: string, escaped?: boolean) {
     let out: string;
     if (lang) {
@@ -108,11 +120,11 @@ export function render(markdownFile: string): string {
 
   let output = (marked(content, { ...opts, renderer: new MyRenderer(opts) }) as string)
     .replace(/[{}]/g, a => `{{ '${a}' }}`)
+    .replace(/<p>\s*(<pre class="as-header.*?)<\/p>/g, (a, s) => s)
     .replace(/<h[23][^>]+>(Outline|Overview).*?<\/[uo]l>/ms, (a) => {
       links = a;
       return '';
     });
-
   output = `<div class="documentation">${output}</div>`;
 
   if (links) {

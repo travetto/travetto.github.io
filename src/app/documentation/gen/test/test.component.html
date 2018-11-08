@@ -1,9 +1,11 @@
 <div class="documentation"><h1 id="test" id="test">Test</h1>
-<p>This module provides unit testing functionality that integrates with the framework. It is a declarative framework, using decorators to define tests and suites. The test produces results in the <a class="external-link" href="https://testanything.org/tap-version-13-specification.html" target="_blank" null><code class="inline">TAP 13</code></a> format to be consumed by other processes. </p>
+<pre class="as-header install">Install: primary  </pre>
+<pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/test</code></pre><p>This module provides unit testing functionality that integrates with the framework. It is a declarative framework, using decorators to define tests and suites. The test produces results in the <a class="external-link" href="https://testanything.org/tap-version-13-specification.html" target="_blank" null><code class="inline">TAP 13</code></a> format to be consumed by other processes. </p>
 <p><strong>NOTE</strong> All tests should be under the <code class="path inline">test/.*</code> folders.  The pattern for tests is defined as a regex and not standard globbing.</p>
 <h2 id="definition">Definition</h2>
 <p>A test suite is a collection of individual tests.  All test suites are classes with the <code class="decorator inline">@Suite</code> decorator. Tests are defined as methods on the suite class, using the <code class="decorator inline">@Test</code> decorator.  All tests intrinsically support <code class="inline">async</code>/<code class="inline">await</code>.  </p>
 <p>A simple example would be:</p>
+<pre class="as-header code">Code: Example Test suite  </pre>
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> assert <span class="token keyword">from</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
 
 @<span class="token meta">Suite</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -23,7 +25,9 @@
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="assertions">Assertions</h2>
 <p>A common aspect of the tests themselves are the assertions that are made.  <code class="inline">Node</code> provides a built-in <a class="external-link" href="https://nodejs.org/api/assert.html" target="_blank" null><code class="inline">assert</code></a> library.  The framework uses AST transformations to modify the assertions to provide integration with the test module, and to provide a much higher level of detail in the failed assertions.  For example:</p>
+<pre class="as-header code">Code: Example assertion for deep comparison  </pre>
 <pre><code class="language-typescript"><span class="token function">assert</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>size<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> address<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span> state<span class="token punctuation">:</span> <span class="token string">'VA'</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">{{ '}' }}</span> <span class="token operator">===</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>would generate the error:</p>
+<pre class="as-header code">Code: Sample structure of validation error  </pre>
 <pre><code class="language-typescript"><span class="token function">AssertionError</span><span class="token punctuation">(</span>
   message<span class="token operator">=</span><span class="token string">"{{ '{' }}size: 20, address: {{ '{' }}state: 'VA' {{ '}' }}{{ '}' }} should deeply strictly equal {{ '{' }}{{ '}' }}"</span>
 <span class="token punctuation">)</span></code></pre><p>The equivalences for the assertion operations are:</p>

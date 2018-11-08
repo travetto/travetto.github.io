@@ -249,6 +249,38 @@ li {
   pre {
     margin-top: 0;
 
+    &.as-header {
+      display: block;
+      border-radius: 5px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      font-size: 12pt;
+      padding: .5em 1em;
+      margin-bottom: 0;
+      color: white;
+
+      &.install {
+        background-color: desaturate(darken(rgba(218, 165, 32, 1), 15%), 20%);
+      }
+
+      &.terminal {
+        background-color: desaturate(rgba(102, 102, 102, 1), 30%);
+      }
+
+      &.code {
+        background-color: desaturate(darken(rgba(0, 255, 0, 1), 20%), 50%);
+      }
+
+      &.config {
+        background-color: desaturate(darken(rgba(0, 0, 255, 1), 10%), 50%);
+      }
+
+      &+pre code {
+        margin: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
   }
 
   ul {

@@ -1,5 +1,6 @@
 <div class="documentation"><h2 id="registry" id="registry">Registry</h2>
-<p>This module is the backbone for all “discovered” and “registered” behaviors within the framework. This is primarily used for building modules within the framework and not directly useful for application development.</p>
+<pre class="as-header install">Install: primary  </pre>
+<pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/registry</code></pre><p>This module is the backbone for all “discovered” and “registered” behaviors within the framework. This is primarily used for building modules within the framework and not directly useful for application development.</p>
 <h3 id="flows">Flows</h3>
 <p>Registration, within the framework flows throw two main use cases:</p>
 <h4 id="initial-flow-primary-">Initial Flow (Primary)</h4>
@@ -9,6 +10,7 @@
 <li>As files are imported, decorators within the files will record various metadata relevant to the respective registries </li>
 <li>When all files are processed, the <code class="inline">RootRegistry</code> is finished, and it will signal to anything waiting on registered data that its free to use it.<br>This flow ensures all files are loaded and processed before application starts. A sample registry, pulled from the <a class="module-link" routerLink="/docs/model"  null><code class="inline">Model</code></a> module, looks like:</li>
 </ol>
+<pre class="as-header code">Code: Custom Registry based on Metadata Registry  </pre>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> $<span class="token type">ModelRegistry</span> <span class="token keyword">extends</span> <span class="token class-name">MetadataRegistry</span><span class="token operator">&lt;</span><span class="token type">ModelOptions</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">>></span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token type">SchemaRegistry</span><span class="token punctuation">,</span> <span class="token type">DependencyRegistry</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
