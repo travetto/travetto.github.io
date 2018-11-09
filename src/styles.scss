@@ -25,8 +25,9 @@ li {
     padding-top: 1em;
   }
 
-  & .documentation {
-    padding: 0;
+  .documentation {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   h1 {
@@ -258,9 +259,8 @@ li {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       font-size: 20px;
-      line-height: 30px;
+      line-height: 35px;
       font-family: "Source Sans Pro", sans-serif;
-      padding: .5em 1em;
       margin-bottom: 0;
       color: white;
 
@@ -268,16 +268,17 @@ li {
         font-family: 'Material Icons';
         font-weight: normal;
         font-style: normal;
-        font-size: 24px;
+        font-size: 20px;
         /* Preferred icon size */
         display: inline-block;
-        line-height: 30px;
+        line-height: 35px;
         text-transform: none;
         letter-spacing: normal;
         vertical-align: bottom;
         word-wrap: normal;
         white-space: nowrap;
         direction: ltr;
+        padding-left: .5em;
         margin-right: .5em;
 
         /* Support for all WebKit browsers. */
@@ -297,7 +298,7 @@ li {
           content: 'playlist_add';
         }
 
-        background-color: desaturate(darken(rgba(218, 165, 32, 1), 0%), 0%);
+        background-color: desaturate(darken(rgba(218, 165, 32, 1), 5%), 0%);
       }
 
       &.terminal {
@@ -321,7 +322,7 @@ li {
           content: 'settings';
         }
 
-        background-color: desaturate(darken(rgba(0, 0, 255, 1), 10%), 0%);
+        background-color: desaturate(darken(rgba(0, 0, 255, 1), 20%), 40%);
       }
 
       &+pre code {
