@@ -4,6 +4,7 @@ import { getParent } from './util';
 const marked = require('marked');
 
 const Prism = require('prismjs');
+require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
 require('prismjs/components/prism-typescript');
 require('prismjs/components/prism-javascript');
 require('prismjs/components/prism-css');
@@ -14,6 +15,15 @@ require('prismjs/components/prism-sql');
 require('prismjs/components/prism-properties');
 require('prismjs/components/prism-bash');
 
+Prism.plugins.NormalizeWhitespace.setDefaults({
+  'remove-trailing': true,
+  'remove-indent': true,
+  'left-trim': true,
+  'right-trim': true
+});
+
+const nw = Prism.plugins.NormalizeWhitespace;
+
 const tokenMapping: { [key: string]: string } = {
   gt: '>',
   lt: '<',
@@ -22,6 +32,10 @@ const tokenMapping: { [key: string]: string } = {
 };
 
 function highlight(text: string, lang: string) {
+  text = nw.normalize(text, {
+    indent: 0
+  });
+
   text = text
     .replace(/&#(\d+);/g, (x, code) => String.fromCharCode(code))
     .replace(/&([a-z][^;]*);/g, (a, k) => tokenMapping[k] || a);
@@ -81,6 +95,8 @@ class MyRenderer extends marked.Renderer {
           /^\s*Code\s*:/.test(text) ? 'code' : '';
 
     if (headerType) {
+      text = text.replace(/^[^:]+:\s*/, '');
+      text = text.charAt(0).toUpperCase() + text.substring(1);
       return `<pre class="as-header ${headerType}">${text}  </pre>`;
     } else {
       return super.strong(text);

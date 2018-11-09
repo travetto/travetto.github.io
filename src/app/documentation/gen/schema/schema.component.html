@@ -1,5 +1,5 @@
 <div class="documentation"><h1 id="schema" id="schema">Schema</h1>
-<pre class="as-header install">Install: primary  </pre>
+<pre class="as-header install">Primary  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/schema</code></pre><p>This module provide a mechanisms for registering classes and field level information as well the ability to apply that information at runtime.</p>
 <h2 id="registration">Registration</h2>
 <p>The registry’s schema information is defined by <code class="inline">typescript</code> AST and only applies to classes registered with the <code class="decorator inline">@Schema</code> decoration. </p>
@@ -11,24 +11,24 @@
 <li><code class="inline">examples</code> - A set of examples as JSON or YAML</li>
 </ul>
 <p>The <code class="inline">title</code> will be picked up from the <a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments, and additionally all fields can be set using the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/schema/src/decorator/common" target="_blank" null><code class="decorator inline">@Describe</code></a> decorator.</p>
-<pre class="as-header code">Code: Sample User Schema  </pre>
+<pre class="as-header code">Sample User Schema  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
   favoriteFood<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token string">'pizza'</span><span class="token operator">|</span><span class="token string">'burrito'</span><span class="token operator">|</span><span class="token string">'salad'</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>From this schema, the registry would have the following information:</p>
-<pre class="as-header config">Config: User schema as yaml  </pre>
+<pre class="as-header config">User schema as yaml  </pre>
 <pre><code class="language-yaml"><span class="token key atrule">User</span><span class="token punctuation">:</span>
   <span class="token key atrule">fields</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> 
+    <span class="token punctuation">-</span>
       <span class="token key atrule">name</span><span class="token punctuation">:</span> name
       <span class="token key atrule">type"</span><span class="token punctuation">:</span> string
-      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">true </span>
+      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
     <span class="token punctuation">-</span>
       <span class="token key atrule">name</span><span class="token punctuation">:</span> age
       <span class="token key atrule">type</span><span class="token punctuation">:</span> number
-      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">true      </span>
+      <span class="token key atrule">required</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
     <span class="token punctuation">-</span>
       <span class="token key atrule">name</span><span class="token punctuation">:</span> favoriteFood
       <span class="token key atrule">type</span><span class="token punctuation">:</span> string
@@ -64,7 +64,7 @@
 <p>At runtime, once a schema is registered, a programmer can utilize this structure to perform specific operations. Specifically binding and validation. </p>
 <h3 id="binding">Binding</h3>
 <p>Binding is a very simple operation, as it takes in a class registered as as <code class="decorator inline">@Schema</code> and a JS object that will be the source of the binding. Given the schema</p>
-<pre class="as-header code">Code: Sub Schemas via Address  </pre>
+<pre class="as-header code">Sub Schemas via Address  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
   street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -77,7 +77,7 @@
   @<span class="token meta">Integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
   address<span class="token punctuation">:</span> <span class="token type">Address</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>A binding operation could look like</p>
-<pre class="as-header code">Code: Binding from JSON to Schema  </pre>
+<pre class="as-header code">Binding from JSON to Schema  </pre>
 <pre><code class="language-typescript"><span class="token type">Person</span><span class="token punctuation">.</span><span class="token keyword">from</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Test</span>'</span><span class="token punctuation">,</span>
   age<span class="token punctuation">:</span> <span class="token number">19.999978</span><span class="token punctuation">,</span>
@@ -86,7 +86,7 @@
     street2<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Unit</span> 20'</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>and the output would be a <code class="inline">Person</code> instance with the following structure</p>
-<pre class="as-header code">Code: Sample data output after binding  </pre>
+<pre class="as-header code">Sample data output after binding  </pre>
 <pre><code class="language-typescript"><span class="token function">Person</span><span class="token punctuation">(</span>
   name<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Test</span>'</span><span class="token punctuation">,</span>
   age<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
@@ -97,7 +97,7 @@
 <span class="token punctuation">)</span></code></pre><p><strong>NOTE</strong> Binding will attempt to convert/coerce types as much as possible to honor the pattern of Javascript and it’s dynamic nature.</p>
 <h3 id="validation">Validation</h3>
 <p>Validation is very similar to binding, but instead of attempting to assign values, any mismatch or violation of the schema will result in errors. All errors will be collected and returned. Given the same schema as above, </p>
-<pre class="as-header code">Code: Reference Schema for Validations  </pre>
+<pre class="as-header code">Reference Schema for Validations  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
   street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -110,7 +110,7 @@
   @<span class="token meta">Integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
   address<span class="token punctuation">:</span> <span class="token type">Address</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>But now with an invalid json object</p>
-<pre class="as-header code">Code: Read Person, and validate  </pre>
+<pre class="as-header code">Read Person, and validate  </pre>
 <pre><code class="language-typescript"><span class="token keyword">const</span> person <span class="token operator">=</span> <span class="token type">Person</span><span class="token punctuation">.</span><span class="token keyword">from</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Test</span>'</span><span class="token punctuation">,</span>
   age<span class="token punctuation">:</span> <span class="token string">'abc'</span><span class="token punctuation">,</span>
@@ -126,20 +126,20 @@
     <span class="token operator">...</span> <span class="token type">Handle</span> errors <span class="token operator">...</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>would produce an exception similar to following structure</p>
-<pre class="as-header config">Config: Sample error output  </pre>
+<pre class="as-header config">Sample error output  </pre>
 <pre><code class="language-yaml"><span class="token key atrule">errors</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> 
+  <span class="token punctuation">-</span>
     <span class="token key atrule">path</span><span class="token punctuation">:</span> age
     <span class="token key atrule">kind</span><span class="token punctuation">:</span> type
     <span class="token key atrule">message</span><span class="token punctuation">:</span> 'abc' is not assignable to type number
-  <span class="token punctuation">-</span> 
+  <span class="token punctuation">-</span>
     <span class="token key atrule">path</span><span class="token punctuation">:</span> address.street2
     <span class="token key atrule">kind</span><span class="token punctuation">:</span> required
     <span class="token key atrule">message</span><span class="token punctuation">:</span> address.street2 is a required field</code></pre><h2 id="rest-extension">Rest - Extension</h2>
 <p>The module provides high level access for <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> support, via decorators, for validating and typing request bodies.  </p>
 <p><code class="decorator inline">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide validation before the controller even receives the request.</p>
-<pre class="as-header code">Code: Using SchemaBody for POST requests  </pre>
-<pre><code class="language-typescript"> <span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SearchBody</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
+<pre class="as-header code">Using SchemaBody for POST requests  </pre>
+<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SearchBody</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
    name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -153,20 +153,20 @@
     <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
  <span class="token operator">...</span></code></pre><p><code class="decorator inline">@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide validation before the controller even receives the request. </p>
-<pre class="as-header code">Code: Using SchemaQuery for GET requests  </pre>
-<pre><code class="language-typescript"> <span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SchemaQuery</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
+<pre class="as-header code">Using SchemaQuery for GET requests  </pre>
+<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SchemaQuery</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
 
- <span class="token keyword">class</span> <span class="token class-name">SearchParams</span> <span class="token punctuation">{{ '{' }}</span>
-   page<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-   pageSize<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">SearchParams</span> <span class="token punctuation">{{ '{' }}</span>
+  page<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  pageSize<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span>
+<span class="token operator">...</span>
+ @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/search'</span><span class="token punctuation">)</span>
+ @<span class="token meta">SchemaQuery</span><span class="token punctuation">(</span><span class="token type">SearchParams</span><span class="token punctuation">)</span>
+ <span class="token keyword">async</span> <span class="token function">search</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">TypedQuery</span><span class="token operator">&lt;</span><span class="token type">SearchParams</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+   <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
  <span class="token punctuation">{{ '}' }}</span>
- <span class="token operator">...</span>
-  @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/search'</span><span class="token punctuation">)</span>
-  @<span class="token meta">SchemaQuery</span><span class="token punctuation">(</span><span class="token type">SearchParams</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">search</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">TypedQuery</span><span class="token operator">&lt;</span><span class="token type">SearchParams</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">{{ '}' }}</span>
- <span class="token operator">...</span></code></pre><h2 id="generation-extension">Generation - Extension</h2>
+<span class="token operator">...</span></code></pre><h2 id="generation-extension">Generation - Extension</h2>
 <p>In the course of application development, there is often a need to generate fake data on demand. Given all the information that we have about the schemas provided, translating that into data generation is fairly straightforward.  The generation utility is built upon <a class="external-link" href="https://github.com/marak/Faker.js/" target="_blank" null><code class="inline">faker</code></a>, mapping data types, and various field names into specific <code class="inline">faker</code> generation routines.</p>
 <p>By default all types are mapped as-is:</p>
 <ul>
@@ -224,9 +224,8 @@
 </li>
 </ul>
 <p>An example of this would be:</p>
-<pre class="as-header code">Code: More complex Schema, used with Faker  </pre>
-<pre><code class="language-typescript">
-@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="as-header code">More complex Schema, used with Faker  </pre>
+<pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
   street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   street2<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -249,5 +248,4 @@
 <span class="token function">assert</span><span class="token punctuation">(</span>user <span class="token keyword">instanceof</span> <span class="token class-name">User</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 assert<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>fName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 assert<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>address<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">assert</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>address <span class="token keyword">instanceof</span> <span class="token class-name">Address</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre></div>
+<span class="token function">assert</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>address <span class="token keyword">instanceof</span> <span class="token class-name">Address</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>

@@ -1,5 +1,5 @@
 <div class="documentation"><h2 id="compiler" id="compiler">Compiler</h2>
-<pre class="as-header install">Install: primary  </pre>
+<pre class="as-header install">Primary  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/compiler</code></pre><p>This module expands upon <a class="external-link" href="http://typescriptlang.org" target="_blank" null><code class="inline">typescript</code></a>, with supplemental functionality:</p>
 <ul>
 <li>Read <code class="inline">tsconfig.json</code> from the project directory to provide </li>
@@ -16,14 +16,14 @@
 </li>
 </ul>
 <p>Additionally, there is support for common AST transformation patterns to facilitate all the transformers used throughout the framework.<br>Transformations are defined by <code class="path inline">support/transformer.&lt;name&gt;.ts</code> as the filename. The schema for a transformer is:</p>
-<pre class="as-header code">Code: Sample transformer, registration and execution  </pre>
-<pre><code class="language-typescript">  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerTransformer</span> <span class="token punctuation">{{ '{' }}</span>
-    after<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'base'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    phase<span class="token punctuation">:</span> <span class="token string">'before'</span><span class="token operator">|</span><span class="token string">'after'</span><span class="token punctuation">,</span> <span class="token comment">// <span class="token type">The</span> phase as defined by <span class="token type">Typescript</span>'s AST processing</span>
-    transformer<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">:</span> ts<span class="token punctuation">.</span><span class="token type">TransformationContext</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
-       <span class="token keyword">return</span> <span class="token punctuation">(</span>file<span class="token punctuation">:</span> ts<span class="token punctuation">.</span><span class="token type">SourceFile</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
-         <span class="token operator">...</span> modify source file <span class="token operator">...</span>
-         <span class="token keyword">return</span> file<span class="token punctuation">;</span>
-       <span class="token punctuation">{{ '}' }}</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre></div>
+<pre class="as-header code">Sample transformer, registration and execution  </pre>
+<pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomerTransformer</span> <span class="token punctuation">{{ '{' }}</span>
+  after<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'base'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  phase<span class="token punctuation">:</span> <span class="token string">'before'</span><span class="token operator">|</span><span class="token string">'after'</span><span class="token punctuation">,</span> <span class="token comment">// <span class="token type">The</span> phase as defined by <span class="token type">Typescript</span>'s AST processing</span>
+  transformer<span class="token punctuation">:</span> <span class="token punctuation">(</span>context<span class="token punctuation">:</span> ts<span class="token punctuation">.</span><span class="token type">TransformationContext</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
+     <span class="token keyword">return</span> <span class="token punctuation">(</span>file<span class="token punctuation">:</span> ts<span class="token punctuation">.</span><span class="token type">SourceFile</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
+       <span class="token operator">...</span> modify source file <span class="token operator">...</span>
+       <span class="token keyword">return</span> file<span class="token punctuation">;</span>
+     <span class="token punctuation">{{ '}' }}</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre></div>

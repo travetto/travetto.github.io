@@ -1,5 +1,5 @@
 <div class="documentation"><h1 id="auth" id="auth">Auth</h1>
-<pre class="as-header install">Install: primary  </pre>
+<pre class="as-header install">Primary  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/auth</code></pre><p>This module provides the high-level backdrop for managing security principals.  The goal of this module is to be a centralized location for various security frameworks to plug into.  The primary contributions are:</p>
 <ul>
 <li>Interfaces for standard security primitives</li>
@@ -9,7 +9,7 @@
 </ul>
 <h2 id="interfaces-primitives">Interfaces / Primitives</h2>
 <p>The module’s goal is to be as flexible as possible.  To that end, the primary contract that this module defines, is that of the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/auth/src/types.ts" target="_blank" null><code class="inline">AuthContext</code></a>.</p>
-<pre class="as-header code">Code: Auth context structure  </pre>
+<pre class="as-header code">Auth context structure  </pre>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
   id<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   permissions<span class="token punctuation">:</span> <span class="token type">Set</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
@@ -23,7 +23,7 @@
 <p>This is the only contract that needs to be satisfied to be able to integrate a security framework.  Additionally, there are a series of error messages that should be standardized across error handling. These messages help to provide a consistent experience at the sub module level, and to mask some of the external framework’s machinations.</p>
 <h2 id="principal-configuration">Principal Configuration</h2>
 <p>Additionally, there exists a common practice of mapping various external security principals into a local contract. These external principals, as provided from countless authentication schemes, need to be homogeonized for use.  This has been handled in other frameworks by using external configuration, and creating a mapping between the two set of fields.  Within this framework, we leverage <code class="inline">typescript</code>‘s power to enforce the configuration via code.  This requires that there is a type to describe the external principal. At that point, we are ready to define our mapping:</p>
-<pre class="as-header code">Code: Simple principal configuration  </pre>
+<pre class="as-header code">Simple principal configuration  </pre>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">ExternalUser</span> <span class="token punctuation">{{ '{' }}</span>
   id<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   perms<span class="token punctuation">:</span> <span class="token type">Set</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
@@ -33,11 +33,11 @@
   id<span class="token punctuation">:</span> <span class="token string">'id'</span><span class="token punctuation">,</span>
   permissions<span class="token punctuation">:</span> <span class="token string">'perms'</span>
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>At this point, the config is now type-checked against the <code class="inline language-typescript">ExternalUser</code> class, such that passing in bad field names will throw a compile-time error.  With the configuration established, a programmer can now invoke:</p>
-<pre class="as-header code">Code: Converting principal to context  </pre>
+<pre class="as-header code">Converting principal to context  </pre>
 <pre><code class="language-typescript"><span class="token keyword">const</span> context<span class="token punctuation">:</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token type">ExternalUser</span><span class="token operator">></span> <span class="token operator">=</span> config<span class="token punctuation">.</span><span class="token function">toContext</span><span class="token punctuation">(</span>externalPrincipal<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>And now the context is established.</p>
 <h2 id="centralized-auth-services">Centralized Auth Services</h2>
 <p>Given the above contract definitions, the next step is to provide a localized place for interacting with the security principal for a given set of operations.  Again, with a desire to be flexible, the <code class="inline">AuthService</code> is as simple as possible:</p>
-<pre class="as-header code">Code: Auth service structure  </pre>
+<pre class="as-header code">Auth service structure  </pre>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AuthService</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
 
   context<span class="token punctuation">:</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span><span class="token punctuation">;</span>
@@ -55,7 +55,7 @@
 </ul>
 <h2 id="common-utilities">Common Utilities</h2>
 <p>The <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/auth/src/util.ts" target="_blank" null><code class="inline language-typescript">AuthUtil</code></a> provides the following functionality:</p>
-<pre class="as-header code">Code: Auth util structure  </pre>
+<pre class="as-header code">Auth util structure  </pre>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AuthUtil</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">generateHash</span><span class="token punctuation">(</span>password<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> salt<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> iterations <span class="token operator">=</span> <span class="token number">25000</span><span class="token punctuation">,</span> keylen <span class="token operator">=</span> <span class="token number">256</span><span class="token punctuation">,</span> digest <span class="token operator">=</span> <span class="token string">'sha256'</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>
   <span class="token keyword">static</span> <span class="token keyword">async</span> <span class="token function">generateSalt</span><span class="token punctuation">(</span>saltlen <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">></span><span class="token punctuation">;</span>

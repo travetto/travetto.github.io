@@ -1,8 +1,8 @@
 <div class="documentation"><h2 id="auth-model" id="auth-model">Auth-Model</h2>
-<pre class="as-header install">Install: model provider  </pre>
+<pre class="as-header install">Model provider  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/auth-model</code></pre><p>This module provides the integration between the <a class="module-link" routerLink="/docs/auth"  null><code class="inline">Auth</code></a> module and the <a class="module-link" routerLink="/docs/model"  null><code class="inline">Model</code></a>.</p>
 <p>The module itself is fairly straightforward, and truly the only integration point for this module to work is defined at the model level.  The contract for the authentication model requires the following structure:</p>
-<pre class="as-header code">Code: Structure of registered user  </pre>
+<pre class="as-header code">Structure of registered user  </pre>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">RegisteredPrincipalFields</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
   id<span class="token punctuation">:</span> keyof <span class="token constant">T</span><span class="token punctuation">;</span>
   permissions<span class="token punctuation">:</span> keyof <span class="token constant">T</span><span class="token punctuation">;</span>
@@ -12,7 +12,7 @@
   resetToken<span class="token punctuation">:</span> keyof <span class="token constant">T</span><span class="token punctuation">;</span>
   resetExpires<span class="token punctuation">:</span> keyof <span class="token constant">T</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>The above is the input for the <code class="inline language-typescript">RegisteredPrincipalConfig</code>, and so the fields do not need to be of the same name, but the concept and typing need to be supported.  A very basic example would be:</p>
-<pre class="as-header code">Code: Sample config/wiring for user model  </pre>
+<pre class="as-header code">Sample config/wiring for user model  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Model</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">BaseModel</span> <span class="token punctuation">{{ '{' }}</span>
   password<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>

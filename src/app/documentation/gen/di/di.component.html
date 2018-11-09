@@ -1,83 +1,83 @@
 <div class="documentation"><h1 id="di" id="dependency-injection-">Dependency Injection  </h1>
-<pre class="as-header install">Install: primary  </pre>
+<pre class="as-header install">Primary  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/di</code></pre><p><a class="external-link" href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank" null><code class="inline">Dependency injection</code></a> is a framework primitive.  When used in conjunction with automatic file scanning, it provides for handling of application dependency wiring. Due to the nature of <code class="inline">typescript</code> and type erasure of interfaces, dependency injection only supports <code class="inline">class</code>es as type signafiers. The primary goal of dependency injection is to allow for separation of concerns of object creation and it’s usage. </p>
 <h2 id="declaration">Declaration</h2>
 <p>The <code class="decorator inline">@Injectable</code> and <code class="decorator inline">@InjectableFactory</code> decorators provide the registration of dependencies.   Dependency declaration revolves around exposing <code class="inline">class</code>es and subtypes thereof to provide necessary functionality.  Additionally, the framework will utilize dependencies to satisfy contracts with various backends (e.g. <code class="inline">ModelMongoSource</code> provides itself as an injectable candidate for <code class="inline">ModelSource</code>).  </p>
-<pre class="as-header code">Code: Example @Injectable  </pre>
-<pre><code class="language-typescript">  @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token operator">...</span> work <span class="token operator">...</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><p>When declaring a dependency, you can also provide a token to allow for multiple instances of the dependency to be defined.  This can be used in many situations:</p>
-<pre class="as-header code">Code: Example @Injectable with multiple targets  </pre>
-<pre><code class="language-typescript">  @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token operator">...</span> work <span class="token operator">...</span>
-    <span class="token punctuation">{{ '}' }}</span>
+<pre class="as-header code">Example @Injectable  </pre>
+<pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token operator">...</span> work <span class="token operator">...</span>
   <span class="token punctuation">{{ '}' }}</span>
-
-  <span class="token keyword">const</span> <span class="token constant">CUSTOM2</span> <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'custom2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> target<span class="token punctuation">:</span> <span class="token type">CustomService</span><span class="token punctuation">,</span> <span class="token builtin">symbol</span><span class="token punctuation">:</span> <span class="token constant">CUSTOM2</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
-  <span class="token keyword">class</span> <span class="token class-name">CustomService2</span> <span class="token keyword">extends</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token keyword">await</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// <span class="token type">Do</span> some additional work</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><p>As you can see, the <code class="inline">target</code> field is also set, which indicates to the dependency registration process what <code class="inline">class</code> the injectable is compatible with.  Additionally, when using <code class="inline">abstract</code> classes, the parent <code class="inline">class</code> is always considered as a valid candidate type.</p>
-<pre class="as-header code">Code: Example @Injectable with target via abstract class  </pre>
-<pre><code class="language-typescript">  <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">BaseService</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">abstract</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>When declaring a dependency, you can also provide a token to allow for multiple instances of the dependency to be defined.  This can be used in many situations:</p>
+<pre class="as-header code">Example @Injectable with multiple targets  </pre>
+<pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token operator">...</span> work <span class="token operator">...</span>
   <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span>
 
-  @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">class</span> <span class="token class-name">SpecificService</span> <span class="token keyword">extends</span> <span class="token class-name">BaseService</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">async</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token comment">// <span class="token type">Do</span> some additional work</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><p>In this scenario, <code class="inline">SpecificService</code> is a valid candidate for <code class="inline">BaseService</code> due to the abstract inheritance. Sometimes, you may want to provide a slight variation to  a dependency without extending a class.  To this end, the <code class="decorator inline">@InjectableFactory</code> decorator denotes a <code class="inline">static</code> class method that produces an <code class="decorator inline">@Injectable</code>. </p>
-<pre class="as-header code">Code: Example @InjectableFactory, return type defines target class  </pre>
-<pre><code class="language-typescript">  <span class="token keyword">class</span> <span class="token class-name">Config</span> <span class="token punctuation">{{ '{' }}</span>
-    @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">static</span> <span class="token function">initService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">CoolService</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CoolService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><p>Given the <code class="inline">static</code> method <code class="inline">initService</code>, the function will be provided as a valid candidate for <code class="inline">CoolService</code>.  Instead of calling the constructor of the type directly, this function will work as a factory for producing the injectable. </p>
+<span class="token keyword">const</span> <span class="token constant">CUSTOM2</span> <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'custom2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> target<span class="token punctuation">:</span> <span class="token type">CustomService</span><span class="token punctuation">,</span> <span class="token builtin">symbol</span><span class="token punctuation">:</span> <span class="token constant">CUSTOM2</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">CustomService2</span> <span class="token keyword">extends</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">await</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// <span class="token type">Do</span> some additional work</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>As you can see, the <code class="inline">target</code> field is also set, which indicates to the dependency registration process what <code class="inline">class</code> the injectable is compatible with.  Additionally, when using <code class="inline">abstract</code> classes, the parent <code class="inline">class</code> is always considered as a valid candidate type.</p>
+<pre class="as-header code">Example @Injectable with target via abstract class  </pre>
+<pre><code class="language-typescript"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">BaseService</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">abstract</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span>
+
+@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">SpecificService</span> <span class="token keyword">extends</span> <span class="token class-name">BaseService</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token comment">// <span class="token type">Do</span> some additional work</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>In this scenario, <code class="inline">SpecificService</code> is a valid candidate for <code class="inline">BaseService</code> due to the abstract inheritance. Sometimes, you may want to provide a slight variation to  a dependency without extending a class.  To this end, the <code class="decorator inline">@InjectableFactory</code> decorator denotes a <code class="inline">static</code> class method that produces an <code class="decorator inline">@Injectable</code>. </p>
+<pre class="as-header code">Example @InjectableFactory, return type defines target class  </pre>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">Config</span> <span class="token punctuation">{{ '{' }}</span>
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">static</span> <span class="token function">initService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">CoolService</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CoolService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>Given the <code class="inline">static</code> method <code class="inline">initService</code>, the function will be provided as a valid candidate for <code class="inline">CoolService</code>.  Instead of calling the constructor of the type directly, this function will work as a factory for producing the injectable. </p>
 <p><strong>NOTE</strong> Due to the lack of typechecker in the <a class="module-link" routerLink="/docs/core" fragment="compiler" null><code class="inline">Compiler</code></a> for performance reasons, the return type on the factory method is mandatory.  Without it, the code will not know what the expected target type should be.</p>
 <p><strong>NOTE</strong> Other modules are able to provide aliases to <code class="decorator inline">@Injectable</code> that also provide additional functionality.  For example, the <code class="decorator inline">@Config</code> or the <code class="decorator inline">@Controller</code> decorator registers the associated class as an injectable element.</p>
 <h2 id="injection">Injection</h2>
 <p>Once all of your necessary dependencies are defined, now is the time to provide those <code class="decorator inline">@Injectable</code> instances to your code.  There are three primary methods for injection:</p>
 <p>The <code class="decorator inline">@Inject</code> decorator, which denotes a desire to inject a value directly.  These will be set post construction.</p>
-<pre class="as-header code">Code: Example @Injectable with dependencies as @Inject fields  </pre>
-<pre><code class="language-typescript">  @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
-    @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">private</span> dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">;</span>
+<pre class="as-header code">Example @Injectable with dependencies as @Inject fields  </pre>
+<pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
+  @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">private</span> dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">;</span>
 
-    <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dependentService<span class="token punctuation">.</span><span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><p>The <code class="decorator inline">@Injectable</code> constructor params, which will be provided as the instance is being constructed.</p>
-<pre class="as-header code">Code: Example @Injectable with dependencies in constructor  </pre>
-<pre><code class="language-typescript">  @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">constructor</span> <span class="token punctuation">(</span><span class="token keyword">private</span> dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+  <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dependentService<span class="token punctuation">.</span><span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>The <code class="decorator inline">@Injectable</code> constructor params, which will be provided as the instance is being constructed.</p>
+<pre class="as-header code">Example @Injectable with dependencies in constructor  </pre>
+<pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">constructor</span> <span class="token punctuation">(</span><span class="token keyword">private</span> dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
-    <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dependentService<span class="token punctuation">.</span><span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><p>Via <code class="decorator inline">@InjectableFactory</code> params, which are comparable to constructor params</p>
-<pre class="as-header code">Code: Example @InjectableFactory with parameters as dependencies  </pre>
-<pre><code class="language-typescript">  <span class="token keyword">class</span> <span class="token class-name">Config</span> <span class="token punctuation">{{ '{' }}</span>
-    @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">static</span> <span class="token function">initService</span><span class="token punctuation">(</span>dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
-      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CustomService</span><span class="token punctuation">(</span>dependentService<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">{{ '}' }}</span>
-  <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="manual-invocation">Manual Invocation</h2>
+  <span class="token keyword">async</span> <span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dependentService<span class="token punctuation">.</span><span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>Via <code class="decorator inline">@InjectableFactory</code> params, which are comparable to constructor params</p>
+<pre class="as-header code">Example @InjectableFactory with parameters as dependencies  </pre>
+<pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">Config</span> <span class="token punctuation">{{ '{' }}</span>
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">static</span> <span class="token function">initService</span><span class="token punctuation">(</span>dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CustomService</span><span class="token punctuation">(</span>dependentService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="manual-invocation">Manual Invocation</h2>
 <p>Some times you will need to lookup a dependency dynamically, or you want to control the injection process at a more granular level. To achieve that you will need to directly access the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/di/src/service/registry.ts" target="_blank" null><code class="inline">DependencyRegistry</code></a>. The registry allows for requesting a dependency by class reference:</p>
-<pre class="as-header code">Code: Example of manual lookup  </pre>
+<pre class="as-header code">Example of manual lookup  </pre>
 <pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Complex</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
 
@@ -88,7 +88,7 @@
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="application">Application</h2>
 <p>Given that dependency injection is generally a pre-requisite for application execution, it stands as the primary entrypoint for application invocation.  The <a class="module-link" routerLink="/docs/base"  null><code class="inline">Base</code></a> provides a simplistic bootstrap to allow for the application to run, but that is not sufficient for more complex applications.</p>
 <p>The module provides a decorator, <code class="decorator inline">@Application</code> who’s job is to register entry points into the application.  For example:</p>
-<pre class="as-header code">Code: Example of @Application target  </pre>
+<pre class="as-header code">Example of @Application target  </pre>
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">Application</span><span class="token punctuation">,</span> <span class="token type">Inject</span><span class="token punctuation">,</span> <span class="token type">Injectable</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'../'</span><span class="token punctuation">;</span>
 
 @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -110,7 +110,7 @@
     <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>server<span class="token punctuation">.</span><span class="token function">launch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>Will expose an entrypoint named ‘simple’.  This additionally allows for other entry points to be named for handling specific use cases.  An additional entry point could look like:</p>
-<pre class="as-header code">Code: Example of multiple @Application support  </pre>
+<pre class="as-header code">Example of multiple @Application support  </pre>
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">Application</span><span class="token punctuation">,</span> <span class="token type">Inject</span><span class="token punctuation">,</span> <span class="token type">Injectable</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'../'</span><span class="token punctuation">;</span>
 
 @<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>

@@ -1,5 +1,5 @@
 <div class="documentation"><h2 id="email-template" id="email-template">Email-Template</h2>
-<pre class="as-header install">Install: templating support for email module  </pre>
+<pre class="as-header install">Templating support for email module  </pre>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/email-template</code></pre><p>This is the primary templating email engine.  The templating process is built upon three primary ideas, with the final output being an <a class="external-link" href="https://github.com/zurb/inky" target="_blank" null><code class="inline">inky</code></a> rendered html/text email.  </p>
 <h3 id="asset-management">Asset Management</h3>
 <p>The templating process involves loading various assets (html, css, images), and so there is provision for asset management and loading.  The templating config allows for specifying of asset paths, with the following defaults:</p>
@@ -31,7 +31,7 @@
 <p><strong>NOTE</strong> Many of the libraries were chosen due to size and number of overall dependencies.  Any performance issues are mitigated accordingly.</p>
 <h3 id="example">Example</h3>
 <p>A sample template could look like:</p>
-<pre class="as-header code">Code: Example inky template with mustache support  </pre>
+<pre class="as-header code">Example inky template with mustache support  </pre>
 <pre><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}left{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token type">Bob</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}right{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
