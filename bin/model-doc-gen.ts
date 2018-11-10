@@ -189,4 +189,5 @@ if (process.argv[3] === 'watch') {
   }
 } else {
   renderDocs();
+  renderGuide();
 }
