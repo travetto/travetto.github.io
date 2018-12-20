@@ -1,8 +1,8 @@
 <div class="documentation"><h2 id="cache" id="cache">Cache</h2>
-<pre class="as-header install">Primary  </pre>
+<app-section-header headerType="install">Primary</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/cache</code></pre><p>Provides a simple wrapper around <a class="external-link" href="https://github.com/isaacs/node-lru-cache" target="_blank" null><code class="inline">lru-cache</code></a> to provide standard caching constructs.  </p>
 <p><code class="decorator inline">@Cacheable</code> is a decorator that allows caching at class methods. The decorator will rewrite the method to cache on successful results. The decorator supports synchronous as well as asynchronous methods.</p>
-<pre class="as-header code">Using decorators to cache expensive async call  </pre>
+<app-section-header headerType="code">Using decorators to cache expensive async call</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">Worker</span> <span class="token punctuation">{{ '{' }}</span>
 
   @<span class="token meta">Cacheable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> max<span class="token punctuation">:</span> <span class="token number">1000</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>

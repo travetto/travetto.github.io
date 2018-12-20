@@ -1,7 +1,7 @@
 <div class="documentation"><h2 id="auth-passport" id="auth-passport">Auth-Passport</h2>
-<pre class="as-header install">Passport provider  </pre>
+<app-section-header headerType="install">Passport provider</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/auth-passport</code></pre><p>Within the node ecosystem, the most prevalent auth framework is <a class="external-link" href="http://passportjs.org" target="_blank" null><code class="inline">passport</code></a>.  With countless integrations, the desire to leverage as much of it as possible, is extremely high. To that end, this module provides support for <code class="inline">passport</code> baked in. Registering and configuring a <code class="inline">passport</code> strategy is fairly straightforward.</p>
-<pre class="as-header code">Sample Facebook/passport config  </pre>
+<app-section-header headerType="code">Sample Facebook/passport config</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token constant">FB_AUTH</span> <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'facebook'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FbUser</span> <span class="token punctuation">{{ '{' }}</span>
@@ -37,7 +37,7 @@
 <li>The <code class="inline language-typescript">PrincipalConfig</code> which defines the mapping between external and local principals.</li>
 </ul>
 <p>After that, the provider is no different than any other, and can be used accordingly.  Additionally, because passport runs first, in it’s entirety, you can use the provider as you normally would any passport middleware.</p>
-<pre class="as-header code">Sample routes using Facebook/passport provider  </pre>
+<app-section-header headerType="code">Sample routes using Facebook/passport provider</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppAuth</span> <span class="token punctuation">{{ '{' }}</span>
 

@@ -1,5 +1,5 @@
 <div class="documentation"><h1 id="schema" id="schema">Schema</h1>
-<pre class="as-header install">Primary  </pre>
+<app-section-header headerType="install">Primary</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/schema</code></pre><p>This module provide a mechanisms for registering classes and field level information as well the ability to apply that information at runtime.</p>
 <h2 id="registration">Registration</h2>
 <p>The registry’s schema information is defined by <code class="inline">typescript</code> AST and only applies to classes registered with the <code class="decorator inline">@Schema</code> decoration. </p>
@@ -11,14 +11,14 @@
 <li><code class="inline">examples</code> - A set of examples as JSON or YAML</li>
 </ul>
 <p>The <code class="inline">title</code> will be picked up from the <a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments, and additionally all fields can be set using the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/schema/src/decorator/common" target="_blank" null><code class="decorator inline">@Describe</code></a> decorator.</p>
-<pre class="as-header code">Sample User Schema  </pre>
+<app-section-header headerType="code">Sample User Schema</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
   favoriteFood<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token string">'pizza'</span><span class="token operator">|</span><span class="token string">'burrito'</span><span class="token operator">|</span><span class="token string">'salad'</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>From this schema, the registry would have the following information:</p>
-<pre class="as-header config">User schema as yaml  </pre>
+<app-section-header headerType="config">User schema as yaml</app-section-header>
 <pre><code class="language-yaml"><span class="token key atrule">User</span><span class="token punctuation">:</span>
   <span class="token key atrule">fields</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span>
@@ -52,6 +52,8 @@
 <li><code class="decorator inline">@Integer</code> ensures number passed in is only a whole number</li>
 <li><code class="decorator inline">@Float</code> ensures number passed in allows fractional values</li>
 <li><code class="decorator inline">@Currency</code> provides support for standard currency</li>
+<li><code class="decorator inline">@Text</code> indicates that a field is expecting natural language input, not just discrete values</li>
+<li><code class="decorator inline">@LongText</code> same as text, but expects longer form content</li>
 </ul>
 <p>Additionally, schemas can be nested to form more complex data structures that are able to bound and validated.</p>
 <p>Just like the class, all fields can be defined with</p>
@@ -64,7 +66,7 @@
 <p>At runtime, once a schema is registered, a programmer can utilize this structure to perform specific operations. Specifically binding and validation. </p>
 <h3 id="binding">Binding</h3>
 <p>Binding is a very simple operation, as it takes in a class registered as as <code class="decorator inline">@Schema</code> and a JS object that will be the source of the binding. Given the schema</p>
-<pre class="as-header code">Sub Schemas via Address  </pre>
+<app-section-header headerType="code">Sub Schemas via Address</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
   street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -77,7 +79,7 @@
   @<span class="token meta">Integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
   address<span class="token punctuation">:</span> <span class="token type">Address</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>A binding operation could look like</p>
-<pre class="as-header code">Binding from JSON to Schema  </pre>
+<app-section-header headerType="code">Binding from JSON to Schema</app-section-header>
 <pre><code class="language-typescript"><span class="token type">Person</span><span class="token punctuation">.</span><span class="token keyword">from</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Test</span>'</span><span class="token punctuation">,</span>
   age<span class="token punctuation">:</span> <span class="token number">19.999978</span><span class="token punctuation">,</span>
@@ -86,7 +88,7 @@
     street2<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Unit</span> 20'</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>and the output would be a <code class="inline">Person</code> instance with the following structure</p>
-<pre class="as-header code">Sample data output after binding  </pre>
+<app-section-header headerType="code">Sample data output after binding</app-section-header>
 <pre><code class="language-typescript"><span class="token function">Person</span><span class="token punctuation">(</span>
   name<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Test</span>'</span><span class="token punctuation">,</span>
   age<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
@@ -97,7 +99,7 @@
 <span class="token punctuation">)</span></code></pre><p><strong>NOTE</strong> Binding will attempt to convert/coerce types as much as possible to honor the pattern of Javascript and it’s dynamic nature.</p>
 <h3 id="validation">Validation</h3>
 <p>Validation is very similar to binding, but instead of attempting to assign values, any mismatch or violation of the schema will result in errors. All errors will be collected and returned. Given the same schema as above, </p>
-<pre class="as-header code">Reference Schema for Validations  </pre>
+<app-section-header headerType="code">Reference Schema for Validations</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
   street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -110,7 +112,7 @@
   @<span class="token meta">Integer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> age<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
   address<span class="token punctuation">:</span> <span class="token type">Address</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>But now with an invalid json object</p>
-<pre class="as-header code">Read Person, and validate  </pre>
+<app-section-header headerType="code">Read Person, and validate</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">const</span> person <span class="token operator">=</span> <span class="token type">Person</span><span class="token punctuation">.</span><span class="token keyword">from</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
   name<span class="token punctuation">:</span> <span class="token string">'<span class="token type">Test</span>'</span><span class="token punctuation">,</span>
   age<span class="token punctuation">:</span> <span class="token string">'abc'</span><span class="token punctuation">,</span>
@@ -126,7 +128,7 @@
     <span class="token operator">...</span> <span class="token type">Handle</span> errors <span class="token operator">...</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>would produce an exception similar to following structure</p>
-<pre class="as-header config">Sample error output  </pre>
+<app-section-header headerType="config">Sample error output</app-section-header>
 <pre><code class="language-yaml"><span class="token key atrule">errors</span><span class="token punctuation">:</span>
   <span class="token punctuation">-</span>
     <span class="token key atrule">path</span><span class="token punctuation">:</span> age
@@ -138,7 +140,7 @@
     <span class="token key atrule">message</span><span class="token punctuation">:</span> address.street2 is a required field</code></pre><h2 id="rest-extension">Rest - Extension</h2>
 <p>The module provides high level access for <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> support, via decorators, for validating and typing request bodies.  </p>
 <p><code class="decorator inline">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide validation before the controller even receives the request.</p>
-<pre class="as-header code">Using SchemaBody for POST requests  </pre>
+<app-section-header headerType="code">Using SchemaBody for POST requests</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SearchBody</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
@@ -153,7 +155,7 @@
     <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> success <span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
  <span class="token operator">...</span></code></pre><p><code class="decorator inline">@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide validation before the controller even receives the request. </p>
-<pre class="as-header code">Using SchemaQuery for GET requests  </pre>
+<app-section-header headerType="code">Using SchemaQuery for GET requests</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SchemaQuery</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">SearchParams</span> <span class="token punctuation">{{ '{' }}</span>
@@ -224,7 +226,7 @@
 </li>
 </ul>
 <p>An example of this would be:</p>
-<pre class="as-header code">More complex Schema, used with Faker  </pre>
+<app-section-header headerType="code">More complex Schema, used with Faker</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Schema</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{{ '{' }}</span>
   street1<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>

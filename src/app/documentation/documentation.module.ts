@@ -46,10 +46,12 @@ import { NetComponent } from './gen/net/net.component';
 import { ModuleChartComponent } from './module-chart/module-chart.component';
 import { YamlComponent } from './gen/yaml/yaml.component';
 import { JwtComponent } from './gen/jwt/jwt.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: 'docs',

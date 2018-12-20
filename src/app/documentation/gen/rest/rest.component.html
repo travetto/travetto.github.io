@@ -1,5 +1,5 @@
 <div class="documentation"><h1 id="rest" id="rest">Rest</h1>
-<pre class="as-header install">Primary  </pre>
+<app-section-header headerType="install">Primary</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/rest</code></pre><p>The module provides a declarative API for creating and describing an RESTful application.  Since the framework is declarative, decorators are used to configure almost everything. The module is framework agnostic (but resembles <a class="external-link" href="https://expressjs.com" target="_blank" null><code class="inline">express</code></a> in the <code class="inline">Request</code> and <code class="inline">Response</code> objects). </p>
 <h2 id="routes-controller">Routes: Controller</h2>
 <p>To define a route, you must first declare a <code class="decorator inline">@Controller</code> which is only allowed on classes. Controllers can be configured with:</p>
@@ -8,7 +8,7 @@
 <li><code class="inline">description</code> - High level description fo the controller</li>
 </ul>
 <p><a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments can also be used to define the <code class="inline">title</code> attribute.</p>
-<pre class="as-header code">Example of Controller decorator  </pre>
+<app-section-header headerType="code">Example of Controller decorator</app-section-header>
 <pre><code class="language-typescript"><span class="token comment">/**
  * <span class="token type">Provides</span> basic interface to our primary service
  */</span>
@@ -36,7 +36,7 @@
 </ul>
 <p><a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments can also be used to define the <code class="inline">title</code> attribute, as well as describing the parameters using <code class="decorator inline">@param</code> tags in the comment.</p>
 <p>Additionally, the annotated return type on the method will also be used to describe the <code class="inline">responseType</code> if specified.</p>
-<pre class="as-header code">Controller with Sample Route  </pre>
+<app-section-header headerType="code">Controller with Sample Route</app-section-header>
 <pre><code class="language-typescript"><span class="token comment">/**
  * <span class="token type">Provides</span> basic interface to our primary service
  */</span>
@@ -68,7 +68,7 @@
 <p><a class="external-link" href="http://usejsdoc.org/about-getting-started.html" target="_blank" null><code class="inline">JSDoc</code></a> comments can also be used to describe parameters using <code class="decorator inline">@param</code> tags in the comment.</p>
 <h3 id="example">Example</h3>
 <p>A simple example could look like:</p>
-<pre class="as-header code">Full-fledged Controller with Routes  </pre>
+<app-section-header headerType="code">Full-fledged Controller with Routes</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/simple'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Simple</span> <span class="token punctuation">{{ '{' }}</span>
 
@@ -119,7 +119,7 @@
 <p>Additionally, there is support for typing requests and request bodies.  This can be utilized by other modules to handle special types of requests.</p>
 <h2 id="creating-and-running-an-app">Creating and Running an App</h2>
 <p>To run a REST server, you will need to construct an entry point using the <code class="decorator inline">@Application</code> decorator, as well as define a valid <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/rest/src/types.ts" target="_blank" null><code class="inline">RestAppProvider</code></a> to provide initialization for the application.  This could look like:</p>
-<pre class="as-header code">Application entry point for Rest Applications  </pre>
+<app-section-header headerType="code">Application entry point for Rest Applications</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Application</span><span class="token punctuation">(</span><span class="token string">'sample'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SampleApp</span> <span class="token punctuation">{{ '{' }}</span>
 
@@ -138,8 +138,8 @@
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>And using the pattern established in the <a class="module-link" routerLink="/docs/di"  null><code class="inline">Dependency Injection</code></a> module, you would run your program using <code class="inline">npx travetto sample</code>.</p>
 <h2 id="custom-interceptors">Custom Interceptors</h2>
-<p>Additionally it is sometimes necessary to register custom interceptors.  Interceptors can be registered with the <a class="module-link" routerLink="/docs/di"  null><code class="inline">Dependency Injection</code></a> by extending the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/rest/src/interceptor.ts" target="_blank" null><code class="inline">RestInterceptor</code></a> class.  The interceptors are tied to the defined <code class="inline">Request</code> and <code class="inline">Response</code> objects of the framework, and not the underlying app framework.  This allows for Interceptors to be used across multiple frameworks as needed. A simple logging interceptor:</p>
-<pre class="as-header code">Defining a new Interceptor  </pre>
+<p>Additionally it is sometimes necessary to register custom interceptors.  Interceptors can be registered with the <a class="module-link" routerLink="/docs/di"  null><code class="inline">Dependency Injection</code></a> by extending the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/rest/src/interceptor" target="_blank" null><code class="inline">RestInterceptor</code></a> class.  The interceptors are tied to the defined <code class="inline">Request</code> and <code class="inline">Response</code> objects of the framework, and not the underlying app framework.  This allows for Interceptors to be used across multiple frameworks as needed. A simple logging interceptor:</p>
+<app-section-header headerType="code">Defining a new Interceptor</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">LoggingInterceptor</span> <span class="token keyword">extends</span> <span class="token class-name">RestInterceptor</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">async</span> <span class="token function">intercept</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
@@ -148,7 +148,7 @@
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>Currently <a class="module-link" routerLink="/docs/asset" fragment="asset-rest" null><code class="inline">Asset-Rest</code></a> is implemented in this fashion, as well as <a class="module-link" routerLink="/docs/auth" fragment="auth-rest" null><code class="inline">Auth-Rest</code></a>.</p>
 <h2 id="context-support">Context Support</h2>
 <p><a class="module-link" routerLink="/docs/core" fragment="context" null><code class="inline">Context</code></a> provides support for automatically injecting an async context into every request. The context management is provided via an <code class="inline">Interceptor</code> and is transparent to the programmer.</p>
-<pre class="as-header code">Showing contextual support for Routes  </pre>
+<app-section-header headerType="code">Showing contextual support for Routes</app-section-header>
 <pre><code class="language-typescript"><span class="token operator">...</span>
  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/preferences'</span><span class="token punctuation">)</span>
  @<span class="token meta">SchemaBody</span><span class="token punctuation">(</span><span class="token type">User</span><span class="token punctuation">)</span>

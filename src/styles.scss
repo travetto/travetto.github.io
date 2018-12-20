@@ -11,6 +11,14 @@ html {
   background-color: #fff;
 }
 
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow: auto;
+}
+
 p,
 li {
   color: #000;
@@ -252,89 +260,16 @@ li {
 
   pre {
     margin-top: 0;
+  }
 
-    &.as-header {
-      display: block;
-      border-radius: 5px;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      font-size: 20px;
-      line-height: 35px;
-      font-family: "Source Sans Pro", sans-serif;
-      margin-bottom: 0;
-      color: white;
+  app-section-header + pre code {
+    margin: 0;
+    padding: 1.5em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 
-      &::before {
-        font-family: 'Material Icons';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 20px;
-        /* Preferred icon size */
-        display: inline-block;
-        line-height: 35px;
-        text-transform: none;
-        letter-spacing: normal;
-        vertical-align: bottom;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-        padding-left: .5em;
-        margin-right: .5em;
-
-        /* Support for all WebKit browsers. */
-        -webkit-font-smoothing: antialiased;
-        /* Support for Safari and Chrome. */
-        text-rendering: optimizeLegibility;
-
-        /* Support for Firefox. */
-        -moz-osx-font-smoothing: grayscale;
-
-        /* Support for IE. */
-        font-feature-settings: 'liga';
-      }
-
-      &.install {
-        &::before {
-          content: 'playlist_add';
-        }
-
-        background-color: desaturate(darken(rgba(218, 165, 32, 1), 5%), 0%);
-      }
-
-      &.terminal {
-        &::before {
-          content: 'call_to_action';
-        }
-
-        background-color: desaturate(rgba(102, 102, 102, 1), 0%);
-      }
-
-      &.code {
-        &::before {
-          content: 'code';
-        }
-
-        background-color: desaturate(darken(rgba(0, 255, 0, 1), 20%), 0%);
-      }
-
-      &.config {
-        &::before {
-          content: 'settings';
-        }
-
-        background-color: desaturate(darken(rgba(0, 0, 255, 1), 20%), 40%);
-      }
-
-      &+pre code {
-        margin: 0;
-        padding: 1.5em;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-
-        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAHOSURBVCjPJdDBASMpDATAtWCMWkwem39sa7qFB/A9rkKo119XJ05hMFZljBg3PbGr3JDBW2WBbRV2hm76dJbHZQfsH6hsnKoYEJ6enqF6wl6n0+WqTyXoxL4ez1CoLEtbPpGdl1wu34X110ZnsJirrEYfIL4+8SvCsOPDBZmguntCrvdspzCIrD+oZbMQtrEppk/P+sSIxKqM9DTFU7+Qj5ATvPZNX4XByDCsS57IWMFQqDz/j4BYtiubfGK9Ts/+QdZdRhAZq1gZISjOe9rjIwhVBT3xFJnAEJ7XP+g6riAUGcSqGYbs9GXqctpx+nC5+q6CTDHiWzfoiV1mTGSbofoEYWCksz4hrFe6PH02Od8rZBty3Xpv7JqeyDiulj5su71+nT4ir1PzFoRVtmdMpG1L+wa7MMrwgfRVs5ygz8jLYpTVP6FIEIpdCF3fzkaXCVme+9PYEvSnZrCP6xvZ082F/R5IT8/IssD4F8vkH8gydh0uZCQy8lpgrDox+3DDuhLzzliebbRRHpxLGD76sXMN53u0XXdLCLxWpevO2MVsBGP6Kax/oFDnRWSXL5MpGMTv+oCv09kJQp2+r4QFwVjl09VlCwMT6fRdCf4HTj6GcxpsVvEAAAAASUVORK5CYII=');
-        background-repeat: repeat;
-      }
-    }
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAHOSURBVCjPJdDBASMpDATAtWCMWkwem39sa7qFB/A9rkKo119XJ05hMFZljBg3PbGr3JDBW2WBbRV2hm76dJbHZQfsH6hsnKoYEJ6enqF6wl6n0+WqTyXoxL4ez1CoLEtbPpGdl1wu34X110ZnsJirrEYfIL4+8SvCsOPDBZmguntCrvdspzCIrD+oZbMQtrEppk/P+sSIxKqM9DTFU7+Qj5ATvPZNX4XByDCsS57IWMFQqDz/j4BYtiubfGK9Ts/+QdZdRhAZq1gZISjOe9rjIwhVBT3xFJnAEJ7XP+g6riAUGcSqGYbs9GXqctpx+nC5+q6CTDHiWzfoiV1mTGSbofoEYWCksz4hrFe6PH02Od8rZBty3Xpv7JqeyDiulj5su71+nT4ir1PzFoRVtmdMpG1L+wa7MMrwgfRVs5ygz8jLYpTVP6FIEIpdCF3fzkaXCVme+9PYEvSnZrCP6xvZ082F/R5IT8/IssD4F8vkH8gydh0uZCQy8lpgrDox+3DDuhLzzliebbRRHpxLGD76sXMN53u0XXdLCLxWpevO2MVsBGP6Kax/oFDnRWSXL5MpGMTv+oCv09kJQp2+r4QFwVjl09VlCwMT6fRdCf4HTj6GcxpsVvEAAAAASUVORK5CYII=');
+    background-repeat: repeat;
   }
 
   ul {

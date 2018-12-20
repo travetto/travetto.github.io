@@ -1,5 +1,5 @@
 <div class="documentation"><h2 id="auth-rest" id="auth-rest">Auth-Rest</h2>
-<pre class="as-header install">Rest support  </pre>
+<app-section-header headerType="install">Rest support</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/auth-rest</code></pre><p>This is a primary integration for the <a class="module-link" routerLink="/docs/auth"  null><code class="inline">Auth</code></a> module.  This is another level of scaffolding allowing for compatible authentication frameworks to integrate.  </p>
 <p>The integration with the <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> module touches multiple levels. Primarily:</p>
 <ul>
@@ -9,7 +9,7 @@
 </ul>
 <h3 id="security-information-management">Security information management</h3>
 <p>When working with framework’s authentication, the user information is exposed via the <code class="inline language-typescript">Request</code> object.  The auth functionality is exposed on the request as the property <code class="inline">auth</code>.</p>
-<pre class="as-header code">Structure of auth property on the request  </pre>
+<app-section-header headerType="code">Structure of auth property on the request</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Request</span> <span class="token punctuation">{{ '{' }}</span>
   auth<span class="token punctuation">:</span> <span class="token punctuation">{{ '{' }}</span>
     context<span class="token punctuation">:</span> <span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span><span class="token punctuation">;</span>
@@ -22,7 +22,7 @@
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>This allows for any filters/middleware to access this information without deeper knowledge of the framework itself.  Also, for performance benefits, the auth context is stored in the user session as a means to minimize future lookups. Since we are storing the entire principal in the session, it is best to keep the principal as small as possible.</p>
 <h3 id="patterns-for-integration">Patterns for Integration</h3>
 <p>Every external framework integration relies upon the <code class="inline language-typescript">AuthProvider</code> contract.  This contract defines the boundaries between both frameworks and what is needed to pass between. As stated elsewhere, the goal is to be as flexible as possible, and so the contract is as minimal as possible:</p>
-<pre class="as-header code">Structure for the AuthProvider  </pre>
+<app-section-header headerType="code">Structure for the AuthProvider</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AuthProvider</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">async</span> <span class="token function">logout</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">></span><span class="token punctuation">;</span>
   <span class="token keyword">async</span> <span class="token function">login</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Promise</span><span class="token operator">&lt;</span><span class="token type">AuthContext</span><span class="token operator">&lt;</span><span class="token constant">U</span><span class="token operator">></span> <span class="token operator">|</span> undefined<span class="token operator">></span><span class="token punctuation">;</span>
@@ -36,7 +36,7 @@
 <li>Returning undefined if the authentication is multi-staged and has not completed yet</li>
 </ul>
 <p>A sample auth provider would look like:</p>
-<pre class="as-header code">Sample Dummy Provider  </pre>
+<app-section-header headerType="code">Sample Dummy Provider</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">DumbProvider</span> <span class="token keyword">extends</span> <span class="token class-name">AuthProvider</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">></span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">async</span> <span class="token function">login</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> <span class="token type">Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">const</span> <span class="token punctuation">{{ '{' }}</span> username<span class="token punctuation">,</span> password <span class="token punctuation">{{ '}' }}</span> <span class="token operator">=</span> req<span class="token punctuation">.</span>body<span class="token punctuation">;</span>
@@ -53,7 +53,7 @@
     <span class="token punctuation">{{ '}' }}</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>The provider must be registered with a custom symbol to be used within the framework.  At startup, all registered <code class="inline language-typescript">AuthProvider</code>s are collected and stored for reference at runtime, via symbol. For example:</p>
-<pre class="as-header code">Potential Facebook provider  </pre>
+<app-section-header headerType="code">Potential Facebook provider</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token constant">FB_AUTH</span> <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">'facebook'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{{ '{' }}</span>
@@ -65,7 +65,7 @@
 <h3 id="route-declaration">Route Declaration</h3>
 <p>Like the <code class="inline language-typescript">AuthService</code>, there are common auth patterns that most users will implement. The framework has codified these into decorators that a developer can pick up and use.</p>
 <p><code class="decorator inline">@Authenticate</code> provides middleware that will authenticate the user as defined by the specified providers, or throw an error if authentication is unsuccessful.</p>
-<pre class="as-header code">Using provider with routes  </pre>
+<app-section-header headerType="code">Using provider with routes</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Auth</span> <span class="token punctuation">{{ '{' }}</span>
 
@@ -76,7 +76,7 @@
   <span class="token operator">...</span>
 
 <span class="token punctuation">{{ '}' }}</span></code></pre><p><code class="decorator inline">@Authenticated</code> and <code class="decorator inline">@Unauthenticated</code> will simply enforce whether or not a user is logged in and throw the appropriate error messages as needed.</p>
-<pre class="as-header code">Showing standard user operations as routes  </pre>
+<app-section-header headerType="code">Showing standard user operations as routes</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Auth</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token operator">...</span>

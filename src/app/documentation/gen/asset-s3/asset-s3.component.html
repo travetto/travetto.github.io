@@ -1,14 +1,14 @@
 <div class="documentation"><h2 id="asset-s3" id="asset-s3">Asset-S3</h2>
-<pre class="as-header install">S3 provider  </pre>
+<app-section-header headerType="install">S3 provider</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/asset-s3</code></pre><p>This provides an <a class="external-link" href="https://aws.amazon.com/documentation/s3/" target="_blank" null><code class="inline">s3</code></a> implementation of the <code class="inline">AssetSource</code> that which is a backend for the <a class="module-link" routerLink="/docs/asset"  null><code class="inline">Asset</code></a> module.  </p>
-<pre class="as-header code">S3 backend wiring  </pre>
+<app-section-header headerType="code">S3 backend wiring</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">AppConfig</span> <span class="token punctuation">{{ '{' }}</span>
   @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">static</span> <span class="token function">getSource</span><span class="token punctuation">(</span>cfg<span class="token punctuation">:</span> AssetS3Config<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">AssetSource</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AssetS3Source</span><span class="token punctuation">(</span>cfg<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>There is a default configuration that you can easily use, with some sensible defaults.</p>
-<pre class="as-header code">S3 configuration  </pre>
+<app-section-header headerType="code">S3 configuration</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Config</span><span class="token punctuation">(</span><span class="token string">'asset.s3'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AssetS3Config</span> <span class="token punctuation">{{ '{' }}</span>
   region <span class="token operator">=</span> <span class="token string">'us-east-1'</span><span class="token punctuation">;</span>

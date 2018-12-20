@@ -2,10 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JsonpModule, HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {
-  MatButtonModule, MatTabsModule, MatSidenavModule,
-  MatTooltipModule, MatToolbarModule
-} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -13,6 +9,7 @@ import { GuideComponent } from './guide/guide.component';
 import { DocumentationModule } from './documentation/documentation.module';
 import { BlogComponent } from './blog/blog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
 
 const routes: Routes = [
   {
@@ -44,15 +41,15 @@ const routes: Routes = [
     AppComponent,
     LandingComponent,
     GuideComponent,
-    BlogComponent
+    BlogComponent,
   ],
   imports: [
-    BrowserModule, MatButtonModule, MatTabsModule,
-    MatSidenavModule, MatTooltipModule, MatToolbarModule,
+    BrowserModule,
     HttpModule, JsonpModule,
     DocumentationModule,
     RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled' }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

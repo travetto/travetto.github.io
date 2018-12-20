@@ -1,9 +1,9 @@
 <div class="documentation"><h2 id="asset-rest" id="asset-rest">Asset-Rest</h2>
-<pre class="as-header install">Rest support  </pre>
+<app-section-header headerType="install">Rest support</app-section-header>
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/asset-rest</code></pre><p>This module provides a clean and direct mechanism for processing uploads, built upon <a class="external-link" href="https://github.com/mscdex/busboy" target="_blank" null><code class="inline">busboy</code></a>.  The module also provides some best practices with respect to temporary file deletion.</p>
 <p>Once the files are uploaded, they are exposed on <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a>‘s request object as <code class="inline">req.files</code>. The uploaded files are constructed as <code class="inline">Asset</code> instances, which allows for integration with the <a class="module-link" routerLink="/docs/asset"  null><code class="inline">Asset</code></a> module.</p>
 <p>A simple example:</p>
-<pre class="as-header code">Rest controller with upload support  </pre>
+<app-section-header headerType="code">Rest controller with upload support</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/avatar'</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">Controller</span> <span class="token punctuation">{{ '{' }}</span>
 

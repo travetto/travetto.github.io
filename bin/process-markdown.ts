@@ -97,7 +97,7 @@ class MyRenderer extends marked.Renderer {
     if (headerType) {
       text = text.replace(/^[^:]+:\s*/, '');
       text = text.charAt(0).toUpperCase() + text.substring(1);
-      return `<pre class="as-header ${headerType}">${text}  </pre>`;
+      return `<app-section-header headerType="${headerType}">${text}</app-section-header>`;
     } else {
       return super.strong(text);
     }
@@ -136,7 +136,7 @@ export function render(markdownFile: string): string {
 
   let output = (marked(content, { ...opts, renderer: new MyRenderer(opts) }) as string)
     .replace(/[{}]/g, a => `{{ '${a}' }}`)
-    .replace(/<p>\s*(<pre class="as-header.*?)<\/p>/g, (a, s) => s)
+    .replace(/<p>\s*(<app-section-header.*?)<\/p>/g, (a, s) => s)
     .replace(/<h[23][^>]+>(Outline|Overview).*?<\/[uo]l>/ms, (a) => {
       links = a;
       return '';
