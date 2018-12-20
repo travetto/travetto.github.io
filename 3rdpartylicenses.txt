@@ -330,12 +330,14 @@ THE SOFTWARE.
 
 @angular/material/tooltip
 
+@angular/material/button
+
+@angular/material/snack-bar
+
 @angular/http
 MIT
 
 @angular/material/toolbar
-
-@angular/material/button
 
 zone.js
 MIT
