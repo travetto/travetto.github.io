@@ -48,6 +48,7 @@
 <ul>
 <li><code class="inline">throws</code>/<code class="inline">doesNotThrow</code> is for catching synchronous rejections</li>
 </ul>
+<app-section-header headerType="code">Throws vs Does Not Throw</app-section-header>
 <pre><code class="language-typescript">assert<span class="token punctuation">.</span><span class="token function">throws</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -57,6 +58,7 @@ assert<span class="token punctuation">.</span><span class="token function">doesN
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><ul>
 <li><code class="inline">rejects</code>/<code class="inline">doesNotReject</code> is for catching asynchronous rejections</li>
 </ul>
+<app-section-header headerType="code">Reject vs Does Not Reject</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">await</span> assert<span class="token punctuation">.</span><span class="token function">rejects</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -69,6 +71,7 @@ assert<span class="token punctuation">.</span><span class="token function">doesN
 <li>A class to ensure the returned error is an instance of the class passed in</li>
 <li>A function to allow for whatever custom verification of the error is needed</li>
 </ul>
+<app-section-header headerType="code">Example of different Error matching paradigms</app-section-header> 
 <pre><code class="language-typescript">assert<span class="token punctuation">.</span><span class="token function">throws</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'<span class="token type">Big</span> <span class="token type">Error</span>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">,</span> <span class="token string">'<span class="token type">Big</span> <span class="token type">Error</span>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
