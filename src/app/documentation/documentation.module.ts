@@ -6,7 +6,7 @@ import { DocumentationComponent } from './documentation.component';
 
 import { PAGES } from './pages';
 import { OverviewComponent } from './overview/overview.component';
-import { TestPluginComponent } from './test-plugin/test-plugin.component';
+import { VSCodePluginComponent } from './vscode-plugin/vscode-plugin.component';
 import { CoreComponent } from './core/core.component';
 import { UtilsComponent } from './utils/utils.component';
 import { AssetComponent } from './gen/asset/asset.component';
@@ -67,7 +67,7 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     DocumentationComponent,
     OverviewComponent,
-    TestPluginComponent,
+    VSCodePluginComponent,
     CoreComponent,
     UtilsComponent,
     AssetComponent,

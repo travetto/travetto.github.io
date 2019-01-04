@@ -8,6 +8,7 @@ import { SchemaComponent } from './gen/schema/schema.component';
 import { ModelComponent } from './gen/model/model.component';
 import { RestComponent } from './gen/rest/rest.component';
 import { CoreComponent } from './core/core.component';
+import { VSCodePluginComponent } from './vscode-plugin/vscode-plugin.component';
 import { TestComponent } from './gen/test/test.component';
 import { UtilsComponent } from './utils/utils.component';
 import { AssetComponent } from './gen/asset/asset.component';
@@ -49,8 +50,11 @@ export const PAGES = [
   { path: 'context', title: 'Context' },
   { path: 'registry', title: 'Registry' }
 ] },
+  { path: 'vscode-plugin', title: 'VS Code Plugin', component: VSCodePluginComponent, subs: [
+
+] },
   { path: 'test', title: 'Test', component: TestComponent, subs: [
-  { path: 'test-plugin', title: 'Test Plugin' }
+
 ] },
   { path: 'utils', title: 'App Utilities', component: UtilsComponent, subs: [
   { path: 'log', title: 'Log' },

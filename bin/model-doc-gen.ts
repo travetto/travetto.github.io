@@ -177,7 +177,7 @@ function waitForChange() {
   cp.execSync(`inotifywait -e attrib,modify,move,create,delete ${files.join(' ')}`);
 }
 
-cp.execSync(`ln -sf ${RELATED_ROOT}/test-plugin/README.md ${DOC_ROOT}/test-plugin/test-plugin.component.md`);
+cp.execSync(`ln -sf ${RELATED_ROOT}/vscode-plugin/README.md ${DOC_ROOT}/vscode-plugin/vscode-plugin.component.md`);
 cp.execSync(`ln -sf ${RELATED_ROOT}/todo-app/README.md ${GHP_ROOT}/src/app/guide/guide.component.md`);
 cp.execSync(`ln -sf ${path.dirname(MOD_ROOT)}/README.md ${DOC_ROOT}/overview/overview.component.md`);
 

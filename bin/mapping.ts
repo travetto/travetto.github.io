@@ -53,11 +53,10 @@ export const MAPPING: Mapping[] = [
       { module: 'registry' }
     ]
   },
+  { module: 'vscode-plugin', title: 'VS Code Plugin' },
   {
     module: 'test',
-    children: [
-      { module: 'test-plugin', title: 'Test Plugin' }
-    ]
+    children: []
   },
   {
     module: 'utils',

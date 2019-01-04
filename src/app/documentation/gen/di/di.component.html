@@ -123,7 +123,7 @@
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span>
 
-@<span class="token meta">Application</span><span class="token punctuation">(</span><span class="token string">'config'</span><span class="token punctuation">)</span>
+@<span class="token meta">Application</span><span class="token punctuation">(</span><span class="token string">'config'</span><span class="token punctuation">,</span> <span class="token punctuation">{{ '{' }}</span> watchable<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
 <span class="token keyword">class</span> <span class="token class-name">ConfigApp</span> <span class="token punctuation">{{ '{' }}</span>
 
   @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -132,4 +132,5 @@
   <span class="token keyword">async</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>server<span class="token punctuation">.</span>configuration<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre></div>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>This additional entry point will also default to a watch mode that can still be overridden via the command line flags.</p>
+</div>
