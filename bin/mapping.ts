@@ -18,6 +18,7 @@ export const MAPPING: Mapping[] = [
     }]
   },
   { module: 'cli' },
+  { module: 'vscode-plugin' },
   { module: 'generator-app' },
   { module: 'base' },
   {
@@ -53,7 +54,6 @@ export const MAPPING: Mapping[] = [
       { module: 'registry' }
     ]
   },
-  { module: 'vscode-plugin', title: 'VS Code Plugin' },
   {
     module: 'test',
     children: []

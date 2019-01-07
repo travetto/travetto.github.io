@@ -95,19 +95,25 @@
   }
 
   .cli,
-  .generator-app {
+  .generator-app,
+  .vscode-plugin {
     @extend .external-comps;
   }
 
 
   .cli {
     grid-row: 2;
-    grid-column: 4/span 3;
+    grid-column: 5/span 2;
+  }
+
+  .vscode-plugin {
+    grid-row: 2;
+    grid-column: 3/span 2;
   }
 
   .generator-app {
     grid-row: 2;
-    grid-column: 1/span 3;
+    grid-column: 1/span 2;
   }
 
   .email {
