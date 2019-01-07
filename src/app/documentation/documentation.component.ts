@@ -10,8 +10,8 @@ import { Router, NavigationEnd } from '@angular/router';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class DocumentationComponent {
-  pages = [
-    { path: 'overview', title: 'Overview' },
+  pages: typeof PAGES = [
+    { path: 'overview', title: 'Overview' } as any,
     ...PAGES
   ];
   url = '';

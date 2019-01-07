@@ -85,6 +85,14 @@ function compileModule(root: string, moduleConf: Mapping, sub?: string) {
     content = content.replace(/(<[\/]?h)(\d)/g, (a, t, n) => `${t}${parseInt(n, 10) + 1}`);
   }
 
+  content = content.replace(/(<img[^>]+src=")([^"]+)("[^>]*>)/g, (all, l, href, r) => {
+    if (!/^(http|https|\/)/.test(href)) {
+      href = href.substring(href.indexOf('/') + 1) || href;
+      href = `/assets/${mod}/${href}`;
+    }
+    return `${l}${href}${r}`;
+  });
+
   const ret = {
     componentName,
     componentTitle,
@@ -176,7 +184,7 @@ function waitForChange() {
   const files = [...markdowns(`${GHP_ROOT}/src`), ...markdowns(MOD_ROOT)];
   cp.execSync(`inotifywait -e attrib,modify,move,create,delete ${files.join(' ')}`);
 }
-
+cp.execSync(`ln -sf ${RELATED_ROOT}/vscode-plugin/images ${GHP_ROOT}/src/assets/vscode-plugin`);
 cp.execSync(`ln -sf ${RELATED_ROOT}/vscode-plugin/README.md ${DOC_ROOT}/vscode-plugin/vscode-plugin.component.md`);
 cp.execSync(`ln -sf ${RELATED_ROOT}/todo-app/README.md ${GHP_ROOT}/src/app/guide/guide.component.md`);
 cp.execSync(`ln -sf ${path.dirname(MOD_ROOT)}/README.md ${DOC_ROOT}/overview/overview.component.md`);
