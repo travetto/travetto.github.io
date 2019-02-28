@@ -10,7 +10,7 @@
 <ol>
 <li><code class="path inline">node_modules/@travetto/&lt;module&gt;/config/*.yml</code> - Load framework module configurations.  Defines general configuration that should be easily </li>
 <li><code class="path inline">config/*.yml</code> - Load local application configurations</li>
-<li><code class="path inline">profile/*.yml</code> - Load profile specific configurations as defined by the values in <code class="inline">process.env.PROFILE</code>, <code class="inline">process.env.ENV</code>.</li>
+<li><code class="path inline">resources/*.yml</code> - Load profile specific configurations as defined by the values in <code class="inline">process.env.PROFILE</code>, <code class="inline">process.env.ENV</code>.</li>
 <li><code class="inline">process.env</code> - Read startup configuration from environment to allow for overriding any values. Because we are overriding a <a class="external-link" href="https://en.wikipedia.org/wiki/YAML" target="_blank" null><code class="inline">yaml</code></a> based configuration we need to compensate for the differences in usage patterns.  Generally all environment variables are passed in as <code class="inline">UPPER_SNAKE_CASE</code>. When reading from <code class="inline">process.env</code> we will map <code class="inline">UPPER_SNAKE_CASE</code> to <code class="inline">upper.snake.case</code>, and will attempt to match by case-insensitive name.</li>
 </ol>
 <h3 id="a-complete-example">A Complete Example</h3>
@@ -21,7 +21,7 @@
   <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9423</span>
   <span class="token key atrule">creds</span><span class="token punctuation">:</span>
     <span class="token key atrule">user</span><span class="token punctuation">:</span> test
-    <span class="token key atrule">password</span><span class="token punctuation">:</span> test</code></pre><app-section-header headerType="config">Profile/prod.yml</app-section-header>
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> test</code></pre><app-section-header headerType="config">Resources/prod.yml</app-section-header>
 <pre><code class="language-yaml"><span class="token key atrule">database</span><span class="token punctuation">:</span>
   <span class="token key atrule">host</span><span class="token punctuation">:</span> prod<span class="token punctuation">-</span>host<span class="token punctuation">-</span>db
   <span class="token key atrule">creds</span><span class="token punctuation">:</span>

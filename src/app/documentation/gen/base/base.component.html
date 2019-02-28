@@ -11,11 +11,12 @@
 <h2 id="environmental-information">Environmental Information</h2>
 <p>The framework provides basic environment information, e.g. in prod/test/dev.  This is useful for runtime decisions.  This is primarily used by the framework, but can prove useful to application developers as well. The information that is available is:</p>
 <ul>
-<li><code class="inline">prod</code>/<code class="inline">dev</code>/<code class="inline">test</code>/<code class="inline">e2e</code> - Run type flags.  These are mutually exclusive and are <code class="inline">boolean</code> flags.</li>
+<li><code class="inline">prod</code>/<code class="inline">dev</code> - Run type flags.  These are mutually exclusive and are <code class="inline">boolean</code> flags.</li>
 <li><code class="inline">watch: boolean</code> - Does the current run support file watching.  Primarily used internally, but should be useful to indicate if the program will finish immediately or wait indefinitely.</li>
 <li><code class="inline">profiles: string[]</code> - Specific application profiles that have been activated.  This is useful for indicating different configuration or run states.</li>
 <li><code class="inline">debug</code>/<code class="inline">trace</code> - Simple logging flags.  These <code class="inline">boolean</code> flags will enable or disable logging at various levels. By default <code class="inline">debug</code> is on in <code class="inline">dev</code> or <code class="inline">e2e</code> mode, and nowhere else.  <code class="inline">trace</code> is always off by default.</li>
-<li><code class="inline">cwd: string</code> - The root of the current application, </li>
+<li><code class="inline">cwd: string</code> - The root of the current project, </li>
+<li><code class="inline">appRoot: string</code> - The location of the specific application to run, with the base folder being the default</li>
 <li><code class="inline">docker</code> - Determine if docker support is enabled. If explicitly set, honor, otherwise it will attempt to invoke the <code class="inline">docker</code> cli and use that as it’s indicator. </li>
 </ul>
 <p>With respect to <code class="inline">process.env</code>, we specifically test for all uppercase, lowercase, and given case.  This allows us to test various patterns and catch flags that might be off due to casing.  That would mean that a key of <code class="inline">Enable_Feature</code> would be tested as:</p>
@@ -31,6 +32,7 @@
 <li><code class="inline">isTrue(key: string): boolean;</code> - Test whether or not an environment flag is set and is true</li>
 <li><code class="inline">isFalse(key: string): boolean;</code> - Test whether or not an environment flag is set and is false</li>
 <li><code class="inline">get(key: string, def?: string): string;</code> - Retrieve an environmental value with a potential default</li>
+<li><code class="inline">getInt(key: string, def?: number): number;</code> - Retrieve an environmental value as a number</li>
 <li><code class="inline">getList(key: string): string[];</code> - Retrieve an environmental value as a list</li>
 </ul>
 <h2 id="file-operations">File Operations</h2>
@@ -51,7 +53,11 @@ watcher<span class="token punctuation">.</span><span class="token function">add<
     testFile<span class="token punctuation">:</span> x <span class="token operator">=></span> x<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">'.config'</span><span class="token punctuation">)</span> <span class="token operator">||</span> x<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">'.config.json'</span><span class="token punctuation">)</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-watcher<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><h2 id="lifecycle-support">Lifecycle Support</h2>
+watcher<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><h2 id="application-resources">Application Resources</h2>
+<p>Resource management, loading of files, and other assets at runtime is a common pattern that the <code class="inline">ResourceManager</code> encapsulates.  It provides the ability to add additional search paths, as well as resolve resources by searching in all the registerd paths.</p>
+<app-section-header headerType="code">Finding Image Resource</app-section-header>
+<pre><code class="language-typescript"><span class="token keyword">const</span> imagePath <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token type">ResourceManager</span><span class="token punctuation">.</span><span class="token function">findFirst</span><span class="token punctuation">(</span><span class="token string">'/images/asset.gif'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><app-section-header headerType="code">Finding All Image Resource</app-section-header>
+<pre><code class="language-typescript"><span class="token keyword">const</span> imagePaths <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token type">ResourceManager</span><span class="token punctuation">.</span><span class="token function">findAllByExtension</span><span class="token punctuation">(</span><span class="token string">'gif'</span><span class="token punctuation">,</span> <span class="token string">'images/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><h2 id="lifecycle-support">Lifecycle Support</h2>
 <p>During the lifecycle of an application, there is a need to handle different phases of execution.  When executing a phase, the code will recursively find all <code class="inline">phase.&lt;phase&gt;.ts</code> files under <code class="inline">node_modules/@travetto</code>, and in the root of your project.  The format of each phase handler is comprised of five main elements:</p>
 <ul>
 <li>The phase of execution, which is defined by the file name <code class="inline">phase.&lt;phase&gt;.ts</code></li>

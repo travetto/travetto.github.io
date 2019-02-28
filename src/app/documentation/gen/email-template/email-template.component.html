@@ -8,7 +8,7 @@
 <li><code class="inline">%ROOT%/assets</code></li>
 <li><code class="inline">foundation-emails/scss</code> (specifically for <code class="inline">sass</code> files)</li>
 </ol>
-<p>When looking up a resources, every asset folder is consulted, in order, and the first to resolve an asset wins.  This allows for overriding of default templating resources, as needed.</p>
+<p>When looking up a resources, every asset folder is consulted, in order, and the first to resolve an asset wins.  This allows for overriding of default templating resources, as needed.  All email .html files, are loaded automatically and can be referenced by individual file name.  E.g. <code class="path inline">%ROOT%/assets/receipt.html</code> can be referenced by the name <code class="inline">receipt</code>.</p>
 <h3 id="template-compilation">Template Compilation</h3>
 <p>The general process is as follows:</p>
 <ol>
@@ -20,6 +20,8 @@
 <li>Generate markdown version of email to support the alternate text format.</li>
 <li>Render the final output via the <code class="inline">mustache</code> templating process, interpolating the contextual data into the final output.</li>
 </ol>
+<h3 id="common-email-elements">Common Email Elements</h3>
+<p>In building out emails, you may have common elements that you want to repeat.  If you have a common block, put that in a separate file and pull it in using partial notation, e.g. <code class="inline">{{ '{' }}{{ '{' }}{{ '{' }}&gt; common-element{{ '}' }}{{ '}' }}{{ '}' }}</code></p>
 <h3 id="supporting-libraries">Supporting Libraries</h3>
 <p>Templating emails is achieved through a combination of multiple libraries, specifically:</p>
 <ul>
@@ -36,4 +38,28 @@
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}left{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token type">Bob</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}right{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span></code></pre><p>which will then interpolate the context to replace <code class="inline">left</code> and <code class="inline">right</code>, and compile to a final html output. When using mustache expressions, make sure to use <code class="inline">{{ '{' }}{{ '{' }}{{ '{' }} {{ '}' }}{{ '}' }}{{ '}' }}</code>, triple braces on complex text, to prevent mustache from escaping any characters.</p>
-</div>
+<h3 id="example-inky-template-with-partials">Example inky template with partials</h3>
+<p>Given two files, <code class="path inline">assets/welcome.html</code> and <code class="path inline">assets/footer.hml</code></p>
+<app-section-header headerType="code">Assets/welcome.html</app-section-header>
+<pre><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}left{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token type">Bob</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}right{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span>
+  {{ '{' }}{{ '{' }}{{ '{' }}> footer {{ '}' }}{{ '}' }}{{ '}' }}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span></code></pre><app-section-header headerType="code">Assets/footer.html</app-section-header>
+<pre><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+  <span class="token type">This</span> is a footer
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}salesLink{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token type">Sales</span> <span class="token type">Link</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span></code></pre><p>The final template will render as</p>
+<app-section-header headerType="code">Final output</app-section-header>
+<pre><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}left{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token type">Bob</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>columns</span> <span class="token attr-name">large</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}right{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>columns</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>row</span><span class="token punctuation">></span></span>
+    <span class="token type">This</span> is a footer
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ '{' }}{{ '{' }}salesLink{{ '}' }}{{ '}' }}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token type">Sales</span> <span class="token type">Link</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>row</span><span class="token punctuation">></span></span></code></pre></div>
