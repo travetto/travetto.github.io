@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gh-pages": "/bin/bash -c 'ng build --prod --base-href=https://travetto.io; angular-cli-ghpages -b master'"
+    "gh-pages": "/bin/bash -c 'ng build --prod --base-href=https://travetto.dev; angular-cli-ghpages -b master'"
   },
   "author": {
     "name": "Travetto Framework",
