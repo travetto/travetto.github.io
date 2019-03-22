@@ -1,1 +1,1 @@
-/Users/tim/Code/travetto-related/todo-app/README.md
+/Users/tim/Code/travetto/sample/todo-app/README.md

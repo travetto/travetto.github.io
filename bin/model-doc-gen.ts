@@ -186,7 +186,7 @@ function waitForChange() {
 }
 cp.execSync(`ln -sf ${RELATED_ROOT}/vscode-plugin/images ${GHP_ROOT}/src/assets/vscode-plugin`);
 cp.execSync(`ln -sf ${RELATED_ROOT}/vscode-plugin/README.md ${DOC_ROOT}/vscode-plugin/vscode-plugin.component.md`);
-cp.execSync(`ln -sf ${RELATED_ROOT}/todo-app/README.md ${GHP_ROOT}/src/app/guide/guide.component.md`);
+cp.execSync(`ln -sf ${path.dirname(MOD_ROOT)}/sample/todo-app/README.md ${GHP_ROOT}/src/app/guide/guide.component.md`);
 cp.execSync(`ln -sf ${path.dirname(MOD_ROOT)}/README.md ${DOC_ROOT}/overview/overview.component.md`);
 
 if (process.argv[3] === 'watch') {

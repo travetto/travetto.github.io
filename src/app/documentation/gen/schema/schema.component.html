@@ -124,7 +124,7 @@
 <span class="token keyword">try</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">await</span> <span class="token type">SchemaValidator</span><span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token keyword">instanceof</span> <span class="token class-name">ValidationErrors</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token keyword">instanceof</span> <span class="token class-name">ValidationError</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token operator">...</span> <span class="token type">Handle</span> errors <span class="token operator">...</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>would produce an exception similar to following structure</p>
@@ -141,7 +141,7 @@
 <p>The module provides high level access for <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> support, via decorators, for validating and typing request bodies.  </p>
 <p><code class="decorator inline">@SchemaBody</code> provides the ability to convert the inbound request body into a schema bound object, and provide validation before the controller even receives the request.</p>
 <app-section-header headerType="code">Using SchemaBody for POST requests</app-section-header>
-<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SearchBody</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
+<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SearchBody</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/src/extension/rest'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{{ '{' }}</span>
    name<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
@@ -156,7 +156,7 @@
   <span class="token punctuation">{{ '}' }}</span>
  <span class="token operator">...</span></code></pre><p><code class="decorator inline">@SchemaQuery</code> provides the ability to convert the inbound request query into a schema bound object, and provide validation before the controller even receives the request. </p>
 <app-section-header headerType="code">Using SchemaQuery for GET requests</app-section-header>
-<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SchemaQuery</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/extension/rest'</span><span class="token punctuation">;</span>
+<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">SchemaQuery</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/schema/src/extension/rest'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">SearchParams</span> <span class="token punctuation">{{ '{' }}</span>
   page<span class="token punctuation">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>

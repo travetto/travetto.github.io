@@ -47,6 +47,7 @@ import { ModuleChartComponent } from './module-chart/module-chart.component';
 import { YamlComponent } from './gen/yaml/yaml.component';
 import { JwtComponent } from './gen/jwt/jwt.component';
 import { SharedModule } from '../shared/shared.module';
+import { WorkerComponent } from './gen/worker/worker.component';
 
 @NgModule({
   imports: [
@@ -106,7 +107,8 @@ import { SharedModule } from '../shared/shared.module';
     NetComponent,
     ModuleChartComponent,
     YamlComponent,
-    JwtComponent
+    JwtComponent,
+    WorkerComponent
   ]
 })
 export class DocumentationModule { }

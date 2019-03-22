@@ -60,6 +60,7 @@ export const PAGES = [
   { path: 'log', title: 'Log' },
   { path: 'cache', title: 'Cache' },
   { path: 'exec', title: 'Exec' },
+  { path: 'worker', title: 'Worker' },
   { path: 'schedule', title: 'Schedule ' },
   { path: 'net', title: 'Net' },
   { path: 'jwt', title: 'JWT' }

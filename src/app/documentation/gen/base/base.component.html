@@ -16,7 +16,7 @@
 <li><code class="inline">profiles: string[]</code> - Specific application profiles that have been activated.  This is useful for indicating different configuration or run states.</li>
 <li><code class="inline">debug</code>/<code class="inline">trace</code> - Simple logging flags.  These <code class="inline">boolean</code> flags will enable or disable logging at various levels. By default <code class="inline">debug</code> is on in <code class="inline">dev</code> or <code class="inline">e2e</code> mode, and nowhere else.  <code class="inline">trace</code> is always off by default.</li>
 <li><code class="inline">cwd: string</code> - The root of the current project, </li>
-<li><code class="inline">appRoot: string</code> - The location of the specific application to run, with the base folder being the default</li>
+<li><code class="inline">appRoots: string[]</code> - The file root paths for the application, the default set is the current project. Order matters with respect to resource resolution. All paths should be relative to the project base</li>
 <li><code class="inline">docker</code> - Determine if docker support is enabled. If explicitly set, honor, otherwise it will attempt to invoke the <code class="inline">docker</code> cli and use that as it’s indicator. </li>
 </ul>
 <p>With respect to <code class="inline">process.env</code>, we specifically test for all uppercase, lowercase, and given case.  This allows us to test various patterns and catch flags that might be off due to casing.  That would mean that a key of <code class="inline">Enable_Feature</code> would be tested as:</p>
@@ -74,7 +74,20 @@ watcher<span class="token punctuation">.</span><span class="token function">run<
   action<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'../src/service/config'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="shutdown">Shutdown</h2>
+<span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="common-application-error-class">Common Application Error Class</h2>
+<p>While the framework is 100% compatible with standard <code class="inline">Error</code> instances, there are cases in which additional functionality is desired.  Within the framework we use <code class="inline">AppError</code> (or its derivatives) to represent framework errors.  This class is available for use in your own projects.  Some of the additional benefits of using this class is enhanced error reporting, as well as better integration with other modules (e.g. the <a class="module-link" routerLink="/docs/rest"  null><code class="inline">Rest</code></a> module and HTTP status codes).  </p>
+<p>The <code class="inline">AppError</code> takes in a message, and an optional payload and/or error classification.  The currently supported error classifications are:</p>
+<ul>
+<li><code class="inline">general</code> - General purpose errors</li>
+<li><code class="inline">system</code>  - Synonym for <code class="inline">general</code></li>
+<li><code class="inline">data</code> - Data format, content, etc are incorrect.  Generally correlated to bad input.</li>
+<li><code class="inline">permission</code> - Operation failed due to lack of permissions</li>
+<li><code class="inline">auth</code> - Operation failed due to lack of authentication</li>
+<li><code class="inline">missing</code> - Resource was not found when requested</li>
+<li><code class="inline">timeout</code> - Operation did not finish in a timely manner</li>
+<li><code class="inline">unavailable</code> - Resource was unresponsive</li>
+</ul>
+<h2 id="shutdown">Shutdown</h2>
 <p>Another key lifecycle is the process of shutting down. The framework provides centralized functionality for running operations on shutdown.  Primarily used by the framework for cleanup operations, this provides a clean interface for registering shutdown handlers.  The code overrides <code class="inline">process.exit</code> to properly handle <code class="inline">SIGKILL</code> and <code class="inline">SIGINT</code>, with a default threshold of 3 seconds.  In the advent of a <code class="inline">SIGTERM</code> signal, the code exits immediately without any cleanup.</p>
 <p>As a registered shutdown handler, you can do.</p>
 <app-section-header headerType="code">Registering a shutdown handler</app-section-header>

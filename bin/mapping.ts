@@ -66,6 +66,7 @@ export const MAPPING: Mapping[] = [
       { module: 'log' },
       { module: 'cache' },
       { module: 'exec' },
+      { module: 'worker' },
       { module: 'schedule' },
       { module: 'net' },
       { module: 'jwt' }
