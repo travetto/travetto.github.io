@@ -43,6 +43,7 @@ export const PAGES = [
 ] },
   { path: 'rest', title: 'Rest', component: RestComponent, subs: [
   { path: 'swagger', title: 'Swagger' },
+  { path: 'rest-session', title: 'Session' },
   { path: 'rest-express', title: 'Express' },
   { path: 'rest-koa', title: 'Koa' },
   { path: 'rest-fastify', title: 'Fastify' },

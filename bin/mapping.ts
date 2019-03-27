@@ -38,6 +38,7 @@ export const MAPPING: Mapping[] = [
     module: 'rest',
     children: [
       { module: 'swagger' },
+      { module: 'rest-session' },
       { module: 'rest-express' },
       { module: 'rest-koa' },
       { module: 'rest-fastify' },

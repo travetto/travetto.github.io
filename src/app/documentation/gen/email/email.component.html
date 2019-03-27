@@ -9,7 +9,7 @@
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">NullTransport</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>Given the amorphous nature of transports, the <code class="inline">transport</code> field in <code class="inline">MailConfig</code> is open for any configuration that you may want there. Additionally, the templating engine is optional.  The code will only fail if you attempt to send a templated email without declaring the dependency first.</p>
-<h2 id="nodemailer-extension">Nodemailer - Extension</h2>
+<h2 id="nodemailer---extension">Nodemailer - Extension</h2>
 <p>Due to the connection with <code class="inline">nodemailer</code>, all nodemailer extensions should be usable out of the box. The primary <code class="inline">nodemailer</code> modules are provided (assuming dependencies are installed):</p>
 <p><code class="inline">sendmail</code> to send all messages via the sendmail operation</p>
 <app-section-header headerType="code">Sendmail transport from nodemailer</app-section-header>

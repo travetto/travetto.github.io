@@ -48,6 +48,7 @@ import { YamlComponent } from './gen/yaml/yaml.component';
 import { JwtComponent } from './gen/jwt/jwt.component';
 import { SharedModule } from '../shared/shared.module';
 import { WorkerComponent } from './gen/worker/worker.component';
+import { RestSessionComponent } from './gen/rest-session/rest-session.component';
 
 @NgModule({
   imports: [
@@ -108,7 +109,8 @@ import { WorkerComponent } from './gen/worker/worker.component';
     ModuleChartComponent,
     YamlComponent,
     JwtComponent,
-    WorkerComponent
+    WorkerComponent,
+    RestSessionComponent
   ]
 })
 export class DocumentationModule { }

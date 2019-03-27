@@ -20,23 +20,23 @@
           callbackURL<span class="token punctuation">:</span> <span class="token string">'http://localhost:3000/auth/facebook/callback'</span><span class="token punctuation">,</span>
           profileFields<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'displayName'</span><span class="token punctuation">,</span> <span class="token string">'photos'</span><span class="token punctuation">,</span> <span class="token string">'email'</span><span class="token punctuation">]</span>
         <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">(</span>accessToken<span class="token punctuation">,</span> refreshToken<span class="token punctuation">,</span> profile<span class="token punctuation">,</span> cb<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
+        <span class="token punctuation">(</span><span class="token parameter">accessToken<span class="token punctuation">,</span> refreshToken<span class="token punctuation">,</span> profile<span class="token punctuation">,</span> cb</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{{ '{' }}</span>
           <span class="token keyword">return</span> <span class="token function">cb</span><span class="token punctuation">(</span>undefined<span class="token punctuation">,</span> profile<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">{{ '}' }}</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token punctuation">(</span>user<span class="token punctuation">:</span> <span class="token type">FbUser</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
+      <span class="token punctuation">(</span><span class="token parameter">user<span class="token punctuation">:</span> FbUser</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span>
         id<span class="token punctuation">:</span> user<span class="token punctuation">.</span>id<span class="token punctuation">,</span>
-        permissions<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Set</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>roles<span class="token punctuation">)</span>
+        permissions<span class="token punctuation">:</span> user<span class="token punctuation">.</span>roles
       <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre><p>As you can see, <code class="inline language-typescript">AuthPassportProvider</code> will take care of the majority of the work, and all that is required is:</p>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p>As you can see, <code class="inline language-typescript">PassportIdentityProvider</code> will take care of the majority of the work, and all that is required is:</p>
 <ul>
 <li>Provide the name of the strategy (should be unique)</li>
 <li>Provide the strategy instance. <strong>NOTE</strong> you will need to provide the callback for the strategy to ensure you pass the external principal back into the framework</li>
-<li>The <code class="inline language-typescript">PrincipalConfig</code> which defines the mapping between external and local principals.</li>
+<li>The conversion functions which defines the mapping between external and local identities.</li>
 </ul>
-<p>After that, the provider is no different than any other, and can be used accordingly.  Additionally, because passport runs first, in it’s entirety, you can use the provider as you normally would any passport middleware.</p>
+<p>After that, the provider is no different than any other, and can be used accordingly.  Additionally, because <code class="inline">passport</code> runs first, in it’s entirety, you can use the provider as you normally would any passport middleware.</p>
 <app-section-header headerType="code">Sample routes using Facebook/passport provider</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppAuth</span> <span class="token punctuation">{{ '{' }}</span>
@@ -55,7 +55,7 @@
 
   @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/self'</span><span class="token punctuation">)</span>
   @<span class="token meta">Authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">getSelf</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">getSelf</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">:</span> Request</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> req<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>context<span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre></div>

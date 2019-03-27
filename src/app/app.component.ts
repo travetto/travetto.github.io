@@ -27,10 +27,10 @@ export class AppComponent {
         if (tree.fragment) {
           const element = document.querySelector(`#${tree.fragment}`) as HTMLElement;
           if (element) {
-            document.getElementsByTagName('html')[0].scrollTo({ top: element.offsetTop - 74, behavior: 'smooth' });
+            document.getElementsByTagName('body')[0].scrollTo({ top: element.offsetTop - 74, behavior: 'smooth' });
           }
         } else {
-          document.getElementsByTagName('html')[0].scrollTo({ top: 0, behavior: 'instant' });
+          document.getElementsByTagName('body')[0].scrollTo({ top: 0, behavior: 'auto' });
         }
       }
     });

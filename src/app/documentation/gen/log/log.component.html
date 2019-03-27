@@ -32,7 +32,7 @@ $ DEBUG<span class="token operator">=</span>@trv:rest TRACE<span class="token op
   <span class="token operator">...</span>
   <span class="token keyword">try</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token operator">...</span> bad invocation <span class="token operator">...</span>
-  <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
   <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">trace</span><span class="token punctuation">(</span><span class="token string">'<span class="token type">End</span> <span class="token type">Work</span>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -42,7 +42,7 @@ $ DEBUG<span class="token operator">=</span>@trv:rest TRACE<span class="token op
   <span class="token type">Logger</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'trace'</span><span class="token punctuation">,</span> <span class="token string">'<span class="token type">Start</span> <span class="token type">Work</span>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">try</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token operator">...</span> bad invocation <span class="token operator">...</span>
-  <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token type">Logger</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
   <span class="token type">Logger</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'trace'</span><span class="token punctuation">,</span> <span class="token string">'<span class="token type">End</span> <span class="token type">Work</span>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -51,7 +51,7 @@ $ DEBUG<span class="token operator">=</span>@trv:rest TRACE<span class="token op
 <pre><code class="language-typescript"><span class="token keyword">function</span> <span class="token function">work</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token keyword">try</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token operator">...</span> bad invocation <span class="token operator">...</span>
-  <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token type">Logger</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>The logging output, as indicated provides context for location of invocation. Given the file <code class="path inline">test/simple.ts</code>:</p>

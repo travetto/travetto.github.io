@@ -3,7 +3,7 @@
 <pre><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> @travetto/registry</code></pre><p>This module is the backbone for all “discovered” and “registered” behaviors within the framework. This is primarily used for building modules within the framework and not directly useful for application development.</p>
 <h3 id="flows">Flows</h3>
 <p>Registration, within the framework flows throw two main use cases:</p>
-<h4 id="initial-flow-primary-">Initial Flow (Primary)</h4>
+<h4 id="initial-flow-primary">Initial Flow (Primary)</h4>
 <p>The primary flow occurs on initialization of the application. At that point, the module will:</p>
 <ol>
 <li>Initialize <code class="inline">RootRegistry</code> and will automatically register/load all relevant files</li>
@@ -16,7 +16,7 @@
     <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token type">SchemaRegistry</span><span class="token punctuation">,</span> <span class="token type">DependencyRegistry</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 
-  <span class="token function">createPending</span><span class="token punctuation">(</span>cls<span class="token punctuation">:</span> <span class="token type">Class</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token function">createPending</span><span class="token punctuation">(</span><span class="token parameter">cls<span class="token punctuation">:</span> Class</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> <span class="token punctuation">{{ '{' }}</span> <span class="token keyword">class</span><span class="token punctuation">:</span> cls <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 
