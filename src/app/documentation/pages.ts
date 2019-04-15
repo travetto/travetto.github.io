@@ -2,7 +2,6 @@
 import { CliComponent } from './gen/cli/cli.component';
 import { VSCodePluginComponent } from './vscode-plugin/vscode-plugin.component';
 import { GeneratorAppComponent } from './gen/generator-app/generator-app.component';
-import { BaseComponent } from './gen/base/base.component';
 import { ConfigComponent } from './gen/config/config.component';
 import { DiComponent } from './gen/di/di.component';
 import { SchemaComponent } from './gen/schema/schema.component';
@@ -23,9 +22,6 @@ export const PAGES = [
 
 ] },
   { path: 'generator-app', title: 'Yeoman App Generator', component: GeneratorAppComponent, subs: [
-
-] },
-  { path: 'base', title: 'Base', component: BaseComponent, subs: [
 
 ] },
   { path: 'config', title: 'Config ', component: ConfigComponent, subs: [
@@ -50,6 +46,8 @@ export const PAGES = [
   { path: 'rest-aws-lambda', title: 'Aws-Lambda' }
 ] },
   { path: 'core', title: 'System Components', component: CoreComponent, subs: [
+  { path: 'boot', title: 'Boot' },
+  { path: 'base', title: 'Base' },
   { path: 'compiler', title: 'Compiler' },
   { path: 'context', title: 'Context' },
   { path: 'registry', title: 'Registry' }

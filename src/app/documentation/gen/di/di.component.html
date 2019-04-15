@@ -26,6 +26,11 @@
     <span class="token keyword">await</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">coolOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">// <span class="token type">Do</span> some additional work</span>
   <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Consumer</span> <span class="token punctuation">{{ '{' }}</span>
+  @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token constant">CUSTOM2</span><span class="token punctuation">)</span> <span class="token comment">// <span class="token type">Pull</span> in specific service</span>
+  service<span class="token punctuation">:</span> <span class="token type">CustomService</span><span class="token punctuation">;</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>As you can see, the <code class="inline">target</code> field is also set, which indicates to the dependency registration process what <code class="inline">class</code> the injectable is compatible with.  Additionally, when using <code class="inline">abstract</code> classes, the parent <code class="inline">class</code> is always considered as a valid candidate type.</p>
 <app-section-header headerType="code">Example @Injectable with target via abstract class</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">BaseService</span> <span class="token punctuation">{{ '{' }}</span>
@@ -75,6 +80,32 @@
   <span class="token keyword">static</span> <span class="token function">initService</span><span class="token punctuation">(</span>dependentService<span class="token punctuation">:</span> <span class="token type">DependentService</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">CustomService</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CustomService</span><span class="token punctuation">(</span>dependentService<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p><strong>NOTE</strong> If you are building modules for others to consume, often times it is desirable to have default implementations for contracts that can be overridden.  The <code class="decorator inline">@Inject</code> decorator takes a flag of <code class="inline">defaultIfMissing</code> and a class name, that it will use to satisfy the dependency if nothing else matches.  This would look like:</p>
+<app-section-header headerType="code">Example of default if missing</app-section-header>
+<pre><code class="language-typescript"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Contract</span> <span class="token punctuation">{{ '{' }}</span>
+
+<span class="token punctuation">{{ '}' }}</span>
+
+@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> targets<span class="token punctuation">:</span> <span class="token type">SimpleContract</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">SimpleContract</span> <span class="token keyword">extends</span> <span class="token class-name">Contract</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+
+@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> targets<span class="token punctuation">:</span> <span class="token type">ComplexContract</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">ComplexContract</span> <span class="token keyword">extends</span> <span class="token class-name">Contract</span> <span class="token punctuation">{{ '{' }}</span><span class="token punctuation">{{ '}' }}</span>
+
+@<span class="token meta">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">ContractConsumer</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token comment">// <span class="token type">Will</span> default to <span class="token type">SimpleContract</span> if nothing else registered</span>
+  @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">{{ '{' }}</span> defaultIfMissing<span class="token punctuation">:</span> <span class="token type">SimpleContract</span> <span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span>
+  contract<span class="token punctuation">:</span> <span class="token type">Contract</span><span class="token punctuation">;</span>
+<span class="token punctuation">{{ '}' }}</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Config</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token comment">// <span class="token type">Complex</span> will be marked as the available Contract</span>
+  @<span class="token meta">InjectableFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token function">getContract</span><span class="token punctuation">(</span>complex<span class="token punctuation">:</span> <span class="token type">ComplexContract</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token type">Contract</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> complex<span class="token punctuation">;</span>
+  <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="manual-invocation">Manual Invocation</h2>
 <p>Some times you will need to lookup a dependency dynamically, or you want to control the injection process at a more granular level. To achieve that you will need to directly access the <a class="source-link" href="https://github.com/travetto/travetto/tree/master/module/di/src/service/registry.ts" target="_blank" null><code class="inline">DependencyRegistry</code></a>. The registry allows for requesting a dependency by class reference:</p>
 <app-section-header headerType="code">Example of manual lookup</app-section-header>
@@ -86,7 +117,7 @@
     <span class="token keyword">const</span> complex <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token type">DependencyRegistry</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token type">Complex</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="application"><code class="decorator inline">@Application</code></h2>
-<p>Given that dependency injection is generally a pre-requisite for application execution, it stands as the primary entrypoint for application invocation.  The <a class="module-link" routerLink="/docs/base"  null><code class="inline">Base</code></a> provides a simplistic bootstrap to allow for the application to run, but that is not sufficient for more complex applications.</p>
+<p>Given that dependency injection is generally a pre-requisite for application execution, it stands as the primary entrypoint for application invocation.  The <a class="module-link" routerLink="/docs/core" fragment="base" null><code class="inline">Base</code></a> provides a simplistic bootstrap to allow for the application to run, but that is not sufficient for more complex applications.</p>
 <p>The module provides a decorator, <code class="decorator inline">@Application</code> who’s job is to register entry points into the application.  For example:</p>
 <app-section-header headerType="code">Example of @Application target</app-section-header>
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">Application</span><span class="token punctuation">,</span> <span class="token type">Inject</span><span class="token punctuation">,</span> <span class="token type">Injectable</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'../'</span><span class="token punctuation">;</span>
@@ -159,4 +190,5 @@ usage: simple domain <span class="token punctuation">(</span>string<span class="
   <span class="token keyword">async</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token parameter">domain<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> port<span class="token punctuation">:</span> <span class="token builtin">number</span></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'<span class="token type">Launching</span>'</span><span class="token punctuation">,</span> domain<span class="token punctuation">,</span> <span class="token string">'on port'</span><span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre></div>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p><strong>* Note *</strong><br>The applications, by default, will not scan other application’s folders.  This means, if you have an application in the <code class="inline">e2e/</code> folder, all of the code in your <code class="inline">src/</code> folder will not be picked up automatically.  This defined under the assumption that each application is unique.  If you have an application that is an extension of the primary application (<code class="inline">src/</code>), you can specify the <code class="decorator inline">@Application</code> config property of <code class="inline">standalone</code> to be false.  This will now scan both folders to run your application.</p>
+</div>

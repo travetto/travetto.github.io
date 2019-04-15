@@ -14,10 +14,14 @@ $ <span class="token function">git</span> config --global.username <span class="
 <li><code class="inline">fastify</code></li>
 </ul>
 <p>The code will establish some basic routes, specifically, <code class="inline">GET /</code> as the root endpoint.  This will return the contents of your <code class="inline">package.json</code> as an identification operation.  </p>
-<h3 id="optional-rest-features">Optional Rest Features</h3>
+<h3 id="additional-rest-features">Additional Rest Features</h3>
 <p>In addition to the core functionality, the <code class="inline">rest</code> feature has some useful sub-features.  Specifically:</p>
 <p><a class="module-link" routerLink="/docs/rest" fragment="swagger" null><code class="inline">Swagger</code></a> support for the restful api.  This will automatically expose a <code class="inline">swagger.json</code> endpoint, and provide the necessary plumbing to support client generation.</p>
 <p><a class="module-link" routerLink="/docs/utils" fragment="log" null><code class="inline">Log</code></a> support for better formatting and colorized output.  This is generally useful for server logs, especially during development.</p>
+<h2 id="authentication">Authentication</h2>
+<p>Authentication is also supported on the Restful endpoints by selecting <a class="module-link" routerLink="/docs/auth" fragment="auth-rest" null><code class="inline">Auth-Rest</code></a> during setup.  This will support basic authentication running out of local memory, with user <a class="module-link" routerLink="/docs/rest" fragment="rest-session" null><code class="inline">Session</code></a>s. </p>
+<h2 id="testing">Testing</h2>
+<p><a class="module-link" routerLink="/docs/test"  null><code class="inline">Test</code></a>ing can also be configured out of the box to provide simple test cases for the data model.  </p>
 <h2 id="data-modelling-and-storage">Data Modelling and Storage</h2>
 <p>The <a class="module-link" routerLink="/docs/model"  null><code class="inline">Model</code></a> allows for modeling of application data, and provides mechanisms for storage and retrieval.  When setting up your application, you will need to select which database backend you want to use:</p>
 <ul>

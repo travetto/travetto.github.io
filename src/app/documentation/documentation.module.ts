@@ -49,6 +49,7 @@ import { JwtComponent } from './gen/jwt/jwt.component';
 import { SharedModule } from '../shared/shared.module';
 import { WorkerComponent } from './gen/worker/worker.component';
 import { RestSessionComponent } from './gen/rest-session/rest-session.component';
+import { BootComponent } from './gen/boot/boot.component';
 
 @NgModule({
   imports: [
@@ -110,7 +111,8 @@ import { RestSessionComponent } from './gen/rest-session/rest-session.component'
     YamlComponent,
     JwtComponent,
     WorkerComponent,
-    RestSessionComponent
+    RestSessionComponent,
+    BootComponent
   ]
 })
 export class DocumentationModule { }

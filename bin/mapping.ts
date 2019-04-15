@@ -20,7 +20,6 @@ export const MAPPING: Mapping[] = [
   { module: 'cli' },
   { module: 'vscode-plugin' },
   { module: 'generator-app' },
-  { module: 'base' },
   {
     module: 'config',
     children: [{ module: 'yaml', title: 'Simple YAML Parser' }]
@@ -50,6 +49,8 @@ export const MAPPING: Mapping[] = [
     title: 'System Components',
     component: 'CoreComponent',
     children: [
+      { module: 'boot' },
+      { module: 'base' },
       { module: 'compiler' },
       { module: 'context' },
       { module: 'registry' }
