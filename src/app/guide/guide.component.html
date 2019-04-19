@@ -267,26 +267,10 @@ $ <span class="token function">npm</span> i @travetto/<span class="token punctua
   <span class="token keyword">async</span> <span class="token function">remove</span><span class="token punctuation">(</span><span class="token parameter">@<span class="token meta">Path</span><span class="token punctuation">(</span><span class="token punctuation">)</span> id<span class="token punctuation">:</span> <span class="token builtin">string</span></span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>svc<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
-<span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="creating-the-app-entry-point">Creating the App Entry-point</h2>
-<p>Finally, to pull all of this together, we need to launch the application entry point.  This requires us to use the <code class="decorator inline">@Application</code> decorator to identify a class as an entry-point for the application.  Any application can have multiple entry-points.</p>
-<p>The entry-point should be at <code class="path inline">src/app.ts</code> as:</p>
-<app-section-header headerType="code">Application entry point, src/app.ts</app-section-header>
-<pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">Inject</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/di'</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">Application</span><span class="token punctuation">,</span> <span class="token type">RestApp</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/rest'</span><span class="token punctuation">;</span>
-
-@<span class="token meta">Application</span><span class="token punctuation">(</span><span class="token string">'todo'</span><span class="token punctuation">)</span>
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TodoApp</span> <span class="token punctuation">{{ '{' }}</span>
-
-  @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  app<span class="token punctuation">:</span> <span class="token type">RestApp</span><span class="token punctuation">;</span>
-
-  <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>app<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="test-the-final-product">Test the final product</h2>
 <p>First we must start the application</p>
 <app-section-header headerType="terminal">Output of application startup</app-section-header>
-<pre><code class="language-bash">$ npx travetto run todo
+<pre><code class="language-bash">$ npx travetto run rest
 2019-03-22T04:51:28 info  <span class="token type">Env</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token string">"cwd"</span><span class="token keyword">:</span> <span class="token string">"/<span class="token type">Users</span>/tim/<span class="token type">Code</span>/travetto/sample/todo-app"</span>,
   <span class="token string">"profiles"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>

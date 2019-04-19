@@ -18,7 +18,6 @@
 <li><code class="inline">debug</code>/<code class="inline">trace</code> - Simple logging flags.  These <code class="inline">boolean</code> flags will enable or disable logging at various levels. By default <code class="inline">debug</code> is on in <code class="inline">dev</code> or <code class="inline">e2e</code> mode, and nowhere else.  <code class="inline">trace</code> is always off by default.</li>
 <li><code class="inline">cwd: string</code> - The root of the current project, </li>
 <li><code class="inline">appRoots: string[]</code> - The file root paths for the application, the default set is the current project. Order matters with respect to resource resolution. All paths should be relative to the project base</li>
-<li><code class="inline">docker</code> - Determine if docker support is enabled. If explicitly set, honor, otherwise it will attempt to invoke the <code class="inline">docker</code> cli and use that as it’s indicator. </li>
 </ul>
 <p>With respect to <code class="inline">process.env</code>, we specifically test for all uppercase, lowercase, and given case.  This allows us to test various patterns and catch flags that might be off due to casing.  That would mean that a key of <code class="inline">Enable_Feature</code> would be tested as:</p>
 <ul>
