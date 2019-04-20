@@ -28,15 +28,15 @@
                 routerLink="."
                 fragment="test-the-final-product" null>Test the final product</a></li>
 </ul></div></div><div class="documentation"><h1 id="guide" id="getting-started-a-todo-app">Getting Started: A Todo App</h1>
-<p>The following tutorial wil walk you through setting up a <code class="inline">travetto</code> application from scratch.  We’ll be building a simple todo application. The entire source of the finished project can be found at <a class="external-link" href="https://www.github.com/travetto/todo-app" target="_blank" null><code class="inline">github</code></a>.  Additionally, you can use the <a class="module-link" routerLink="/docs/generator-app"  null><code class="inline">Yeoman Generator</code></a></p>
+<p>The following tutorial wil walk you through setting up a <code class="inline">travetto</code> application from scratch.  We’ll be building a simple todo application. The entire source of the finished project can be found at <a class="external-link" href="https://www.github.com/travetto/todo-app" target="_blank" null><code class="inline">github</code></a>.  Additionally, you can use the <a class="module-link" routerLink="/docs/generator-app"  null><code class="inline">Yeoman Generator</code></a>.</p>
 
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Install</p>
 <ul>
-<li><a class="external-link" href="https://nodejs.org/en/download/current/" target="_blank" null><code class="inline">Node</code></a> v10.x + (required)</li>
+<li><a class="external-link" href="https://nodejs.org/en/download/current/" target="_blank" null><code class="inline">Node</code></a> v11.x + (required)</li>
 <li><a class="external-link" href="https://docs.mongodb.com/manual/administration/install-community/" target="_blank" null><code class="inline">Mongodb</code></a> 3.6+ (required)</li>
 <li><a class="external-link" href="https://code.visualstudio.com/download" target="_blank" null><code class="inline">vscode</code></a> (recommended)</li>
-<li><a class="external-link" href="https://marketplace.visualstudio.com/items?itemName=arcsine.travetto-test-plugin" target="_blank" null><code class="inline">Travetto Test Plugin</code></a> (recommended)</li>
+<li><a class="external-link" href="https://marketplace.visualstudio.com/items?itemName=arcsine.travetto-plugin" target="_blank" null><code class="inline">Travetto Plugin</code></a> (recommended)</li>
 </ul>
 <h2 id="project-initialization">Project initialization</h2>
 <app-section-header headerType="install">Getting Ready</app-section-header>
@@ -49,11 +49,11 @@ $ <span class="token function">npm</span> init -f
 $ <span class="token function">npm</span> i @travetto/<span class="token punctuation">{{ '{' }}</span>log,test,rest-express,model-mongo<span class="token punctuation">{{ '}' }}</span></code></pre><p>Set <code class="inline">tsconfig.json</code> to the following:</p>
 <app-section-header headerType="config">Setting up tsconfig.json</app-section-header>
 <pre><code class="language-json"><span class="token punctuation">{{ '{' }}</span>
-    <span class="token property">"extends"</span><span class="token operator">:</span> <span class="token string">"./node_modules/@travetto/base/tsconfig.json"</span>
+    <span class="token property">"extends"</span><span class="token operator">:</span> <span class="token string">"./node_modules/@travetto/boot/tsconfig.json"</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>And set <code class="inline">tslint.json</code> to the following:</p>
 <app-section-header headerType="config">Setting up tslint.json</app-section-header>
 <pre><code class="language-json"><span class="token punctuation">{{ '{' }}</span>
-  <span class="token property">"extends"</span><span class="token operator">:</span> <span class="token string">"@travetto/base/tslint.json"</span>
+  <span class="token property">"extends"</span><span class="token operator">:</span> <span class="token string">"@travetto/boot/tslint.json"</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="establishing-the-model">Establishing the model</h2>
 <p>Let’s create the model for the todo application.  The fields we will need should be:</p>
 <ul>
@@ -67,7 +67,7 @@ $ <span class="token function">npm</span> i @travetto/<span class="token punctua
 <pre><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">{{ '{' }}</span> <span class="token type">Model</span><span class="token punctuation">,</span> <span class="token type">ModelCore</span> <span class="token punctuation">{{ '}' }}</span> <span class="token keyword">from</span> <span class="token string">'@travetto/model'</span><span class="token punctuation">;</span>
 
 @<span class="token meta">Model</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token keyword">implements</span> <span class="token class-name">ModelCore</span> <span class="token punctuation">{{ '{' }}</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token punctuation">{{ '{' }}</span>
   id<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   text<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
   created<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token type">Date</span><span class="token punctuation">;</span>
@@ -270,7 +270,7 @@ $ <span class="token function">npm</span> i @travetto/<span class="token punctua
 <span class="token punctuation">{{ '}' }}</span></code></pre><h2 id="test-the-final-product">Test the final product</h2>
 <p>First we must start the application</p>
 <app-section-header headerType="terminal">Output of application startup</app-section-header>
-<pre><code class="language-bash">$ npx travetto run rest
+<pre><code class="language-bash">$ npx travetto run
 2019-03-22T04:51:28 info  <span class="token type">Env</span> <span class="token punctuation">{{ '{' }}</span>
   <span class="token string">"cwd"</span><span class="token keyword">:</span> <span class="token string">"/<span class="token type">Users</span>/tim/<span class="token type">Code</span>/travetto/sample/todo-app"</span>,
   <span class="token string">"profiles"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>
