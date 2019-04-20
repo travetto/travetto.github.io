@@ -34,6 +34,23 @@
   }
 }
 
+aside {
+  padding: 1em;
+  font-size: 16pt;
+  text-align: center;
+  background: rgba(0, 0, 0, .1);
+  p { 
+    width: 100%;
+    color: #333; 
+    margin: 0;
+    padding: 0 !important;
+    a {
+      color: #666;
+      font-weight: normal;
+    }
+  }
+}
+
 .content {
   max-width: 1000px;
   margin: 0 auto;
