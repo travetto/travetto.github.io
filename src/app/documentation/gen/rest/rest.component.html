@@ -52,12 +52,13 @@
     <span class="token keyword">return</span> data<span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><h3 id="parameters">Parameters</h3>
-<p>Endpoints can be configured to describe and enforce parameter behavior.  Request parameters can be defined in four areas:</p>
+<p>Endpoints can be configured to describe and enforce parameter behavior.  Request parameters can be defined in five areas:</p>
 <ul>
-<li><code class="decorator inline">@Path</code></li>
-<li><code class="decorator inline">@Query</code></li>
-<li><code class="decorator inline">@Body</code></li>
-<li><code class="decorator inline">@Header</code></li>
+<li><code class="decorator inline">@Path</code> - Path params</li>
+<li><code class="decorator inline">@Query</code> - Query params</li>
+<li><code class="decorator inline">@Body</code> - Request body (in it’s entirety)</li>
+<li><code class="decorator inline">@Header</code> - Header values</li>
+<li><code class="decorator inline">@Context</code> - Special values exposed (e.g. Request, Response, Session, AuthContext, etc.)</li>
 </ul>
 <p>Each <code class="decorator inline">@Param</code> can be configured to indicate:</p>
 <ul>
@@ -101,7 +102,7 @@
   <span class="token punctuation">{{ '}' }}</span>
 
   @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token regex">/\/img(.*)[.](jpg|png|gif)/</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">getImage</span><span class="token punctuation">(</span>req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> @<span class="token meta">Query</span><span class="token punctuation">(</span><span class="token string">'w'</span><span class="token punctuation">)</span> width<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> @<span class="token meta">Query</span><span class="token punctuation">(</span><span class="token string">'h'</span><span class="token punctuation">)</span> height<span class="token operator">?</span><span class="token punctuation">:</span><span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+  <span class="token keyword">async</span> <span class="token function">getImage</span><span class="token punctuation">(</span>@<span class="token meta">Context</span><span class="token punctuation">(</span><span class="token punctuation">)</span> req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> @<span class="token meta">Query</span><span class="token punctuation">(</span><span class="token string">'w'</span><span class="token punctuation">)</span> width<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> @<span class="token meta">Query</span><span class="token punctuation">(</span><span class="token string">'h'</span><span class="token punctuation">)</span> height<span class="token operator">?</span><span class="token punctuation">:</span><span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">const</span> img <span class="token operator">=</span>  <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>service<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token punctuation">{{ '{' }}</span>width<span class="token punctuation">,</span> height<span class="token punctuation">{{ '}' }}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token operator">...</span> <span class="token keyword">return</span> image <span class="token operator">...</span>
   <span class="token punctuation">{{ '}' }}</span>

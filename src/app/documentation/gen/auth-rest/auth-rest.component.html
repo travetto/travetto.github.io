@@ -75,7 +75,7 @@
 
   <span class="token operator">...</span>
 
-<span class="token punctuation">{{ '}' }}</span></code></pre><p><code class="decorator inline">@Authenticated</code> and <code class="decorator inline">@Unauthenticated</code> will simply enforce whether or not a user is logged in and throw the appropriate error messages as needed.</p>
+<span class="token punctuation">{{ '}' }}</span></code></pre><p><code class="decorator inline">@Authenticated</code> and <code class="decorator inline">@Unauthenticated</code> will simply enforce whether or not a user is logged in and throw the appropriate error messages as needed.  Additionally, <code class="inline">AuthContext</code> is accessible via <code class="decorator inline">@Context</code> directly, without wiring in a request object, but is also accessible on the request object as <code class="inline">request.auth</code>.</p>
 <app-section-header headerType="code">Showing standard user operations as routes</app-section-header>
 <pre><code class="language-typescript">@<span class="token meta">Controller</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">)</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Auth</span> <span class="token punctuation">{{ '{' }}</span>
@@ -83,18 +83,18 @@
 
   @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/self'</span><span class="token punctuation">)</span>
   @<span class="token meta">Authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">getSelf</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">:</span> Request</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">return</span> req<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>context<span class="token punctuation">;</span>
+  <span class="token keyword">async</span> <span class="token function">getSelf</span><span class="token punctuation">(</span><span class="token parameter">@<span class="token meta">Context</span><span class="token punctuation">(</span><span class="token punctuation">)</span> ctx<span class="token punctuation">:</span> AuthContext</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> ctx<span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 
   @<span class="token meta">Get</span><span class="token punctuation">(</span><span class="token string">'/admin'</span><span class="token punctuation">)</span>
   @<span class="token meta">Authenticated</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token keyword">async</span> <span class="token function">getAdminStuff</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">:</span> Request</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">return</span> req<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>context<span class="token punctuation">;</span>
+  <span class="token keyword">async</span> <span class="token function">getAdminStuff</span><span class="token punctuation">(</span><span class="token parameter">@<span class="token meta">Context</span><span class="token punctuation">(</span><span class="token punctuation">)</span> ctx<span class="token punctuation">:</span>AuthContext</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
+    <span class="token keyword">return</span> ctx<span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span>
 
   @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/logout'</span><span class="token punctuation">)</span>
   @<span class="token meta">Unauthenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token keyword">async</span> <span class="token function">logout</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">:</span> <span class="token type">Request</span><span class="token punctuation">,</span> res<span class="token punctuation">:</span> Response</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
-    <span class="token keyword">await</span> req<span class="token punctuation">.</span>auth<span class="token punctuation">.</span><span class="token function">logout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> req<span class="token punctuation">.</span><span class="token function">logout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">{{ '}' }}</span></code></pre></div>
