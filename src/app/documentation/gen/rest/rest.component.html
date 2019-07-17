@@ -136,7 +136,7 @@
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SampleApp</span> <span class="token punctuation">{{ '{' }}</span>
 
   @<span class="token meta">Inject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  contextInterceptor<span class="token punctuation">:</span> <span class="token type">ContextInterceptor</span><span class="token punctuation">;</span>
+  contextInterceptor<span class="token punctuation">:</span> <span class="token type">AsyncContextInterceptor</span><span class="token punctuation">;</span>
 
   <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> app<span class="token punctuation">:</span> RestApp</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span> <span class="token punctuation">{{ '}' }}</span>
 
@@ -165,8 +165,8 @@
     <span class="token punctuation">{{ '}' }}</span>
   <span class="token punctuation">{{ '}' }}</span>
 <span class="token punctuation">{{ '}' }}</span></code></pre><p>Currently <a class="module-link" routerLink="/docs/asset" fragment="asset-rest" null><code class="inline">Asset-Rest</code></a> is implemented in this fashion, as well as <a class="module-link" routerLink="/docs/auth" fragment="auth-rest" null><code class="inline">Auth-Rest</code></a>.</p>
-<h2 id="context-support">Context Support</h2>
-<p><a class="module-link" routerLink="/docs/core" fragment="context" null><code class="inline">Context</code></a> provides support for automatically injecting an async context into every request. The context management is provided via an <code class="inline">Interceptor</code> and is transparent to the programmer.</p>
+<h2 id="async-context-support">Async Context Support</h2>
+<p><a class="module-link" routerLink="/docs/core" fragment="context" null><code class="inline">AsyncContext</code></a> provides support for automatically injecting an async context into every request. The context management is provided via an <code class="inline">Interceptor</code> and is transparent to the programmer.</p>
 <app-section-header headerType="code">Showing contextual support for Routes</app-section-header>
 <pre><code class="language-typescript"><span class="token operator">...</span>
  @<span class="token meta">Post</span><span class="token punctuation">(</span><span class="token string">'/preferences'</span><span class="token punctuation">)</span>
@@ -176,7 +176,7 @@
  <span class="token punctuation">{{ '}' }}</span>
 <span class="token operator">...</span>
 <span class="token keyword">class</span> <span class="token class-name">PreferenceService</span> <span class="token punctuation">{{ '{' }}</span>
-  <span class="token keyword">private</span> context<span class="token punctuation">:</span> <span class="token type">Context</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> context<span class="token punctuation">:</span> <span class="token type">AsyncContext</span><span class="token punctuation">;</span>
 
   <span class="token keyword">async</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token parameter">prefs<span class="token punctuation">:</span> Preferences</span><span class="token punctuation">)</span> <span class="token punctuation">{{ '{' }}</span>
     <span class="token keyword">const</span> userId <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>context<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>userId<span class="token punctuation">;</span>

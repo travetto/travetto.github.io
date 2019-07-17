@@ -30,7 +30,8 @@ export const MAPPING: Mapping[] = [
     module: 'model',
     children: [
       { module: 'model-elasticsearch' },
-      { module: 'model-mongo' }
+      { module: 'model-mongo' },
+      { module: 'model-sql' }
     ]
   },
   {

@@ -35,7 +35,8 @@ export const PAGES = [
 ] },
   { path: 'model', title: 'Model', component: ModelComponent, subs: [
   { path: 'model-elasticsearch', title: 'Elasticsearch' },
-  { path: 'model-mongo', title: 'Mongo' }
+  { path: 'model-mongo', title: 'Mongo' },
+  { path: 'model-sql', title: 'SQL' }
 ] },
   { path: 'rest', title: 'Rest', component: RestComponent, subs: [
   { path: 'swagger', title: 'Swagger' },
