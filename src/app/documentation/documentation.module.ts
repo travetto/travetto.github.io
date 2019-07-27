@@ -51,6 +51,7 @@ import { WorkerComponent } from './gen/worker/worker.component';
 import { RestSessionComponent } from './gen/rest-session/rest-session.component';
 import { BootComponent } from './gen/boot/boot.component';
 import { ModelSqlComponent } from './gen/model-sql/model-sql.component';
+import { AppComponent } from './gen/app/app.component';
 
 @NgModule({
   imports: [
@@ -114,7 +115,8 @@ import { ModelSqlComponent } from './gen/model-sql/model-sql.component';
     WorkerComponent,
     RestSessionComponent,
     BootComponent,
-    ModelSqlComponent
+    ModelSqlComponent,
+    AppComponent
   ]
 })
 export class DocumentationModule { }

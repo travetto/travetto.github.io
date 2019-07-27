@@ -3,6 +3,7 @@ import { CliComponent } from './gen/cli/cli.component';
 import { VSCodePluginComponent } from './vscode-plugin/vscode-plugin.component';
 import { GeneratorAppComponent } from './gen/generator-app/generator-app.component';
 import { ConfigComponent } from './gen/config/config.component';
+import { AppComponent } from './gen/app/app.component';
 import { DiComponent } from './gen/di/di.component';
 import { SchemaComponent } from './gen/schema/schema.component';
 import { ModelComponent } from './gen/model/model.component';
@@ -26,6 +27,9 @@ export const PAGES = [
 ] },
   { path: 'config', title: 'Config ', component: ConfigComponent, subs: [
   { path: 'yaml', title: 'Simple YAML Parser' }
+] },
+  { path: 'app', title: 'Application', component: AppComponent, subs: [
+
 ] },
   { path: 'di', title: 'Dependency Injection  ', component: DiComponent, subs: [
 

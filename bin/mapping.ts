@@ -24,6 +24,7 @@ export const MAPPING: Mapping[] = [
     module: 'config',
     children: [{ module: 'yaml', title: 'Simple YAML Parser' }]
   },
+  { module: 'app' },
   { module: 'di' },
   { module: 'schema' },
   {

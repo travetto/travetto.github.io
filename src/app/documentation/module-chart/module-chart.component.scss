@@ -83,6 +83,7 @@
   .core,
   .config,
   .base,
+  .app,
   .di {
     @extend .system;
   }
@@ -146,35 +147,38 @@
     grid-column: 1/span 2;
   }
 
-  .di {
+  .app {
     grid-row: 5;
     grid-column: 1/span 6;
   }
 
-  .utils {
+  .di {
     grid-row: 6;
+    grid-column: 1/span 6;
+  }
+
+  .utils {
+    grid-row: 7;
     grid-column: 4/span 3;
   }
 
   .test {
-    grid-row: 6;
+    grid-row: 7;
     grid-column: 1/span 3;
   }
 
-
-
   .core {
-    grid-row: 7;
-    grid-column: 1/span 6;
-  }
-
-  .config {
     grid-row: 8;
     grid-column: 1/span 6;
   }
 
-  .base {
+  .config {
     grid-row: 9;
+    grid-column: 1/span 6;
+  }
+
+  .base {
+    grid-row: 10;
     grid-column: 1/span 6;
   }
 }
